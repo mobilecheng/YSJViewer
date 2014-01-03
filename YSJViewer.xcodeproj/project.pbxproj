@@ -460,6 +460,7 @@
 				5B64F6601875BEF7002C0404 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5B64F6611875BEF7002C0404 /* Build configuration list for PBXNativeTarget "YSJViewerTests" */ = {
 			isa = XCConfigurationList;
@@ -468,6 +469,7 @@
 				5B64F6631875BEF7002C0404 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
