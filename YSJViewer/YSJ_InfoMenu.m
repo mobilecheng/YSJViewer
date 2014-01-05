@@ -37,6 +37,10 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    // Title.
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    self.navigationItem.title = [saveData stringForKey:@"YSJ_NAME"];
+    
     // 菜单名字
     self.arrMenu = [NSArray arrayWithObjects:
                     @"实时数据", @"运行记录", @"服务时间", @"历史数据",
