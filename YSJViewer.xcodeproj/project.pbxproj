@@ -21,6 +21,8 @@
 		5B64F6511875BEF6002C0404 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B64F6331875BEF1002C0404 /* UIKit.framework */; };
 		5B64F6591875BEF6002C0404 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6571875BEF6002C0404 /* InfoPlist.strings */; };
 		5B64F65B1875BEF6002C0404 /* YSJViewerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B64F65A1875BEF6002C0404 /* YSJViewerTests.m */; };
+		5B64F6791879437C002C0404 /* YSJ_List_TVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B64F6781879437C002C0404 /* YSJ_List_TVC.m */; };
+		5B64F67C187962D9002C0404 /* YSJ_InfoMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B64F67B187962D9002C0404 /* YSJ_InfoMenu.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,10 @@
 		5B64F6561875BEF6002C0404 /* YSJViewerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YSJViewerTests-Info.plist"; sourceTree = "<group>"; };
 		5B64F6581875BEF6002C0404 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5B64F65A1875BEF6002C0404 /* YSJViewerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSJViewerTests.m; sourceTree = "<group>"; };
+		5B64F6771879437C002C0404 /* YSJ_List_TVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSJ_List_TVC.h; sourceTree = "<group>"; };
+		5B64F6781879437C002C0404 /* YSJ_List_TVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSJ_List_TVC.m; sourceTree = "<group>"; };
+		5B64F67A187962D8002C0404 /* YSJ_InfoMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSJ_InfoMenu.h; sourceTree = "<group>"; };
+		5B64F67B187962D9002C0404 /* YSJ_InfoMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSJ_InfoMenu.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +123,10 @@
 				5B64F6411875BEF3002C0404 /* Main.storyboard */,
 				5B64F6441875BEF3002C0404 /* ViewController.h */,
 				5B64F6451875BEF3002C0404 /* ViewController.m */,
+				5B64F6771879437C002C0404 /* YSJ_List_TVC.h */,
+				5B64F6781879437C002C0404 /* YSJ_List_TVC.m */,
+				5B64F67A187962D8002C0404 /* YSJ_InfoMenu.h */,
+				5B64F67B187962D9002C0404 /* YSJ_InfoMenu.m */,
 				5B64F6471875BEF4002C0404 /* Images.xcassets */,
 				5B64F6361875BEF1002C0404 /* Supporting Files */,
 			);
@@ -250,7 +260,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B64F6461875BEF3002C0404 /* ViewController.m in Sources */,
+				5B64F67C187962D9002C0404 /* YSJ_InfoMenu.m in Sources */,
 				5B64F6401875BEF1002C0404 /* AppDelegate.m in Sources */,
+				5B64F6791879437C002C0404 /* YSJ_List_TVC.m in Sources */,
 				5B64F63C1875BEF1002C0404 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
