@@ -1,28 +1,24 @@
 //
-//  YSJ_InfoMenu.m
+//  RealTimeData.m
 //  YSJViewer
 //
-//  Created by Reload Digital Tech. on 14-1-5.
+//  Created by Reload Digital Tech. on 14-1-7.
 //  Copyright (c) 2014年 Reload Digital Tech. All rights reserved.
 //
 
-#import "YSJ_InfoMenu.h"
+#import "RealTimeData.h"
 
-@interface YSJ_InfoMenu ()
-
-//@property (nonatomic) NSArray *arrMenu;
+@interface RealTimeData ()
 
 @end
 
-@implementation YSJ_InfoMenu
+@implementation RealTimeData
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        
-        
     }
     return self;
 }
@@ -37,16 +33,16 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    // Title.
-    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
-    self.navigationItem.title = [saveData stringForKey:@"YSJ_NAME"];
-    
-    // 菜单名字
-//    self.arrMenu = [NSArray arrayWithObjects:
-//                    @"实时数据", @"运行记录", @"服务时间", @"历史数据",
-//                    @"预约服务", @"预约历史", @"历史报警", nil];
-    
-    [self setExtraCellLineHidden:self.tableView];
+//    CGRect frame = self.tableView.frame;
+//    frame.origin.y = 100;
+//    self.tableView.frame = frame;
+//    
+//    // 压缩机名字
+//    CGRect labFrame = CGRectMake(0, 50, 320, 30);
+//    UILabel *labName = [[UILabel alloc] initWithFrame:labFrame];
+//    labName.backgroundColor = [UIColor blueColor];
+//    labName.text = @"YSJ Name";
+//    [self.view addSubview:labName];
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,60 +62,18 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-//    NSLog(@"self.arrMenu = %d", [self.arrMenu count]);
-//    return [self.arrMenu count];
-    
-    return 7;
+    return 5;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier;
-    
-    switch (indexPath.row) {
-        case 0:
-            CellIdentifier = @"Menu_0";
-            break;
-        case 1:
-            CellIdentifier = @"Menu_1";
-            break;
-        case 2:
-            CellIdentifier = @"Menu_2";
-            break;
-        case 3:
-            CellIdentifier = @"Menu_3";
-            break;
-        case 4:
-            CellIdentifier = @"Menu_4";
-            break;
-        case 5:
-            CellIdentifier = @"Menu_5";
-            break;
-        case 6:
-            CellIdentifier = @"Menu_6";
-            break;
-        default:
-            break;
-    }
-    
+    static NSString *CellIdentifier = @"RealTimeData";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
- 
+    
     // Configure the cell...
     
-    // Cell Image Icon
-//    UIImageView *cellIcon = (UIImageView *)[cell viewWithTag:100];
-//    cellIcon.image = [self imageForRating:player.rating];
-    
-    // 压缩机信息菜单列表
-//    UILabel *labMenu = (UILabel *)[cell viewWithTag:101];
-//    labMenu.text = [self.arrMenu objectAtIndex:indexPath.row];
- 
-    //
     return cell;
 }
-
-
 
 /*
 // Override to support conditional editing of the table view.
@@ -172,10 +126,4 @@
 
  */
 
-- (void)setExtraCellLineHidden:(UITableView *)tableView
-{
-    UIView *view = [UIView new];
-    view.backgroundColor = [UIColor clearColor];
-    [tableView setTableFooterView:view];
-}
 @end

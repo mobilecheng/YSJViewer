@@ -36,6 +36,22 @@
 		5B64F6A11879853F002C0404 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B64F6A01879853E002C0404 /* CFNetwork.framework */; };
 		5B64F6A318798550002C0404 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B64F6A218798550002C0404 /* SystemConfiguration.framework */; };
 		5B64F6A518798560002C0404 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B64F6A418798560002C0404 /* Security.framework */; };
+		5B64F6C8187AFA89002C0404 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6B9187AFA89002C0404 /* background.png */; };
+		5B64F6C9187AFA8A002C0404 /* BtnImg_AlarmInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6BA187AFA89002C0404 /* BtnImg_AlarmInfo.png */; };
+		5B64F6CA187AFA8A002C0404 /* BtnImg_DeviceMonitor.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6BB187AFA89002C0404 /* BtnImg_DeviceMonitor.png */; };
+		5B64F6CB187AFA8A002C0404 /* BtnImg_ReserveService.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6BC187AFA89002C0404 /* BtnImg_ReserveService.png */; };
+		5B64F6CC187AFA8A002C0404 /* BtnImg_StorageList.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6BD187AFA89002C0404 /* BtnImg_StorageList.png */; };
+		5B64F6CD187AFA8A002C0404 /* BtnImg_SystemSetting.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6BE187AFA89002C0404 /* BtnImg_SystemSetting.png */; };
+		5B64F6CE187AFA8A002C0404 /* BtnImg_UserInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6BF187AFA89002C0404 /* BtnImg_UserInfo.png */; };
+		5B64F6CF187AFA8A002C0404 /* Icon_HistoryAlarm.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6C0187AFA89002C0404 /* Icon_HistoryAlarm.png */; };
+		5B64F6D0187AFA8A002C0404 /* Icon_HistoryData.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6C1187AFA89002C0404 /* Icon_HistoryData.png */; };
+		5B64F6D1187AFA8A002C0404 /* Icon_HistoryReserve.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6C2187AFA89002C0404 /* Icon_HistoryReserve.png */; };
+		5B64F6D2187AFA8A002C0404 /* Icon_RealTimeData.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6C3187AFA89002C0404 /* Icon_RealTimeData.png */; };
+		5B64F6D3187AFA8A002C0404 /* Icon_ReserveService.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6C4187AFA89002C0404 /* Icon_ReserveService.png */; };
+		5B64F6D4187AFA8A002C0404 /* Icon_RunRecord.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6C5187AFA89002C0404 /* Icon_RunRecord.png */; };
+		5B64F6D5187AFA8A002C0404 /* Icon_ServiceTime.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6C6187AFA89002C0404 /* Icon_ServiceTime.png */; };
+		5B64F6D6187AFA8A002C0404 /* Icon_YSJ_List.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6C7187AFA89002C0404 /* Icon_YSJ_List.png */; };
+		5B64F6D9187B13CB002C0404 /* RealTimeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B64F6D8187B13CB002C0404 /* RealTimeData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +112,23 @@
 		5B64F6A01879853E002C0404 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		5B64F6A218798550002C0404 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5B64F6A418798560002C0404 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		5B64F6B9187AFA89002C0404 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		5B64F6BA187AFA89002C0404 /* BtnImg_AlarmInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BtnImg_AlarmInfo.png; sourceTree = "<group>"; };
+		5B64F6BB187AFA89002C0404 /* BtnImg_DeviceMonitor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BtnImg_DeviceMonitor.png; sourceTree = "<group>"; };
+		5B64F6BC187AFA89002C0404 /* BtnImg_ReserveService.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BtnImg_ReserveService.png; sourceTree = "<group>"; };
+		5B64F6BD187AFA89002C0404 /* BtnImg_StorageList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BtnImg_StorageList.png; sourceTree = "<group>"; };
+		5B64F6BE187AFA89002C0404 /* BtnImg_SystemSetting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BtnImg_SystemSetting.png; sourceTree = "<group>"; };
+		5B64F6BF187AFA89002C0404 /* BtnImg_UserInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BtnImg_UserInfo.png; sourceTree = "<group>"; };
+		5B64F6C0187AFA89002C0404 /* Icon_HistoryAlarm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_HistoryAlarm.png; sourceTree = "<group>"; };
+		5B64F6C1187AFA89002C0404 /* Icon_HistoryData.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_HistoryData.png; sourceTree = "<group>"; };
+		5B64F6C2187AFA89002C0404 /* Icon_HistoryReserve.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_HistoryReserve.png; sourceTree = "<group>"; };
+		5B64F6C3187AFA89002C0404 /* Icon_RealTimeData.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_RealTimeData.png; sourceTree = "<group>"; };
+		5B64F6C4187AFA89002C0404 /* Icon_ReserveService.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_ReserveService.png; sourceTree = "<group>"; };
+		5B64F6C5187AFA89002C0404 /* Icon_RunRecord.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_RunRecord.png; sourceTree = "<group>"; };
+		5B64F6C6187AFA89002C0404 /* Icon_ServiceTime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_ServiceTime.png; sourceTree = "<group>"; };
+		5B64F6C7187AFA89002C0404 /* Icon_YSJ_List.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_YSJ_List.png; sourceTree = "<group>"; };
+		5B64F6D7187B13CB002C0404 /* RealTimeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeData.h; sourceTree = "<group>"; };
+		5B64F6D8187B13CB002C0404 /* RealTimeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +164,7 @@
 				5B64F67D18797C24002C0404 /* MBProgressHUD */,
 				5B64F68018797C24002C0404 /* MKNetworkKit */,
 				5B64F6351875BEF1002C0404 /* YSJViewer */,
+				5B64F6B8187AFA89002C0404 /* Resource */,
 				5B64F6541875BEF6002C0404 /* YSJViewerTests */,
 				5B64F62E1875BEF0002C0404 /* Frameworks */,
 				5B64F62D1875BEF0002C0404 /* Products */,
@@ -172,6 +206,8 @@
 				5B64F6781879437C002C0404 /* YSJ_List_TVC.m */,
 				5B64F67A187962D8002C0404 /* YSJ_InfoMenu.h */,
 				5B64F67B187962D9002C0404 /* YSJ_InfoMenu.m */,
+				5B64F6D7187B13CB002C0404 /* RealTimeData.h */,
+				5B64F6D8187B13CB002C0404 /* RealTimeData.m */,
 				5B64F6471875BEF4002C0404 /* Images.xcassets */,
 				5B64F6361875BEF1002C0404 /* Supporting Files */,
 			);
@@ -258,6 +294,29 @@
 			path = Reachability;
 			sourceTree = "<group>";
 		};
+		5B64F6B8187AFA89002C0404 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				5B64F6B9187AFA89002C0404 /* background.png */,
+				5B64F6BA187AFA89002C0404 /* BtnImg_AlarmInfo.png */,
+				5B64F6BB187AFA89002C0404 /* BtnImg_DeviceMonitor.png */,
+				5B64F6BC187AFA89002C0404 /* BtnImg_ReserveService.png */,
+				5B64F6BD187AFA89002C0404 /* BtnImg_StorageList.png */,
+				5B64F6BE187AFA89002C0404 /* BtnImg_SystemSetting.png */,
+				5B64F6BF187AFA89002C0404 /* BtnImg_UserInfo.png */,
+				5B64F6C0187AFA89002C0404 /* Icon_HistoryAlarm.png */,
+				5B64F6C1187AFA89002C0404 /* Icon_HistoryData.png */,
+				5B64F6C2187AFA89002C0404 /* Icon_HistoryReserve.png */,
+				5B64F6C3187AFA89002C0404 /* Icon_RealTimeData.png */,
+				5B64F6C4187AFA89002C0404 /* Icon_ReserveService.png */,
+				5B64F6C5187AFA89002C0404 /* Icon_RunRecord.png */,
+				5B64F6C6187AFA89002C0404 /* Icon_ServiceTime.png */,
+				5B64F6C7187AFA89002C0404 /* Icon_YSJ_List.png */,
+			);
+			name = Resource;
+			path = YSJViewer/Resource;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -335,8 +394,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B64F6481875BEF4002C0404 /* Images.xcassets in Resources */,
+				5B64F6D4187AFA8A002C0404 /* Icon_RunRecord.png in Resources */,
+				5B64F6CF187AFA8A002C0404 /* Icon_HistoryAlarm.png in Resources */,
+				5B64F6C8187AFA89002C0404 /* background.png in Resources */,
+				5B64F6CC187AFA8A002C0404 /* BtnImg_StorageList.png in Resources */,
 				5B64F63A1875BEF1002C0404 /* InfoPlist.strings in Resources */,
+				5B64F6C9187AFA8A002C0404 /* BtnImg_AlarmInfo.png in Resources */,
+				5B64F6CB187AFA8A002C0404 /* BtnImg_ReserveService.png in Resources */,
+				5B64F6D3187AFA8A002C0404 /* Icon_ReserveService.png in Resources */,
 				5B64F6431875BEF3002C0404 /* Main.storyboard in Resources */,
+				5B64F6CE187AFA8A002C0404 /* BtnImg_UserInfo.png in Resources */,
+				5B64F6CA187AFA8A002C0404 /* BtnImg_DeviceMonitor.png in Resources */,
+				5B64F6CD187AFA8A002C0404 /* BtnImg_SystemSetting.png in Resources */,
+				5B64F6D6187AFA8A002C0404 /* Icon_YSJ_List.png in Resources */,
+				5B64F6D2187AFA8A002C0404 /* Icon_RealTimeData.png in Resources */,
+				5B64F6D5187AFA8A002C0404 /* Icon_ServiceTime.png in Resources */,
+				5B64F6D0187AFA8A002C0404 /* Icon_HistoryData.png in Resources */,
+				5B64F6D1187AFA8A002C0404 /* Icon_HistoryReserve.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +435,7 @@
 				5B64F69C18797C24002C0404 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
 				5B64F69F18797C24002C0404 /* Reachability.m in Sources */,
 				5B64F69B18797C24002C0404 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
+				5B64F6D9187B13CB002C0404 /* RealTimeData.m in Sources */,
 				5B64F69618797C24002C0404 /* MBProgressHUD.m in Sources */,
 				5B64F67C187962D9002C0404 /* YSJ_InfoMenu.m in Sources */,
 				5B64F6401875BEF1002C0404 /* AppDelegate.m in Sources */,
