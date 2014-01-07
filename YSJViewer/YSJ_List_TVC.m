@@ -17,7 +17,7 @@
 @property (nonatomic) NSMutableArray *arrModel;  // 压缩机型号
 @property (nonatomic) NSMutableArray *arrStatus; // 压缩机状态（在线、离线）
 
-@property (nonatomic) NSString *strToken; // 压缩机状态（在线、离线）
+//@property (nonatomic) NSString *strToken; // 
 
 @property (nonatomic) MKNetworkEngine *engine;
 
@@ -56,7 +56,7 @@
     [self setExtraCellLineHidden:self.tableView];
     
     //
-    [self api_SignIn];
+    [self api_CompressorList];
 }
 
 
@@ -198,85 +198,20 @@
 
 #pragma mark -  API call.
 
-- (void) api_SignIn
-{
-    NSLog(@"--> api_SignIn");
-    
-    // Get account.
-    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
-    NSDictionary *account = [saveData objectForKey:@"Account"];
-    NSString *serviceCode = [account objectForKey:@"serviceCode"];
-    NSString *userName    = [account objectForKey:@"userName"];
-    NSString *password    = [account objectForKey:@"password"];
-    
-    //--------------------
-    //
-//    NSString *hostName = @"117.34.92.46:80";
-    NSString *nextPath = @"cis/mobile/signIn";
-    
-    // params  @"013468000533137", @"imei",
-    NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                               @"100007", @"servicecode",
-                               @"longmen2", @"username",
-                               @"longmen", @"password",
-                               
-                              nil];
-    
-//    MKNetworkEngine* engine = [[MKNetworkEngine alloc]
-//                               initWithHostName:hostName
-//                               customHeaderFields:nil];
-    
-    MKNetworkOperation* op = [self.engine operationWithPath:nextPath
-                                                params:dicParams
-                                            httpMethod:@"GET"
-                                                   ssl:NO];
-    
-    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
-        NSData *data  = [completedOperation responseData];
-        NSString *str = [completedOperation responseString];
-        NSLog(@"--> userLogin -> RESULT = %@", str);
-        
-        [self getToken:data];
-        
-    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
-        NSLog(@"--> userLogin -> ERROR = %@", [error description]);
-    }];
-    
-    // Exe...
-    [self.engine enqueueOperation:op];
-}
-
-
-- (void) getToken:(id)theData
-{
-    NSError *error = nil;
-    NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:theData
-                                                            options:NSJSONReadingAllowFragments error:&error];
-    if (!error) {
-        self.strToken = [dicData objectForKey:@"token"];
-        NSLog(@"--> token = %@", self.strToken);
-        
-        // test
-        [self api_CompressorList];
-        
-    } else {
-        NSLog(@"--> ERROR = %@", error.description);
-    }
-}
-
-
 - (void) api_CompressorList
 {
     NSLog(@"--> apiCompressorList");
     
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    NSString *token = [saveData  objectForKey:@"Token"];
+    
     //--------------------
-    //
 //    NSString *hostName = @"117.34.92.46:80";
     NSString *nextPath = @"cis/mobile/getCompressorList";
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                               self.strToken, @"token",
+                               token, @"token",
                                nil];
     
 //    MKNetworkEngine* engine = [[MKNetworkEngine alloc]
@@ -290,8 +225,8 @@
     
     [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
         NSData *data  = [completedOperation responseData];
-//        NSString *str = [completedOperation responseString];
-//        NSLog(@"--> apiCompressorList -> RESULT = %@", str);
+        NSString *str = [completedOperation responseString];
+        NSLog(@"--> apiCompressorList -> RESULT = %@", str);
         
         [self getCompressorList:data];
         
@@ -310,6 +245,15 @@
     NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:theData
                                                             options:NSJSONReadingAllowFragments error:&error];
     if (!error) {
+        
+        // Check result.
+        NSString *strResult = [dicData objectForKey:@"result"];
+        NSLog(@"--> strResult = %@", strResult);
+        if ([strResult isEqualToString:@"error"]) {
+            [self showMessageHUD:[dicData objectForKey:@"message"]];
+            return;
+        }
+        
         NSArray *records = [dicData objectForKey:@"records"];
         NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
         
@@ -325,8 +269,6 @@
             NSLog(@"DATA --> model   = %@", [recordData objectForKey:@"model"]);
             [self.arrModel addObject:[recordData objectForKey:@"model"]];
             
-//            NSLog(@"DATA --> alias   = %@", [recordData objectForKey:@"alias"]);
-//            [self.arrName addObject:[recordData objectForKey:@"alias"]];
         }
         
         // 刷新数据
@@ -335,6 +277,19 @@
     } else {
         NSLog(@"--> ERROR = %@", error.description);
     }
+}
+
+
+#pragma mark - MBProgressHUD methods
+
+// 显示收藏信息
+- (void)showMessageHUD:(NSString *)msg {
+	
+	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	hud.mode = MBProgressHUDModeText;
+	hud.labelText = msg;
+	hud.removeFromSuperViewOnHide = YES;
+	[hud hide:YES afterDelay:2];
 }
 
 @end

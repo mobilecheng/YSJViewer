@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
 
-@interface Login : UIViewController
-
+@interface Login : UIViewController <UITextFieldDelegate>
+{
+    // for iPhone 4.
+    float screenHeight;
+    BOOL bIPhone5;
+}
 @end
