@@ -7,7 +7,6 @@
 //
 
 #import "Login.h"
-#import "TestNC.h"
 
 @interface Login ()
 
@@ -39,11 +38,11 @@
 - (IBAction)loginClick:(id)sender
 {
     NSLog(@"loginClick");
+   
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *homeVC     = [mainStoryboard instantiateViewControllerWithIdentifier:@"Home"];
     
-    TestNC *nc = [[TestNC alloc] init];
-    [self presentViewController:nc animated:YES completion:^{
-        
-    }];
+    [self.navigationController pushViewController:homeVC animated:YES];
 }
 
 @end

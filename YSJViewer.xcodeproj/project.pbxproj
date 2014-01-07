@@ -10,7 +10,7 @@
 		34160FD2187BE39300A8BCF2 /* login_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 34160FD0187BE39300A8BCF2 /* login_icon.png */; };
 		34160FD3187BE39300A8BCF2 /* BtnImg_Login.png in Resources */ = {isa = PBXBuildFile; fileRef = 34160FD1187BE39300A8BCF2 /* BtnImg_Login.png */; };
 		34160FD6187BE46A00A8BCF2 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 34160FD5187BE46A00A8BCF2 /* Login.m */; };
-		34160FD9187BE64400A8BCF2 /* TestNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34160FD8187BE64400A8BCF2 /* TestNC.m */; };
+		3494FB14187BF63300FF8272 /* LoginStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3494FB13187BF63300FF8272 /* LoginStoryboard.storyboard */; };
 		5B64F6301875BEF1002C0404 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B64F62F1875BEF0002C0404 /* Foundation.framework */; };
 		5B64F6321875BEF1002C0404 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B64F6311875BEF1002C0404 /* CoreGraphics.framework */; };
 		5B64F6341875BEF1002C0404 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B64F6331875BEF1002C0404 /* UIKit.framework */; };
@@ -73,8 +73,7 @@
 		34160FD1187BE39300A8BCF2 /* BtnImg_Login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BtnImg_Login.png; sourceTree = "<group>"; };
 		34160FD4187BE46A00A8BCF2 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
 		34160FD5187BE46A00A8BCF2 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
-		34160FD7187BE64400A8BCF2 /* TestNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestNC.h; sourceTree = "<group>"; };
-		34160FD8187BE64400A8BCF2 /* TestNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNC.m; sourceTree = "<group>"; };
+		3494FB13187BF63300FF8272 /* LoginStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginStoryboard.storyboard; sourceTree = "<group>"; };
 		5B64F62C1875BEF0002C0404 /* YSJViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YSJViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B64F62F1875BEF0002C0404 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5B64F6311875BEF1002C0404 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -210,6 +209,7 @@
 				5B64F63E1875BEF1002C0404 /* AppDelegate.h */,
 				5B64F63F1875BEF1002C0404 /* AppDelegate.m */,
 				5B64F6411875BEF3002C0404 /* Main.storyboard */,
+				3494FB13187BF63300FF8272 /* LoginStoryboard.storyboard */,
 				5B64F6441875BEF3002C0404 /* Home.h */,
 				5B64F6451875BEF3002C0404 /* Home.m */,
 				5B64F6771879437C002C0404 /* YSJ_List_TVC.h */,
@@ -220,8 +220,6 @@
 				5B64F6D8187B13CB002C0404 /* RealTimeData.m */,
 				34160FD4187BE46A00A8BCF2 /* Login.h */,
 				34160FD5187BE46A00A8BCF2 /* Login.m */,
-				34160FD7187BE64400A8BCF2 /* TestNC.h */,
-				34160FD8187BE64400A8BCF2 /* TestNC.m */,
 				5B64F6471875BEF4002C0404 /* Images.xcassets */,
 				5B64F6361875BEF1002C0404 /* Supporting Files */,
 			);
@@ -427,6 +425,7 @@
 				34160FD2187BE39300A8BCF2 /* login_icon.png in Resources */,
 				5B64F6D2187AFA8A002C0404 /* Icon_RealTimeData.png in Resources */,
 				5B64F6D5187AFA8A002C0404 /* Icon_ServiceTime.png in Resources */,
+				3494FB14187BF63300FF8272 /* LoginStoryboard.storyboard in Resources */,
 				5B64F6D0187AFA8A002C0404 /* Icon_HistoryData.png in Resources */,
 				5B64F6D1187AFA8A002C0404 /* Icon_HistoryReserve.png in Resources */,
 			);
@@ -463,7 +462,6 @@
 				5B64F69E18797C24002C0404 /* MKNetworkOperation.m in Sources */,
 				5B64F63C1875BEF1002C0404 /* main.m in Sources */,
 				5B64F69A18797C24002C0404 /* NSString+MKNetworkKitAdditions.m in Sources */,
-				34160FD9187BE64400A8BCF2 /* TestNC.m in Sources */,
 				5B64F69818797C24002C0404 /* NSDate+RFC1123.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
