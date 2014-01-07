@@ -1,13 +1,13 @@
 //
-//  ViewController.h
+//  Login.h
 //  YSJViewer
 //
-//  Created by Reload Digital Tech. on 14-1-2.
+//  Created by TMC_MAC_02 on 14-1-7.
 //  Copyright (c) 2014年 Reload Digital Tech. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface Login : UIViewController
 
 @end

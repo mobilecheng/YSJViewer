@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34160FD2187BE39300A8BCF2 /* login_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 34160FD0187BE39300A8BCF2 /* login_icon.png */; };
+		34160FD3187BE39300A8BCF2 /* BtnImg_Login.png in Resources */ = {isa = PBXBuildFile; fileRef = 34160FD1187BE39300A8BCF2 /* BtnImg_Login.png */; };
+		34160FD6187BE46A00A8BCF2 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 34160FD5187BE46A00A8BCF2 /* Login.m */; };
+		34160FD9187BE64400A8BCF2 /* TestNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34160FD8187BE64400A8BCF2 /* TestNC.m */; };
 		5B64F6301875BEF1002C0404 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B64F62F1875BEF0002C0404 /* Foundation.framework */; };
 		5B64F6321875BEF1002C0404 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B64F6311875BEF1002C0404 /* CoreGraphics.framework */; };
 		5B64F6341875BEF1002C0404 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B64F6331875BEF1002C0404 /* UIKit.framework */; };
@@ -14,7 +18,7 @@
 		5B64F63C1875BEF1002C0404 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B64F63B1875BEF1002C0404 /* main.m */; };
 		5B64F6401875BEF1002C0404 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B64F63F1875BEF1002C0404 /* AppDelegate.m */; };
 		5B64F6431875BEF3002C0404 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6411875BEF3002C0404 /* Main.storyboard */; };
-		5B64F6461875BEF3002C0404 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B64F6451875BEF3002C0404 /* ViewController.m */; };
+		5B64F6461875BEF3002C0404 /* Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B64F6451875BEF3002C0404 /* Home.m */; };
 		5B64F6481875BEF4002C0404 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6471875BEF4002C0404 /* Images.xcassets */; };
 		5B64F64F1875BEF6002C0404 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B64F64E1875BEF6002C0404 /* XCTest.framework */; };
 		5B64F6501875BEF6002C0404 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B64F62F1875BEF0002C0404 /* Foundation.framework */; };
@@ -65,6 +69,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		34160FD0187BE39300A8BCF2 /* login_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_icon.png; sourceTree = "<group>"; };
+		34160FD1187BE39300A8BCF2 /* BtnImg_Login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BtnImg_Login.png; sourceTree = "<group>"; };
+		34160FD4187BE46A00A8BCF2 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
+		34160FD5187BE46A00A8BCF2 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
+		34160FD7187BE64400A8BCF2 /* TestNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestNC.h; sourceTree = "<group>"; };
+		34160FD8187BE64400A8BCF2 /* TestNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNC.m; sourceTree = "<group>"; };
 		5B64F62C1875BEF0002C0404 /* YSJViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YSJViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B64F62F1875BEF0002C0404 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5B64F6311875BEF1002C0404 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -76,8 +86,8 @@
 		5B64F63E1875BEF1002C0404 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5B64F63F1875BEF1002C0404 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		5B64F6421875BEF3002C0404 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5B64F6441875BEF3002C0404 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		5B64F6451875BEF3002C0404 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		5B64F6441875BEF3002C0404 /* Home.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Home.h; sourceTree = "<group>"; };
+		5B64F6451875BEF3002C0404 /* Home.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Home.m; sourceTree = "<group>"; };
 		5B64F6471875BEF4002C0404 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5B64F64D1875BEF6002C0404 /* YSJViewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YSJViewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B64F64E1875BEF6002C0404 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -200,14 +210,18 @@
 				5B64F63E1875BEF1002C0404 /* AppDelegate.h */,
 				5B64F63F1875BEF1002C0404 /* AppDelegate.m */,
 				5B64F6411875BEF3002C0404 /* Main.storyboard */,
-				5B64F6441875BEF3002C0404 /* ViewController.h */,
-				5B64F6451875BEF3002C0404 /* ViewController.m */,
+				5B64F6441875BEF3002C0404 /* Home.h */,
+				5B64F6451875BEF3002C0404 /* Home.m */,
 				5B64F6771879437C002C0404 /* YSJ_List_TVC.h */,
 				5B64F6781879437C002C0404 /* YSJ_List_TVC.m */,
 				5B64F67A187962D8002C0404 /* YSJ_InfoMenu.h */,
 				5B64F67B187962D9002C0404 /* YSJ_InfoMenu.m */,
 				5B64F6D7187B13CB002C0404 /* RealTimeData.h */,
 				5B64F6D8187B13CB002C0404 /* RealTimeData.m */,
+				34160FD4187BE46A00A8BCF2 /* Login.h */,
+				34160FD5187BE46A00A8BCF2 /* Login.m */,
+				34160FD7187BE64400A8BCF2 /* TestNC.h */,
+				34160FD8187BE64400A8BCF2 /* TestNC.m */,
 				5B64F6471875BEF4002C0404 /* Images.xcassets */,
 				5B64F6361875BEF1002C0404 /* Supporting Files */,
 			);
@@ -297,6 +311,8 @@
 		5B64F6B8187AFA89002C0404 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				34160FD0187BE39300A8BCF2 /* login_icon.png */,
+				34160FD1187BE39300A8BCF2 /* BtnImg_Login.png */,
 				5B64F6B9187AFA89002C0404 /* background.png */,
 				5B64F6BA187AFA89002C0404 /* BtnImg_AlarmInfo.png */,
 				5B64F6BB187AFA89002C0404 /* BtnImg_DeviceMonitor.png */,
@@ -394,6 +410,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B64F6481875BEF4002C0404 /* Images.xcassets in Resources */,
+				34160FD3187BE39300A8BCF2 /* BtnImg_Login.png in Resources */,
 				5B64F6D4187AFA8A002C0404 /* Icon_RunRecord.png in Resources */,
 				5B64F6CF187AFA8A002C0404 /* Icon_HistoryAlarm.png in Resources */,
 				5B64F6C8187AFA89002C0404 /* background.png in Resources */,
@@ -407,6 +424,7 @@
 				5B64F6CA187AFA8A002C0404 /* BtnImg_DeviceMonitor.png in Resources */,
 				5B64F6CD187AFA8A002C0404 /* BtnImg_SystemSetting.png in Resources */,
 				5B64F6D6187AFA8A002C0404 /* Icon_YSJ_List.png in Resources */,
+				34160FD2187BE39300A8BCF2 /* login_icon.png in Resources */,
 				5B64F6D2187AFA8A002C0404 /* Icon_RealTimeData.png in Resources */,
 				5B64F6D5187AFA8A002C0404 /* Icon_ServiceTime.png in Resources */,
 				5B64F6D0187AFA8A002C0404 /* Icon_HistoryData.png in Resources */,
@@ -429,11 +447,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B64F6461875BEF3002C0404 /* ViewController.m in Sources */,
+				5B64F6461875BEF3002C0404 /* Home.m in Sources */,
 				5B64F69918797C24002C0404 /* NSDictionary+RequestEncoding.m in Sources */,
 				5B64F69D18797C24002C0404 /* MKNetworkEngine.m in Sources */,
 				5B64F69C18797C24002C0404 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
 				5B64F69F18797C24002C0404 /* Reachability.m in Sources */,
+				34160FD6187BE46A00A8BCF2 /* Login.m in Sources */,
 				5B64F69B18797C24002C0404 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				5B64F6D9187B13CB002C0404 /* RealTimeData.m in Sources */,
 				5B64F69618797C24002C0404 /* MBProgressHUD.m in Sources */,
@@ -444,6 +463,7 @@
 				5B64F69E18797C24002C0404 /* MKNetworkOperation.m in Sources */,
 				5B64F63C1875BEF1002C0404 /* main.m in Sources */,
 				5B64F69A18797C24002C0404 /* NSString+MKNetworkKitAdditions.m in Sources */,
+				34160FD9187BE64400A8BCF2 /* TestNC.m in Sources */,
 				5B64F69818797C24002C0404 /* NSDate+RFC1123.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

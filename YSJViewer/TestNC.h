@@ -1,0 +1,13 @@
+//
+//  TestNC.h
+//  YSJViewer
+//
+//  Created by TMC_MAC_02 on 14-1-7.
+//  Copyright (c) 2014年 Reload Digital Tech. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface TestNC : UINavigationController
+
+@end

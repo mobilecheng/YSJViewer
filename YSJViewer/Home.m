@@ -6,13 +6,13 @@
 //  Copyright (c) 2014年 Reload Digital Tech. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "Home.h"
 
-@interface ViewController ()
+@interface Home ()
 
 @end
 
-@implementation ViewController
+@implementation Home
 
 - (void)viewDidLoad
 {

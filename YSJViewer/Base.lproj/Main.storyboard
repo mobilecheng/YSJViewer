@@ -1,13 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ECh-GC-DTd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="5Rf-7W-Kf0">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--View Controller - 压缩机助手-->
+        <!--Login-->
+        <scene sceneID="Lt0-HL-qgz">
+            <objects>
+                <viewController id="5Rf-7W-Kf0" customClass="Login" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="f7g-0z-PtK"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZOa-Ka-IxL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Cre-Ft-bTq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="TaD-wd-O9B">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ch-Jw-Aei">
+                                <rect key="frame" x="33" y="442" width="254" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="BtnImg_Login.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginClick:" destination="5Rf-7W-Kf0" eventType="touchUpInside" id="RPR-Um-lI2"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="1ip-jK-rIj"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KV1-G7-Nmo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1805" y="380"/>
+        </scene>
+        <!--Home - 压缩机助手-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="Home" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vaC-rw-gAA"/>
                         <viewControllerLayoutGuide type="bottom" id="o4r-IY-XV1"/>
@@ -113,7 +148,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1070" y="380"/>
+            <point key="canvasLocation" x="2648" y="380"/>
         </scene>
         <!--Table View Controller - 报警信息-->
         <scene sceneID="Gua-x3-tyc">
@@ -142,7 +177,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4F3-o3-co6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1528" y="737"/>
+            <point key="canvasLocation" x="3106" y="737"/>
         </scene>
         <!--ListTVC - 压缩机列表-->
         <scene sceneID="eJh-bj-lUQ">
@@ -207,7 +242,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d4D-yy-hmi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1528" y="1"/>
+            <point key="canvasLocation" x="3106" y="1"/>
         </scene>
         <!--Info Menu - 压缩机名字-->
         <scene sceneID="O7a-fv-wDL">
@@ -377,7 +412,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TEQ-fz-XBn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1953" y="1"/>
+            <point key="canvasLocation" x="3531" y="1"/>
         </scene>
         <!--Real Time Data - 压缩机名字-->
         <scene sceneID="EdM-2D-Erw">
@@ -414,7 +449,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fyg-Bs-Llr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2371" y="1"/>
+            <point key="canvasLocation" x="3949" y="1"/>
         </scene>
         <!--Table View Controller - 服务时间-->
         <scene sceneID="GVr-r8-vUC">
@@ -443,7 +478,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nN4-z7-6I1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3175" y="1"/>
+            <point key="canvasLocation" x="4753" y="1"/>
         </scene>
         <!--Table View Controller - 运行记录-->
         <scene sceneID="vkZ-5p-Sat">
@@ -472,30 +507,32 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OJX-rT-u1W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2769" y="1"/>
+            <point key="canvasLocation" x="4347" y="1"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="3w3-Kf-ScU">
+        <!--TestNC-->
+        <scene sceneID="JNU-kv-Qhj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ECh-GC-DTd" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wXm-2d-P6X" customClass="TestNC" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2dh-f9-zke">
+                    <navigationItem key="navigationItem" id="QRF-3G-Q7N"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cnj-qD-oFQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="827-Sg-hUq"/>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="LsM-et-zwD"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7z4-ff-PmF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E1i-gh-rTz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="629" y="1"/>
+            <point key="canvasLocation" x="2231" y="380"/>
         </scene>
     </scenes>
     <resources>
         <image name="BtnImg_AlarmInfo.png" width="104" height="105"/>
         <image name="BtnImg_DeviceMonitor.png" width="104" height="105"/>
+        <image name="BtnImg_Login.png" width="427" height="52"/>
         <image name="BtnImg_ReserveService.png" width="104" height="105"/>
         <image name="BtnImg_StorageList.png" width="104" height="105"/>
         <image name="BtnImg_SystemSetting.png" width="104" height="105"/>
