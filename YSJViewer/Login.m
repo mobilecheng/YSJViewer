@@ -58,8 +58,8 @@
                    customHeaderFields:nil];
     
     //
-    self.txtID.delegate = self;
-    self.txtName.delegate = self;
+    self.txtID.delegate       = self;
+    self.txtName.delegate     = self;
     self.txtPassword.delegate = self;
     
     //注册键盘出现与隐藏时候的通知
@@ -187,8 +187,8 @@
 }
 
 - (void) hideKeyboard {
-    [self.txtID  resignFirstResponder];
-    [self.txtName resignFirstResponder];
+    [self.txtID       resignFirstResponder];
+    [self.txtName     resignFirstResponder];
     [self.txtPassword resignFirstResponder];
 }
 
@@ -228,8 +228,8 @@
     // params  @"013468000533137", @"imei",@"100007" longmen2 longmen
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                serviceCode, @"servicecode",
-                               userName, @"username",
-                               password, @"password",
+                               userName,    @"username",
+                               password,    @"password",
                                
                                nil];
     

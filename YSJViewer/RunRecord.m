@@ -1,18 +1,18 @@
 //
-//  RealTimeData.m
+//  RunRecord.m
 //  YSJViewer
 //
-//  Created by Reload Digital Tech. on 14-1-7.
+//  Created by Reload Digital Tech. on 14-1-11.
 //  Copyright (c) 2014年 Reload Digital Tech. All rights reserved.
 //
 
-#import "RealTimeData.h"
+#import "RunRecord.h"
 
-@interface RealTimeData ()
+@interface RunRecord ()
 
 @end
 
-@implementation RealTimeData
+@implementation RunRecord
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -32,22 +32,6 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-//    CGRect frame = self.tableView.frame;
-//    frame.origin.y = 100;
-//    self.tableView.frame = frame;
-//    
-//    // 压缩机名字
-//    CGRect labFrame = CGRectMake(0, 50, 320, 30);
-//    UILabel *labName = [[UILabel alloc] initWithFrame:labFrame];
-//    labName.backgroundColor = [UIColor blueColor];
-//    labName.text = @"YSJ Name";
-//    [self.view addSubview:labName];
-    
-    // Title.
-    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
-    self.navigationItem.title = [saveData stringForKey:@"YSJ_NAME"];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,6 +42,11 @@
 
 #pragma mark - Table view data source
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 56;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
@@ -67,17 +56,39 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 5;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"RealTimeData";
+    static NSString *CellIdentifier;
+    switch (indexPath.row) {
+        case 0:
+            CellIdentifier = @"StartTime";
+            break;
+        case 1:
+            CellIdentifier = @"EndTime";
+            break;
+        case 2:
+            CellIdentifier = @"TimeJG";
+            break;
+        default:
+            break;
+    }
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
     
     return cell;
+}
+
+
+#pragma mark - Button Methods.
+
+- (IBAction) getRunRecordData:(id)sender
+{
+    NSLog(@"getRunRecordData");
 }
 
 /*
