@@ -56,8 +56,8 @@
 		5B64F6D5187AFA8A002C0404 /* Icon_ServiceTime.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6C6187AFA89002C0404 /* Icon_ServiceTime.png */; };
 		5B64F6D6187AFA8A002C0404 /* Icon_YSJ_List.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B64F6C7187AFA89002C0404 /* Icon_YSJ_List.png */; };
 		5B64F6D9187B13CB002C0404 /* RealTimeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B64F6D8187B13CB002C0404 /* RealTimeData.m */; };
-		5BCE9886188180F400EEA687 /* RunRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BCE9885188180F400EEA687 /* RunRecord.m */; };
 		5BCE98891881945D00EEA687 /* HistoryData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BCE98881881945D00EEA687 /* HistoryData.m */; };
+		5BE9563A1882E80300AE94AA /* RunRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE956391882E80300AE94AA /* RunRecord.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,10 +140,10 @@
 		5B64F6C7187AFA89002C0404 /* Icon_YSJ_List.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_YSJ_List.png; sourceTree = "<group>"; };
 		5B64F6D7187B13CB002C0404 /* RealTimeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeData.h; sourceTree = "<group>"; };
 		5B64F6D8187B13CB002C0404 /* RealTimeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeData.m; sourceTree = "<group>"; };
-		5BCE9884188180F400EEA687 /* RunRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunRecord.h; sourceTree = "<group>"; };
-		5BCE9885188180F400EEA687 /* RunRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunRecord.m; sourceTree = "<group>"; };
 		5BCE98871881945D00EEA687 /* HistoryData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryData.h; sourceTree = "<group>"; };
 		5BCE98881881945D00EEA687 /* HistoryData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryData.m; sourceTree = "<group>"; };
+		5BE956381882E80300AE94AA /* RunRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunRecord.h; sourceTree = "<group>"; };
+		5BE956391882E80300AE94AA /* RunRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunRecord.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,8 +224,8 @@
 				5B64F67B187962D9002C0404 /* YSJ_InfoMenu.m */,
 				5B64F6D7187B13CB002C0404 /* RealTimeData.h */,
 				5B64F6D8187B13CB002C0404 /* RealTimeData.m */,
-				5BCE9884188180F400EEA687 /* RunRecord.h */,
-				5BCE9885188180F400EEA687 /* RunRecord.m */,
+				5BE956381882E80300AE94AA /* RunRecord.h */,
+				5BE956391882E80300AE94AA /* RunRecord.m */,
 				5BCE98871881945D00EEA687 /* HistoryData.h */,
 				5BCE98881881945D00EEA687 /* HistoryData.m */,
 				34160FD4187BE46A00A8BCF2 /* Login.h */,
@@ -462,6 +462,7 @@
 				5B64F69D18797C24002C0404 /* MKNetworkEngine.m in Sources */,
 				5B64F69C18797C24002C0404 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
 				5B64F69F18797C24002C0404 /* Reachability.m in Sources */,
+				5BE9563A1882E80300AE94AA /* RunRecord.m in Sources */,
 				34160FD6187BE46A00A8BCF2 /* Login.m in Sources */,
 				5B64F69B18797C24002C0404 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				5B64F6D9187B13CB002C0404 /* RealTimeData.m in Sources */,
@@ -469,7 +470,6 @@
 				5B64F67C187962D9002C0404 /* YSJ_InfoMenu.m in Sources */,
 				5B64F6401875BEF1002C0404 /* AppDelegate.m in Sources */,
 				5B64F6791879437C002C0404 /* YSJ_List_TVC.m in Sources */,
-				5BCE9886188180F400EEA687 /* RunRecord.m in Sources */,
 				5B64F69718797C24002C0404 /* NSData+MKBase64.m in Sources */,
 				5B64F69E18797C24002C0404 /* MKNetworkOperation.m in Sources */,
 				5B64F63C1875BEF1002C0404 /* main.m in Sources */,

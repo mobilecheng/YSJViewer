@@ -10,6 +10,8 @@
 
 @interface RealTimeData ()
 
+@property (nonatomic) NSArray *arrMenu;
+
 @end
 
 @implementation RealTimeData
@@ -48,6 +50,11 @@
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     self.navigationItem.title = [saveData stringForKey:@"YSJ_NAME"];
     
+    // 菜单名字
+    self.arrMenu = [NSArray arrayWithObjects:
+               @"末级级间温度", @"进油温度", @"电机前轴承温度", @"电机后轴承温度",
+               @"电机定子温度", @"第一级级间温度", @"后冷空气温度", nil];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,7 +74,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 5;
+    return [self.arrMenu count];
+//    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -76,6 +84,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
+    UILabel *labItem = (UILabel *)[cell viewWithTag:10];
+    labItem.text = [self.arrMenu objectAtIndex:indexPath.row];
     
     return cell;
 }

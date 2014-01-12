@@ -10,7 +10,7 @@
 
 @interface HistoryData ()
 
-@property (strong, nonatomic) IBOutlet UITableView *myTableView;
+//@property (strong, nonatomic) IBOutlet UITableView *myTableView;
 
 @end
 
@@ -30,10 +30,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    self.myTableView = [[UITableView alloc] init];
-    self.myTableView.delegate = self;
-    self.myTableView.dataSource = self;
-    [self.view addSubview:self.myTableView];
+//    self.myTableView = [[UITableView alloc] init];
+//    self.myTableView.delegate = self;
+//    self.myTableView.dataSource = self;
+//    [self.view addSubview:self.myTableView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,6 +60,11 @@
     // Return the number of rows in the section.
     return 3;
 }
+
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    return @"历史数据数据量很大，请尽量在免费WIFI下使用";
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
