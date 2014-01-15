@@ -62,6 +62,7 @@
 		70A6767B1886B48C0008F78C /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A676761886B48C0008F78C /* NSData+SRB64Additions.m */; };
 		70A6767C1886B48C0008F78C /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A676791886B48C0008F78C /* SRWebSocket.m */; };
 		70A6767E1886B5D30008F78C /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A6767D1886B5D20008F78C /* libicucore.dylib */; };
+		70A676811886D2480008F78C /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A676801886D2480008F78C /* UserInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -156,6 +157,8 @@
 		70A676781886B48C0008F78C /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
 		70A676791886B48C0008F78C /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
 		70A6767D1886B5D20008F78C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		70A6767F1886D2480008F78C /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
+		70A676801886D2480008F78C /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +234,8 @@
 				5B64F63F1875BEF1002C0404 /* AppDelegate.m */,
 				5B64F6411875BEF3002C0404 /* Main.storyboard */,
 				3494FB13187BF63300FF8272 /* LoginStoryboard.storyboard */,
+				34160FD4187BE46A00A8BCF2 /* Login.h */,
+				34160FD5187BE46A00A8BCF2 /* Login.m */,
 				5B64F6441875BEF3002C0404 /* Home.h */,
 				5B64F6451875BEF3002C0404 /* Home.m */,
 				5B64F6771879437C002C0404 /* YSJ_List_TVC.h */,
@@ -243,8 +248,8 @@
 				5BE956391882E80300AE94AA /* RunRecord.m */,
 				5BCE98871881945D00EEA687 /* HistoryData.h */,
 				5BCE98881881945D00EEA687 /* HistoryData.m */,
-				34160FD4187BE46A00A8BCF2 /* Login.h */,
-				34160FD5187BE46A00A8BCF2 /* Login.m */,
+				70A6767F1886D2480008F78C /* UserInfo.h */,
+				70A676801886D2480008F78C /* UserInfo.m */,
 				5B64F6471875BEF4002C0404 /* Images.xcassets */,
 				5B64F6361875BEF1002C0404 /* Supporting Files */,
 			);
@@ -493,6 +498,7 @@
 				5B64F69F18797C24002C0404 /* Reachability.m in Sources */,
 				5BE9563A1882E80300AE94AA /* RunRecord.m in Sources */,
 				34160FD6187BE46A00A8BCF2 /* Login.m in Sources */,
+				70A676811886D2480008F78C /* UserInfo.m in Sources */,
 				5B64F69B18797C24002C0404 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				5B64F6D9187B13CB002C0404 /* RealTimeData.m in Sources */,
 				70A6767A1886B48C0008F78C /* base64.c in Sources */,
