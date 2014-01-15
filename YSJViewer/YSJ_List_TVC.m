@@ -16,8 +16,11 @@
 @property (nonatomic) NSMutableArray *arrSN;     // 压缩机编号
 @property (nonatomic) NSMutableArray *arrModel;  // 压缩机型号
 @property (nonatomic) NSMutableArray *arrStatus; // 压缩机状态（在线、离线）
-
-//@property (nonatomic) NSString *strToken; // 
+@property (nonatomic) NSMutableArray *arrSID;  // 用于订阅数据查询
+@property (nonatomic) NSMutableArray *arrCID;  // 用于订阅数据查询
+@property (nonatomic) NSMutableArray *arrItems_iID;  // 压缩机数据项
+@property (nonatomic) NSMutableArray *arrItems_name;  // 压缩机数据项
+@property (nonatomic) NSMutableArray *arrItems_unit;  // 压缩机数据项
 
 @property (nonatomic) MKNetworkEngine *engine;
 
@@ -117,10 +120,30 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *name = [self.arrName objectAtIndex:indexPath.row];
-    NSLog(@"YSJ name = %@", name);
+    NSString *cid  = [self.arrCID  objectAtIndex:indexPath.row];
+    NSString *sid  = [self.arrSID  objectAtIndex:indexPath.row];
+//    NSLog(@"YSJ name = %@ | CID = %@ | SID = %@", name, cid, sid);
     
+    NSArray *items_iID  = [self.arrItems_iID  objectAtIndex:indexPath.row];
+//    NSLog(@"items_iID  = %@", items_iID);
+    
+    NSArray *items_name  = [self.arrItems_name  objectAtIndex:indexPath.row];
+//    NSLog(@"items_name = %@", items_name);
+    
+    NSArray *items_unit  = [self.arrItems_unit  objectAtIndex:indexPath.row];
+//    NSLog(@"items_unit = %@", items_unit);
+    
+    // Save data to cache.
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    
     [saveData setObject:name forKey:@"YSJ_NAME"];
+    [saveData setObject:cid  forKey:@"YSJ_CID"];
+    [saveData setObject:sid  forKey:@"YSJ_SID"];
+    
+    [saveData setObject:items_iID   forKey:@"YSJ_Items_iID"];
+    [saveData setObject:items_name  forKey:@"YSJ_Items_name"];
+    [saveData setObject:items_unit  forKey:@"YSJ_Items_unit"];
+    
     [saveData synchronize];
 }
 
@@ -193,6 +216,12 @@
     self.arrSN     = [[NSMutableArray alloc] init];
     self.arrModel  = [[NSMutableArray alloc] init];
     self.arrStatus = [[NSMutableArray alloc] init];
+    self.arrSID    = [[NSMutableArray alloc] init];
+    self.arrCID    = [[NSMutableArray alloc] init];
+    
+    self.arrItems_iID  = [[NSMutableArray alloc] init];
+    self.arrItems_name = [[NSMutableArray alloc] init];
+    self.arrItems_unit = [[NSMutableArray alloc] init];
 }
 
 
@@ -269,6 +298,36 @@
             NSLog(@"DATA --> model   = %@", [recordData objectForKey:@"model"]);
             [self.arrModel addObject:[recordData objectForKey:@"model"]];
             
+            NSLog(@"DATA --> cId     = %@", [recordData objectForKey:@"cId"]);
+            [self.arrCID addObject:[recordData objectForKey:@"cId"]];
+            
+            NSLog(@"DATA --> sId     = %@", [recordData objectForKey:@"sId"]);
+            [self.arrSID addObject:[recordData objectForKey:@"sId"]];
+            
+            
+            // Items
+            NSLog(@"    ---> ------------------------------------");
+            NSMutableArray *tempIID   = [[NSMutableArray alloc] init];
+            NSMutableArray *tempName  = [[NSMutableArray alloc] init];
+            NSMutableArray *tempUnit  = [[NSMutableArray alloc] init];
+            
+            NSArray *items = [recordData objectForKey:@"items"];  // Get All items.
+            
+            for (NSDictionary *itemData in items) {
+                NSLog(@"    ITEMS --> iId   = %@", [itemData objectForKey:@"iId"]);
+                [tempIID  addObject:[itemData objectForKey:@"iId"]];
+                
+                NSLog(@"    ITEMS --> name   = %@", [itemData objectForKey:@"name"]);
+                [tempName addObject:[itemData objectForKey:@"name"]];
+                
+                NSLog(@"    ITEMS --> unit   = %@", [itemData objectForKey:@"unit"]);
+                [tempUnit addObject:[itemData objectForKey:@"unit"]];
+            }
+            
+            // Save items data.
+            [self.arrItems_iID  addObject:tempIID];
+            [self.arrItems_name addObject:tempName];
+            [self.arrItems_unit addObject:tempUnit];
         }
         
         // 刷新数据

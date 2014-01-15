@@ -10,7 +10,8 @@
 
 @interface RealTimeData ()
 
-@property (nonatomic) NSArray *arrMenu;
+@property (nonatomic) NSArray  *arrItems_iID, *arrItems_name, *arrItems_unit;
+@property (nonatomic) NSString *cID, *sID;
 
 @end
 
@@ -50,10 +51,27 @@
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     self.navigationItem.title = [saveData stringForKey:@"YSJ_NAME"];
     
-    // 菜单名字
-    self.arrMenu = [NSArray arrayWithObjects:
-               @"末级级间温度", @"进油温度", @"电机前轴承温度", @"电机后轴承温度",
-               @"电机定子温度", @"第一级级间温度", @"后冷空气温度", nil];
+    // 数据项
+//    self.arrMenu = [NSArray arrayWithObjects:
+//               @"末级级间温度", @"进油温度", @"电机前轴承温度", @"电机后轴承温度",
+//               @"电机定子温度", @"第一级级间温度", @"后冷空气温度", nil];
+    
+    // cID, sID.
+    self.cID  = [saveData objectForKey:@"YSJ_CID"];
+    self.sID  = [saveData objectForKey:@"YSJ_SID"];
+    NSLog(@"RealTimeData -->  | CID = %@ | SID = %@", self.cID, self.sID);
+    
+    // 数据项- 压缩机 items
+    self.arrItems_iID  = [saveData objectForKey:@"YSJ_Items_iID"];
+    self.arrItems_name = [saveData objectForKey:@"YSJ_Items_name"];
+    self.arrItems_unit = [saveData objectForKey:@"YSJ_Items_unit"];
+    
+    NSLog(@"RealTimeData -->  | Items_iID  = %@", self.arrItems_iID);
+    NSLog(@"RealTimeData -->  | Items_name = %@", self.arrItems_name);
+    NSLog(@"RealTimeData -->  | Items_unit = %@", self.arrItems_unit);
+    
+    //
+    [self setExtraCellLineHidden:self.tableView];
     
 }
 
@@ -74,7 +92,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.arrMenu count];
+    return [self.arrItems_iID count];
 //    return 5;
 }
 
@@ -84,8 +102,16 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    UILabel *labItem = (UILabel *)[cell viewWithTag:10];
-    labItem.text = [self.arrMenu objectAtIndex:indexPath.row];
+    UILabel *labItems_name = (UILabel *)[cell viewWithTag:10];
+    labItems_name.text = [self.arrItems_name objectAtIndex:indexPath.row];
+    
+    UILabel *labItems_value = (UILabel *)[cell viewWithTag:11];
+    labItems_value.text = @"109.38";
+    
+    UILabel *labItems_unit = (UILabel *)[cell viewWithTag:12];
+    NSString *strText = [self.arrItems_unit objectAtIndex:indexPath.row];
+    strText = [NSString stringWithFormat:@"(%@)", strText];
+    labItems_unit.text = strText;
     
     return cell;
 }
@@ -141,4 +167,12 @@
 
  */
 
+#pragma mark -  Uitility Methods.
+
+- (void)setExtraCellLineHidden:(UITableView *)tableView
+{
+    UIView *view = [UIView new];
+    view.backgroundColor = [UIColor clearColor];
+    [tableView setTableFooterView:view];
+}
 @end
