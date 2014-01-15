@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SRWebSocket.h"
 
-@interface RealTimeData : UITableViewController
-
+@interface RealTimeData : UITableViewController <SRWebSocketDelegate>
+{
+    SRWebSocket *_webSocket;
+}
 @end

@@ -8,6 +8,7 @@
 
 #import "RealTimeData.h"
 
+
 @interface RealTimeData ()
 
 @property (nonatomic) NSArray  *arrItems_iID, *arrItems_name, *arrItems_unit;
@@ -16,6 +17,8 @@
 @end
 
 @implementation RealTimeData
+
+#pragma mark -  View life cycle.
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -75,6 +78,25 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // Get data.
+    [self api_RealtimeData];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+    
+    _webSocket.delegate = nil;
+    [_webSocket close];
+    _webSocket = nil;
+    
+    NSLog(@"viewDidDisappear -> _webSocket set nil.");
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -116,44 +138,6 @@
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 /*
 #pragma mark - Navigation
@@ -167,6 +151,26 @@
 
  */
 
+
+#pragma mark -  API call.
+
+- (void) api_RealtimeData
+{
+    NSLog(@"--> api_RealtimeData -> Opening WebSocket Connection...");
+    
+    _webSocket.delegate = nil;
+    [_webSocket close];
+    
+    NSString *url = @"ws://117.34.92.46:3180/getrealtimedata";
+    url = @"ws://echo.websocket.org";
+    
+    _webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    _webSocket.delegate = self;
+    
+    [_webSocket open];
+   
+}
+
 #pragma mark -  Uitility Methods.
 
 - (void)setExtraCellLineHidden:(UITableView *)tableView
@@ -175,4 +179,34 @@
     view.backgroundColor = [UIColor clearColor];
     [tableView setTableFooterView:view];
 }
+
+
+#pragma mark - SRWebSocketDelegate
+
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket;
+{
+    NSLog(@"Websocket Connected");
+
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
+{
+    NSLog(@":( Websocket Failed With Error %@", error);
+    
+    _webSocket = nil;
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
+{
+    NSLog(@"Received \"%@\"", message);
+    
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
+{
+    NSLog(@"WebSocket closed");
+  
+    _webSocket = nil;
+}
+
 @end
