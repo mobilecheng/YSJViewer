@@ -7,8 +7,7 @@
 //
 
 #import "YSJ_List_TVC.h"
-
-#define hostName @"117.34.92.46:80"
+#import "GlobalValue.h"
 
 @interface YSJ_List_TVC ()
 
@@ -235,17 +234,12 @@
     NSString *token = [saveData  objectForKey:@"Token"];
     
     //--------------------
-//    NSString *hostName = @"117.34.92.46:80";
     NSString *nextPath = @"cis/mobile/getCompressorList";
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                token, @"token",
                                nil];
-    
-//    MKNetworkEngine* engine = [[MKNetworkEngine alloc]
-//                               initWithHostName:hostName
-//                               customHeaderFields:nil];
     
     MKNetworkOperation* op = [self.engine operationWithPath:nextPath
                                                 params:dicParams

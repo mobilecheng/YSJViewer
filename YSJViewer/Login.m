@@ -7,8 +7,7 @@
 //
 
 #import "Login.h"
-
-#define hostName @"117.34.92.46:80"
+#import "GlobalValue.h"
 
 @interface Login ()
 
@@ -222,7 +221,6 @@
     NSString *password    = self.txtPassword.text;
     
     //--------------------
-//    NSString *hostName = @"117.34.92.46:80";
     NSString *nextPath = @"cis/mobile/signIn";
     
     // params  @"013468000533137", @"imei",@"100007" longmen2 longmen
@@ -232,10 +230,6 @@
                                password,    @"password",
                                
                                nil];
-    
-//    MKNetworkEngine* engine = [[MKNetworkEngine alloc]
-//                            initWithHostName:hostName
-//                            customHeaderFields:nil];
     
     MKNetworkOperation* op = [self.engine operationWithPath:nextPath
                                                      params:dicParams

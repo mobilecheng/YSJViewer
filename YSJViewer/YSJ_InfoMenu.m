@@ -10,7 +10,6 @@
 
 @interface YSJ_InfoMenu ()
 
-//@property (nonatomic) NSArray *arrMenu;
 
 @end
 
