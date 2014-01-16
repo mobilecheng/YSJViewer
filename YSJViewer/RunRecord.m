@@ -10,6 +10,11 @@
 
 @interface RunRecord ()
 
+@property (weak, nonatomic) IBOutlet UIDatePicker *myDatePicker;
+@property (weak, nonatomic) IBOutlet UIPickerView *myPickerView;
+
+@property (nonatomic) NSArray *myPickerData;
+
 @end
 
 @implementation RunRecord
@@ -27,6 +32,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    self.myPickerData = [[NSArray alloc] initWithObjects:
+                         @"1分钟", @"5分钟", @"10分钟", @"15分钟", @"30分钟", @"1小时", nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -36,7 +44,7 @@
 }
 
 #pragma mark - Table view data source
-
+/* for test.
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 56;
@@ -53,6 +61,8 @@
     // Return the number of rows in the section.
     return 3;
 }
+*/ // for test.
+
 
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 //{
@@ -81,6 +91,26 @@
     // Configure the cell...
     
     return cell;
+}
+
+
+#pragma mark - Picker Data Source Methods
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [self.myPickerData count];
+}
+
+#pragma mark - Picker Delegate Methods
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row             forComponent:(NSInteger)component
+{
+    return [self.myPickerData objectAtIndex:row];
 }
 
 @end

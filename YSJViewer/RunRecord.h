@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RunRecord : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface RunRecord : UIViewController <UITableViewDelegate, UITableViewDataSource,
+    UIPickerViewDelegate, UIPickerViewDataSource>
 
 
 @end
