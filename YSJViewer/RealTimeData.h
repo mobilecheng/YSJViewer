@@ -11,6 +11,6 @@
 
 @interface RealTimeData : UITableViewController <SRWebSocketDelegate>
 {
-    SRWebSocket *_webSocket;
+    SRWebSocket *srWebSocket;
 }
 @end

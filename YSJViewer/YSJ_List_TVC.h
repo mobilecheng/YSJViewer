@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SRWebSocket.h"
 
-@interface YSJ_List_TVC : UITableViewController
+@interface YSJ_List_TVC : UITableViewController <SRWebSocketDelegate>
 
-
+{
+    SRWebSocket *srWebSocket;
+}
 @end

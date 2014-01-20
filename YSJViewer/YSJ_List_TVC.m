@@ -23,6 +23,8 @@
 
 @property (nonatomic) MKNetworkEngine *engine;
 
+@property (nonatomic) NSString *dataForID;
+
 @end
 
 @implementation YSJ_List_TVC
@@ -61,6 +63,17 @@
     [self api_CompressorList];
 }
 
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+    
+    srWebSocket.delegate = nil;
+    [srWebSocket close];
+    srWebSocket = nil;
+    
+    NSLog(@"viewDidDisappear -> _webSocket set nil.");
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -280,6 +293,10 @@
         NSArray *records = [dicData objectForKey:@"records"];
         NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
         
+        // 构造参数，用于订阅信息查询
+        NSMutableArray *tempIDInfo = [[NSMutableArray alloc] init];
+        
+        //
         for (NSDictionary *recordData in records) {
             NSLog(@"---------------------------------------");
             
@@ -292,11 +309,18 @@
             NSLog(@"DATA --> model   = %@", [recordData objectForKey:@"model"]);
             [self.arrModel addObject:[recordData objectForKey:@"model"]];
             
-            NSLog(@"DATA --> cId     = %@", [recordData objectForKey:@"cId"]);
-            [self.arrCID addObject:[recordData objectForKey:@"cId"]];
+            NSString *cId = [recordData objectForKey:@"cId"];
+            NSLog(@"DATA --> cId     = %@", cId);
+            [self.arrCID addObject:cId];
             
-            NSLog(@"DATA --> sId     = %@", [recordData objectForKey:@"sId"]);
-            [self.arrSID addObject:[recordData objectForKey:@"sId"]];
+            NSString *sID = [recordData objectForKey:@"sId"];
+            NSLog(@"DATA --> sId     = %@", sID);
+            [self.arrSID addObject:sID];
+            
+            // 构造参数，用于订阅信息查询
+            NSDictionary *idInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                               sID, @"sId", cId, @"cId", nil];
+            [tempIDInfo addObject:idInfo];
             
             
             // Items
@@ -324,6 +348,15 @@
             [self.arrItems_unit addObject:tempUnit];
         }
         
+        // 构造参数，用于订阅信息查询
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                tempIDInfo, @"data", nil];
+        self.dataForID = [params jsonEncodedKeyValueString];
+        NSLog(@"--> 参数用于订阅信息查询 = %@", self.dataForID);
+        
+        // 取压缩机状态
+        [self api_GetCompressorStatus];
+        
         // 刷新数据
         [self.tableView reloadData];
         
@@ -332,6 +365,22 @@
     }
 }
 
+
+- (void) api_GetCompressorStatus
+{
+    NSLog(@"--> api_getCompressorStatus -> Opening WebSocket Connection...");
+    
+    srWebSocket.delegate = nil;
+    [srWebSocket close];
+    
+    NSString *url = @"ws://117.34.92.46:3180/getCompressorStatus";
+    //    url = @"ws://echo.websocket.org";
+    
+    srWebSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    srWebSocket.delegate = self;
+    
+    [srWebSocket open];
+}
 
 #pragma mark - MBProgressHUD methods
 
@@ -344,5 +393,36 @@
 	hud.removeFromSuperViewOnHide = YES;
 	[hud hide:YES afterDelay:2];
 }
+
+#pragma mark - SRWebSocketDelegate
+
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket;
+{
+    NSLog(@"--> YSJ_List -> Websocket Connected");
+    
+    //
+    [srWebSocket send:self.dataForID];
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
+{
+    NSLog(@"--> YSJ_List ->  :( Websocket Failed With Error %@", error);
+    
+    srWebSocket = nil;
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
+{
+    NSLog(@"--> YSJ_List ->  Received =  %@", message);
+    
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
+{
+    NSLog(@"--> YSJ_List -> WebSocket closed");
+    
+    srWebSocket = nil;
+}
+
 
 @end

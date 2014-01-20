@@ -90,9 +90,9 @@
 {
 	[super viewDidDisappear:animated];
     
-    _webSocket.delegate = nil;
-    [_webSocket close];
-    _webSocket = nil;
+    srWebSocket.delegate = nil;
+    [srWebSocket close];
+    srWebSocket = nil;
     
     NSLog(@"viewDidDisappear -> _webSocket set nil.");
 }
@@ -158,17 +158,16 @@
 {
     NSLog(@"--> api_RealtimeData -> Opening WebSocket Connection...");
     
-    _webSocket.delegate = nil;
-    [_webSocket close];
+    srWebSocket.delegate = nil;
+    [srWebSocket close];
     
     NSString *url = @"ws://117.34.92.46:3180/getrealtimedata";
 //    url = @"ws://echo.websocket.org";
     
-    _webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-    _webSocket.delegate = self;
+    srWebSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    srWebSocket.delegate = self;
     
-    [_webSocket open];
-   
+    [srWebSocket open];
 }
 
 #pragma mark -  Uitility Methods.
@@ -193,7 +192,7 @@
 {
     NSLog(@":( Websocket Failed With Error %@", error);
     
-    _webSocket = nil;
+    srWebSocket = nil;
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
@@ -206,7 +205,7 @@
 {
     NSLog(@"WebSocket closed");
   
-    _webSocket = nil;
+    srWebSocket = nil;
 }
 
 @end
