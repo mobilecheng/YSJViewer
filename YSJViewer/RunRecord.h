@@ -10,6 +10,21 @@
 
 @interface RunRecord : UIViewController <UITableViewDelegate, UITableViewDataSource,
     UIPickerViewDelegate, UIPickerViewDataSource>
+{
+    NSInteger curLine;
+    
+}
+
+
+@property (weak, nonatomic) IBOutlet UIDatePicker *myDatePicker;
+@property (weak, nonatomic) IBOutlet UIPickerView *myPickerView;
+@property (weak, nonatomic) IBOutlet UIView *myDataView;
+
+@property (nonatomic) UILabel *labStartTime;
+@property (nonatomic) UILabel *labEndTime;
+@property (nonatomic) UILabel *labTimeJG;
+
+@property (nonatomic) NSArray *myPickerData;
 
 
 @end

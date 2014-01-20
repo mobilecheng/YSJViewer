@@ -10,14 +10,10 @@
 
 @interface RunRecord ()
 
-@property (weak, nonatomic) IBOutlet UIDatePicker *myDatePicker;
-@property (weak, nonatomic) IBOutlet UIPickerView *myPickerView;
-
-@property (nonatomic) NSArray *myPickerData;
-
 @end
 
 @implementation RunRecord
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,7 +40,7 @@
 }
 
 #pragma mark - Table view data source
-/* for test.
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 56;
@@ -61,7 +57,6 @@
     // Return the number of rows in the section.
     return 3;
 }
-*/ // for test.
 
 
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -72,27 +67,55 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier;
+    UITableViewCell *cell;
+    
     switch (indexPath.row) {
         case 0:
             CellIdentifier = @"StartTime";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            self.labStartTime  = (UILabel *)[cell viewWithTag:10];
             break;
         case 1:
             CellIdentifier = @"EndTime";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            self.labEndTime    = (UILabel *)[cell viewWithTag:11];
             break;
         case 2:
             CellIdentifier = @"TimeJG";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            self.labTimeJG     = (UILabel *)[cell viewWithTag:12];
             break;
         default:
             break;
     }
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
+//    self.labStartTime  = (UILabel *)[cell viewWithTag:10];
+//    self.labEndTime    = (UILabel *)[cell viewWithTag:11];
+//    self.labTimeJG     = (UILabel *)[cell viewWithTag:12];
     
     return cell;
 }
 
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    curLine = indexPath.row;
+    
+    if (curLine == 0 || curLine == 1) { // Start and End time select.
+        self.myDataView.hidden   = NO;
+        self.myPickerView.hidden = YES;
+        self.myDatePicker.hidden = NO;
+    } else {
+        self.myDataView.hidden   = NO;
+        self.myDatePicker.hidden = YES;
+        self.myPickerView.hidden = NO;
+    }
+}
 
 #pragma mark - Picker Data Source Methods
 
@@ -111,6 +134,28 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row             forComponent:(NSInteger)component
 {
     return [self.myPickerData objectAtIndex:row];
+}
+
+
+- (IBAction)selectValue
+{
+    NSLog(@"selectValue");
+    
+    self.myDataView.hidden   = YES;
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd  HH:mm"];
+    
+    if (curLine == 0) { // 开始时间
+        NSString *startTime  = [formatter stringFromDate:self.myDatePicker.date];
+        self.labStartTime.text = startTime;
+    } else if (curLine == 1) { // 结束时间
+        NSString *endTime  = [formatter stringFromDate:self.myDatePicker.date];
+        self.labEndTime.text = endTime;
+    } else if (curLine == 2) { // 时间间隔
+        NSInteger selValue  = [self.myPickerView selectedRowInComponent:0];
+        self.labTimeJG.text = [self.myPickerData objectAtIndex:selValue];
+    }
 }
 
 @end
