@@ -121,7 +121,15 @@
     
     // 压缩机状态
     UILabel *labStatus = (UILabel *)[cell viewWithTag:104];
-    labStatus.text = @"在线";
+    if (self.arrStatus.count != 0) {
+        NSString  *status = [self.arrStatus  objectAtIndex:indexPath.row];
+        NSInteger val     = [status intValue];
+        if (val == 1) {
+            labStatus.text = @"在线";
+        } else {
+            labStatus.text = @"离线";
+        }
+    }
     
     //
     return cell;
@@ -382,6 +390,43 @@
     [srWebSocket open];
 }
 
+- (void) getCompressorStatus:(id)theData
+{
+    NSError *error = nil;
+    NSData  *aData = [theData dataUsingEncoding: NSUTF8StringEncoding];
+    NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:aData
+                                                            options:NSJSONReadingAllowFragments error:&error];
+    if (!error) {
+        
+        // Check result.
+        NSString *strResult = [dicData objectForKey:@"result"];
+        NSLog(@"--> getCompressorStatus -> strResult = %@", strResult);
+        if ([strResult isEqualToString:@"error"]) {
+            [self showMessageHUD:[dicData objectForKey:@"message"]];
+            return;
+        }
+        
+        NSArray *records = [dicData objectForKey:@"data"];
+        NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
+        
+        //
+        for (NSDictionary *recordData in records) {
+            NSLog(@"---------------------------------------");
+            
+            NSString *online = [recordData objectForKey:@"online"];
+            NSLog(@"DATA --> online     = %@", online);
+            [self.arrStatus addObject:online];
+        }
+        
+        // 刷新数据
+        [self.tableView reloadData];
+        
+    } else {
+        NSLog(@"--> ERROR = %@", error.description);
+    }
+}
+
+
 #pragma mark - MBProgressHUD methods
 
 // 显示收藏信息
@@ -415,6 +460,17 @@
 {
     NSLog(@"--> YSJ_List ->  Received =  %@", message);
     
+//    if ([message isKindOfClass:[NSString class]]) {
+//        NSLog(@"--> YSJ_List ->  Received =  NSString");
+//    } else if ([message isKindOfClass:[NSData class]]) {
+//        NSLog(@"--> YSJ_List ->  Received =  NSData");
+//    } else if (message == nil) {
+//        NSLog(@"--> YSJ_List ->  Received =  nil");
+//    } else {
+//        NSLog(@"--> YSJ_List ->  Received =  nothing...");
+//    }
+    
+    [self getCompressorStatus:message];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
