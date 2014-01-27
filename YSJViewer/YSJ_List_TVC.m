@@ -470,6 +470,7 @@
 //        NSLog(@"--> YSJ_List ->  Received =  nothing...");
 //    }
     
+    // 解析数据
     [self getCompressorStatus:message];
 }
 
