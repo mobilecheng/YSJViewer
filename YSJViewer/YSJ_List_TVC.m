@@ -126,8 +126,10 @@
         NSInteger val     = [status intValue];
         if (val == 1) {
             labStatus.text = @"在线";
+            labStatus.backgroundColor = [UIColor greenColor];
         } else {
             labStatus.text = @"离线";
+            labStatus.backgroundColor = [UIColor grayColor];
         }
     }
     

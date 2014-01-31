@@ -180,31 +180,58 @@
 }
 
 
+
+#pragma mark - MBProgressHUD methods
+
+// 显示收藏信息
+- (void)showMessageHUD:(NSString *)msg {
+	
+	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	hud.mode = MBProgressHUDModeText;
+	hud.labelText = msg;
+	hud.removeFromSuperViewOnHide = YES;
+	[hud hide:YES afterDelay:2];
+}
+
 #pragma mark - SRWebSocketDelegate
 
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket;
 {
-    NSLog(@"Websocket Connected");
-
+    NSLog(@"--> RealTimeData -> Websocket Connected");
+    
+    //
+//    [srWebSocket send:self.dataForID];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
 {
-    NSLog(@":( Websocket Failed With Error %@", error);
+    NSLog(@"--> RealTimeData ->  :( Websocket Failed With Error %@", error);
     
     srWebSocket = nil;
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
 {
-    NSLog(@"Received \"%@\"", message);
+    NSLog(@"--> RealTimeData ->  Received =  %@", message);
     
+    //    if ([message isKindOfClass:[NSString class]]) {
+    //        NSLog(@"--> YSJ_List ->  Received =  NSString");
+    //    } else if ([message isKindOfClass:[NSData class]]) {
+    //        NSLog(@"--> YSJ_List ->  Received =  NSData");
+    //    } else if (message == nil) {
+    //        NSLog(@"--> YSJ_List ->  Received =  nil");
+    //    } else {
+    //        NSLog(@"--> YSJ_List ->  Received =  nothing...");
+    //    }
+    
+    // 解析数据
+//    [self getCompressorStatus:message];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
 {
-    NSLog(@"WebSocket closed");
-  
+    NSLog(@"--> RealTimeData -> WebSocket closed");
+    
     srWebSocket = nil;
 }
 

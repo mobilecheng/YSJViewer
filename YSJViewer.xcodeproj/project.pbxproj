@@ -68,6 +68,8 @@
 		70A6767C1886B48C0008F78C /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A676791886B48C0008F78C /* SRWebSocket.m */; };
 		70A6767E1886B5D30008F78C /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A6767D1886B5D20008F78C /* libicucore.dylib */; };
 		70A676811886D2480008F78C /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A676801886D2480008F78C /* UserInfo.m */; };
+		70A981BD189B8744001FC021 /* AlarmInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A981BC189B8744001FC021 /* AlarmInfo.m */; };
+		70A981BF189B8A69001FC021 /* alarm_list_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 70A981BE189B8A69001FC021 /* alarm_list_indicator.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +172,9 @@
 		70A6767D1886B5D20008F78C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		70A6767F1886D2480008F78C /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		70A676801886D2480008F78C /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
+		70A981BB189B8744001FC021 /* AlarmInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmInfo.h; sourceTree = "<group>"; };
+		70A981BC189B8744001FC021 /* AlarmInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmInfo.m; sourceTree = "<group>"; };
+		70A981BE189B8A69001FC021 /* alarm_list_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarm_list_indicator.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +257,8 @@
 				5B64F6451875BEF3002C0404 /* Home.m */,
 				5B64F6771879437C002C0404 /* YSJ_List_TVC.h */,
 				5B64F6781879437C002C0404 /* YSJ_List_TVC.m */,
+				70A981BB189B8744001FC021 /* AlarmInfo.h */,
+				70A981BC189B8744001FC021 /* AlarmInfo.m */,
 				5B64F67A187962D8002C0404 /* YSJ_InfoMenu.h */,
 				5B64F67B187962D9002C0404 /* YSJ_InfoMenu.m */,
 				5B64F6D7187B13CB002C0404 /* RealTimeData.h */,
@@ -351,6 +358,7 @@
 		5B64F6B8187AFA89002C0404 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				70A981BE189B8A69001FC021 /* alarm_list_indicator.png */,
 				347184E21887D26B001EA5AB /* ic_launcher.png */,
 				347184DE1887D0BC001EA5AB /* updateinfo_indicatro.png */,
 				347184DF1887D0BC001EA5AB /* updatepwd_indicatro.png */,
@@ -491,6 +499,7 @@
 				3494FB14187BF63300FF8272 /* LoginStoryboard.storyboard in Resources */,
 				347184DD1887CF36001EA5AB /* icon_setting_apps.png in Resources */,
 				5B64F6D0187AFA8A002C0404 /* Icon_HistoryData.png in Resources */,
+				70A981BF189B8A69001FC021 /* alarm_list_indicator.png in Resources */,
 				347184E01887D0BC001EA5AB /* updateinfo_indicatro.png in Resources */,
 				347184E11887D0BC001EA5AB /* updatepwd_indicatro.png in Resources */,
 				5B64F6D1187AFA8A002C0404 /* Icon_HistoryReserve.png in Resources */,
@@ -535,6 +544,7 @@
 				5B64F63C1875BEF1002C0404 /* main.m in Sources */,
 				5B64F69A18797C24002C0404 /* NSString+MKNetworkKitAdditions.m in Sources */,
 				5B64F69818797C24002C0404 /* NSDate+RFC1123.m in Sources */,
+				70A981BD189B8744001FC021 /* AlarmInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
