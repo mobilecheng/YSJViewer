@@ -153,7 +153,7 @@
     self.labUserName.text = [recordData objectForKey:@"name"];
     
     NSLog(@"DATA --> officePhone     = %@", [recordData objectForKey:@"officePhone"]);
-    self.labOfficeTel.text = [recordData objectForKey:@"officePhone"];
+    self.labOfficePhone.text = [recordData objectForKey:@"officePhone"];
     
     NSLog(@"DATA --> mobilePhone   = %@", [recordData objectForKey:@"mobilePhone"]);
     self.labMobilePhone.text = [recordData objectForKey:@"mobilePhone"];
@@ -166,6 +166,11 @@
     
     // 刷新数据
     [self.tableView reloadData];
+    
+    // 保存用户现有信息到缓存
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    [saveData setObject:recordData forKey:@"USER_INFO"];
+    [saveData synchronize];
 }
 
 

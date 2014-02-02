@@ -12,7 +12,7 @@
 
 
 @property (weak, nonatomic) IBOutlet UILabel *labUserName;
-@property (weak, nonatomic) IBOutlet UILabel *labOfficeTel;
+@property (weak, nonatomic) IBOutlet UILabel *labOfficePhone;
 @property (weak, nonatomic) IBOutlet UILabel *labMobilePhone;
 @property (weak, nonatomic) IBOutlet UILabel *labFax;
 @property (weak, nonatomic) IBOutlet UILabel *labEmail;

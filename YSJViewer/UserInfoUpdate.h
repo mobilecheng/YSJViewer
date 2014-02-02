@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserInfoUpdate : UITableViewController
+@interface UserInfoUpdate : UITableViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *txtUserName;
-@property (weak, nonatomic) IBOutlet UITextField *txtOfficeTel;
+@property (weak, nonatomic) IBOutlet UITextField *txtOfficePhone;
 @property (weak, nonatomic) IBOutlet UITextField *txtMobilePhone;
 @property (weak, nonatomic) IBOutlet UITextField *txtFax;
 @property (weak, nonatomic) IBOutlet UITextField *txtEmail;

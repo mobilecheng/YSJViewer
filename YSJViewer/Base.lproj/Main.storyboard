@@ -600,7 +600,7 @@
                         <outlet property="labEmail" destination="3Tq-QJ-5eC" id="bDI-NK-aMD"/>
                         <outlet property="labFax" destination="pQR-Ke-iUG" id="kI3-Rc-F2Q"/>
                         <outlet property="labMobilePhone" destination="x3c-aT-JKd" id="PVe-0c-kvR"/>
-                        <outlet property="labOfficeTel" destination="ibC-ov-dos" id="cU5-2L-gan"/>
+                        <outlet property="labOfficePhone" destination="ibC-ov-dos" id="fg0-13-gAV"/>
                         <outlet property="labUserName" destination="kFz-if-s3i" id="ib0-WZ-dEr"/>
                     </connections>
                 </tableViewController>
@@ -773,7 +773,7 @@
                         <outlet property="txtEmail" destination="RDO-XP-ayk" id="IGJ-ic-W8a"/>
                         <outlet property="txtFax" destination="UYA-xY-cLM" id="MrZ-h4-u9I"/>
                         <outlet property="txtMobilePhone" destination="37Y-Md-1go" id="6Y8-jg-fKd"/>
-                        <outlet property="txtOfficeTel" destination="keD-fN-gJC" id="Xik-uh-PBE"/>
+                        <outlet property="txtOfficePhone" destination="keD-fN-gJC" id="D1F-iQ-BgF"/>
                         <outlet property="txtUserName" destination="jjm-5M-jeY" id="ypz-bG-RVO"/>
                     </connections>
                 </tableViewController>
