@@ -63,6 +63,7 @@
 		5B64F6D9187B13CB002C0404 /* RealTimeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B64F6D8187B13CB002C0404 /* RealTimeData.m */; };
 		5BCE98891881945D00EEA687 /* HistoryData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BCE98881881945D00EEA687 /* HistoryData.m */; };
 		5BE9563A1882E80300AE94AA /* RunRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE956391882E80300AE94AA /* RunRecord.m */; };
+		703C269E189E30F7007D1F90 /* UserInfoUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 703C269D189E30F7007D1F90 /* UserInfoUpdate.m */; };
 		70A6767A1886B48C0008F78C /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 70A676731886B48C0008F78C /* base64.c */; };
 		70A6767B1886B48C0008F78C /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A676761886B48C0008F78C /* NSData+SRB64Additions.m */; };
 		70A6767C1886B48C0008F78C /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A676791886B48C0008F78C /* SRWebSocket.m */; };
@@ -162,6 +163,8 @@
 		5BCE98881881945D00EEA687 /* HistoryData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryData.m; sourceTree = "<group>"; };
 		5BE956381882E80300AE94AA /* RunRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunRecord.h; sourceTree = "<group>"; };
 		5BE956391882E80300AE94AA /* RunRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunRecord.m; sourceTree = "<group>"; };
+		703C269C189E30F7007D1F90 /* UserInfoUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoUpdate.h; sourceTree = "<group>"; };
+		703C269D189E30F7007D1F90 /* UserInfoUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoUpdate.m; sourceTree = "<group>"; };
 		70A676731886B48C0008F78C /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base64.c; sourceTree = "<group>"; };
 		70A676741886B48C0008F78C /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		70A676751886B48C0008F78C /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SRB64Additions.h"; sourceTree = "<group>"; };
@@ -269,6 +272,8 @@
 				5BCE98881881945D00EEA687 /* HistoryData.m */,
 				70A6767F1886D2480008F78C /* UserInfo.h */,
 				70A676801886D2480008F78C /* UserInfo.m */,
+				703C269C189E30F7007D1F90 /* UserInfoUpdate.h */,
+				703C269D189E30F7007D1F90 /* UserInfoUpdate.m */,
 				5B64F6471875BEF4002C0404 /* Images.xcassets */,
 				5B64F6361875BEF1002C0404 /* Supporting Files */,
 			);
@@ -530,6 +535,7 @@
 				5BE9563A1882E80300AE94AA /* RunRecord.m in Sources */,
 				34160FD6187BE46A00A8BCF2 /* Login.m in Sources */,
 				70A676811886D2480008F78C /* UserInfo.m in Sources */,
+				703C269E189E30F7007D1F90 /* UserInfoUpdate.m in Sources */,
 				5B64F69B18797C24002C0404 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				5B64F6D9187B13CB002C0404 /* RealTimeData.m in Sources */,
 				70A6767A1886B48C0008F78C /* base64.c in Sources */,

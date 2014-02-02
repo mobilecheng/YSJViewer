@@ -42,7 +42,8 @@
                    customHeaderFields:nil];
     
     //
-    self.labUserName.text = @"张诚";
+//    self.labUserName.text = @"张诚";
+    [self api_MyInfo];
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,9 +116,9 @@
     [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
         NSData *data  = [completedOperation responseData];
         NSString *str = [completedOperation responseString];
-        NSLog(@"--> apiCompressorList -> RESULT = %@", str);
+        NSLog(@"--> api_MyInfo -> RESULT = %@", str);
         
-//        [self getMyInfoList:data];
+        [self getMyInfoList:data];
         
     } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
         NSLog(@"--> apiCompressorList -> ERROR = %@", [error description]);
@@ -127,77 +128,46 @@
     [self.engine enqueueOperation:op];
 }
 
-/*
+
 - (void) getMyInfoList:(id)theData
 {
     NSError *error = nil;
     NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:theData
                                                             options:NSJSONReadingAllowFragments error:&error];
-    if (!error) {
-        
-        // Check result.
-        NSString *strResult = [dicData objectForKey:@"result"];
-        NSLog(@"--> strResult = %@", strResult);
-        if ([strResult isEqualToString:@"error"]) {
-            [self showMessageHUD:[dicData objectForKey:@"message"]];
-            return;
-        }
-        
-        NSArray *records = [dicData objectForKey:@"records"];
-        NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
-        
-        for (NSDictionary *recordData in records) {
-            NSLog(@"---------------------------------------");
-            
-            NSLog(@"DATA --> alias   = %@", [recordData objectForKey:@"alias"]);
-            [self.arrName addObject:[recordData objectForKey:@"alias"]];
-            
-            NSLog(@"DATA --> cSN     = %@", [recordData objectForKey:@"cSN"]);
-            [self.arrSN addObject:[recordData objectForKey:@"cSN"]];
-            
-            NSLog(@"DATA --> model   = %@", [recordData objectForKey:@"model"]);
-            [self.arrModel addObject:[recordData objectForKey:@"model"]];
-            
-            NSLog(@"DATA --> cId     = %@", [recordData objectForKey:@"cId"]);
-            [self.arrCID addObject:[recordData objectForKey:@"cId"]];
-            
-            NSLog(@"DATA --> sId     = %@", [recordData objectForKey:@"sId"]);
-            [self.arrSID addObject:[recordData objectForKey:@"sId"]];
-            
-            
-            // Items
-            NSLog(@"    ---> ------------------------------------");
-            NSMutableArray *tempIID   = [[NSMutableArray alloc] init];
-            NSMutableArray *tempName  = [[NSMutableArray alloc] init];
-            NSMutableArray *tempUnit  = [[NSMutableArray alloc] init];
-            
-            NSArray *items = [recordData objectForKey:@"items"];  // Get All items.
-            
-            for (NSDictionary *itemData in items) {
-                NSLog(@"    ITEMS --> iId   = %@", [itemData objectForKey:@"iId"]);
-                [tempIID  addObject:[itemData objectForKey:@"iId"]];
-                
-                NSLog(@"    ITEMS --> name   = %@", [itemData objectForKey:@"name"]);
-                [tempName addObject:[itemData objectForKey:@"name"]];
-                
-                NSLog(@"    ITEMS --> unit   = %@", [itemData objectForKey:@"unit"]);
-                [tempUnit addObject:[itemData objectForKey:@"unit"]];
-            }
-            
-            // Save items data.
-            [self.arrItems_iID  addObject:tempIID];
-            [self.arrItems_name addObject:tempName];
-            [self.arrItems_unit addObject:tempUnit];
-        }
-        
-        // 刷新数据
-        [self.tableView reloadData];
-        
-    } else {
+    if (error) {
         NSLog(@"--> ERROR = %@", error.description);
+        return;
     }
+    
+    // Check result.
+    NSString *strResult = [dicData objectForKey:@"result"];
+    NSLog(@"--> UserInfo --> strResult = %@", strResult);
+    if ([strResult isEqualToString:@"error"]) {
+        [self showMessageHUD:[dicData objectForKey:@"message"]];
+        return;
+    }
+    
+    NSDictionary *recordData = [dicData objectForKey:@"record"];
+    
+    NSLog(@"DATA --> name   = %@", [recordData objectForKey:@"name"]);
+    self.labUserName.text = [recordData objectForKey:@"name"];
+    
+    NSLog(@"DATA --> officePhone     = %@", [recordData objectForKey:@"officePhone"]);
+    self.labOfficeTel.text = [recordData objectForKey:@"officePhone"];
+    
+    NSLog(@"DATA --> mobilePhone   = %@", [recordData objectForKey:@"mobilePhone"]);
+    self.labMobilePhone.text = [recordData objectForKey:@"mobilePhone"];
+    
+    NSLog(@"DATA --> fax     = %@", [recordData objectForKey:@"fax"]);
+    self.labFax.text = [recordData objectForKey:@"fax"];
+    
+    NSLog(@"DATA --> email     = %@", [recordData objectForKey:@"email"]);
+    self.labEmail.text = [recordData objectForKey:@"email"];
+    
+    // 刷新数据
+    [self.tableView reloadData];
 }
-*/
+
 
 #pragma mark - MBProgressHUD methods
 
