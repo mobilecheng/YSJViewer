@@ -30,6 +30,10 @@
 {
     [super viewDidLoad];
 
+    // Background image - Single Tap
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.view addGestureRecognizer:singleTap];
+    
     //
     self.engine = [[MKNetworkEngine alloc]
                    initWithHostName:hostName
@@ -39,6 +43,8 @@
     self.txtUserName.delegate       = self;
     self.txtOfficePhone.delegate     = self;
     self.txtMobilePhone.delegate = self;
+    self.txtFax.delegate     = self;
+    self.txtEmail.delegate = self;
     
     //注册键盘出现与隐藏时候的通知
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -53,6 +59,7 @@
     //
     [self getCurrentUserInfo];
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -82,11 +89,46 @@
 }
 
 
+#pragma mark - Commit Button Methods.
+
+- (IBAction)buttonClick
+{
+    NSLog(@"buttonClick");
+    
+    // Check the text that NO NULL.
+    NSString *strUserName = [self.txtUserName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([strUserName isEqualToString:@""]) { // No Ueser Name
+        [self showMessageHUD:@"用户名不能为空."];
+        return;
+    }
+    
+    NSString *strOfficePhone = [self.txtOfficePhone.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([strOfficePhone isEqualToString:@""]) { //
+        [self showMessageHUD:@"办公电话不能为空."];
+        return;
+    }
+    
+    NSString *strMobilePhone = [self.txtMobilePhone.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([strMobilePhone isEqualToString:@""]) { //
+        [self showMessageHUD:@"手机号码不能为空."];
+        return;
+    }
+    
+    NSString *strEmail = [self.txtEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([strEmail isEqualToString:@""]) { //
+        [self showMessageHUD:@"邮箱不能为空."];
+        return;
+    }
+    
+    //
+    [self api_UpdateMyInfo];
+}
+
 #pragma mark - Keyboad Method.
 
 //键盘出现时候调用的事件
 -(void) keyboadWillShow:(NSNotification *)note{
-    
+    /*
     [UIView animateWithDuration:0.5
                      animations:^{
                          CGRect testFrame = self.view.frame;
@@ -101,11 +143,12 @@
                          //
                          
                      }];
+     */
 }
 
 //键盘消失时候调用的事件
 -(void)keyboardWillHide:(NSNotification *)note{
-    
+    /*
     [UIView animateWithDuration:0.5
                      animations:^{
                          CGRect testFrame = self.view.frame;
@@ -115,22 +158,29 @@
                      completion:^(BOOL finished) {
                          //
                      }];
+     */
 }
 
 - (void) hideKeyboard {
-    [self.txtID       resignFirstResponder];
-    [self.txtName     resignFirstResponder];
-    [self.txtPassword resignFirstResponder];
+    [self.txtUserName       resignFirstResponder];
+    [self.txtOfficePhone     resignFirstResponder];
+    [self.txtMobilePhone resignFirstResponder];
+    [self.txtFax resignFirstResponder];
+    [self.txtEmail resignFirstResponder];
 }
 
 //点击return按钮所做的动作：
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if (textField.tag == 0) {  // User ID.
-        [self.txtName becomeFirstResponder];
-    } else if (textField.tag == 1) { // User Name.
-        [self.txtPassword becomeFirstResponder];
-    } else if (textField.tag == 2) { // Password.
+    if (textField.tag == 0) {  // User Name.
+        [self.txtOfficePhone becomeFirstResponder];
+    } else if (textField.tag == 1) { //
+        [self.txtMobilePhone becomeFirstResponder];
+    } else if (textField.tag == 2) { //
+        [self.txtFax becomeFirstResponder];
+    } else if (textField.tag == 3) { //
+        [self.txtEmail becomeFirstResponder];
+    } else if (textField.tag == 4) { //
         [textField resignFirstResponder];
     }
     
@@ -143,9 +193,13 @@
 - (void) api_UpdateMyInfo
 {
     NSLog(@"--> api_UpdateMyInfo");
+ 
+    // Remove noti.
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     
     //
-//    [self showLoadingHUD];
+    [self showLoadingHUD];
     
     //
     NSString *token       = [[NSUserDefaults standardUserDefaults] objectForKey:@"Token"];
@@ -175,18 +229,61 @@
     [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
         NSData *data  = [completedOperation responseData];
         NSString *str = [completedOperation responseString];
-        NSLog(@"--> userLogin -> RESULT = %@", str);
+        NSLog(@"--> 更新用户信息 -> RESULT = %@", str);
         
-        [self getToken:data saveInfo:dicParams];
+        // Check result.
+        [self checkResult:data];
         
     } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
-        NSLog(@"--> userLogin -> ERROR = %@", [error description]);
-        [self showMessageHUD:@"登录失败，请检查网络设置！"];
+        NSLog(@"--> 更新用户信息 -> ERROR = %@", [error description]);
+        [self showMessageHUD:@"更新用户信息失败，请检查网络设置！"];
     }];
     
     // Exe...
     [self.engine enqueueOperation:op];
 }
 
+
+- (void) checkResult:(id)theData
+{
+    NSError *error = nil;
+    NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:theData
+                                                            options:NSJSONReadingAllowFragments error:&error];
+    if (error) {
+        NSLog(@"--> ERROR = %@", error.description);
+        return;
+    }
+    
+    // Check result.
+    NSString *strResult = [dicData objectForKey:@"result"];
+    NSLog(@"--> UserInfoUpdate --> strResult = %@", strResult);
+    if ([strResult isEqualToString:@"error"]) {
+        [self showMessageHUD:[dicData objectForKey:@"message"]];
+    } else {
+        [self showMessageHUD:@"更新用户信息成功！"];
+    }
+}
+
+#pragma mark - MBProgressHUD methods
+
+// 显示收藏信息
+- (void)showMessageHUD:(NSString *)msg {
+	
+	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	hud.mode = MBProgressHUDModeText;
+	hud.labelText = msg;
+	hud.removeFromSuperViewOnHide = YES;
+	[hud hide:YES afterDelay:2];
+}
+
+
+- (void)showLoadingHUD{
+	
+	MBProgressHUD *loadingHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	loadingHUD.mode = MBProgressHUDModeIndeterminate;
+	loadingHUD.labelText = @"更新用户信息中...";
+	loadingHUD.removeFromSuperViewOnHide = YES;
+    [loadingHUD hide:YES afterDelay:2];
+}
 
 @end
