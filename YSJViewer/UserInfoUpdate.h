@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserInfoUpdate : UITableViewController <UITextFieldDelegate>
+@interface UserInfoUpdate : UITableViewController <UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *txtUserName;
 @property (weak, nonatomic) IBOutlet UITextField *txtOfficePhone;
 @property (weak, nonatomic) IBOutlet UITextField *txtMobilePhone;
 @property (weak, nonatomic) IBOutlet UITextField *txtFax;
 @property (weak, nonatomic) IBOutlet UITextField *txtEmail;
+
+@property (nonatomic) MKNetworkEngine *engine;
 
 @end

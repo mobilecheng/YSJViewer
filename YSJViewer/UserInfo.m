@@ -57,7 +57,7 @@
 {
     NSLog(@"--> api_MyInfo");
     
-    [self showMessageHUD:@"获取用户信息..."];
+    [self showLoadingHUD:@"正在查询..."];
     
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     NSString *token = [saveData  objectForKey:@"Token"];
@@ -138,14 +138,22 @@
 
 #pragma mark - MBProgressHUD methods
 
-// 显示收藏信息
 - (void)showMessageHUD:(NSString *)msg {
 	
 	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 	hud.mode = MBProgressHUDModeText;
 	hud.labelText = msg;
 	hud.removeFromSuperViewOnHide = YES;
-	[hud hide:YES afterDelay:2];
+	[hud hide:YES afterDelay:delay];
+}
+
+- (void) showLoadingHUD:(NSString *)msg
+{
+	MBProgressHUD *loadingHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	loadingHUD.mode = MBProgressHUDModeIndeterminate;
+	loadingHUD.labelText = msg;
+	loadingHUD.removeFromSuperViewOnHide = YES;
+    [loadingHUD hide:YES afterDelay:delay];
 }
 
 @end

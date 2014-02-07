@@ -10,9 +10,6 @@
 #import "GlobalValue.h"
 
 @interface UserInfoUpdate ()
-
-@property (nonatomic) MKNetworkEngine *engine;
-
 @end
 
 @implementation UserInfoUpdate
@@ -40,11 +37,11 @@
                    customHeaderFields:nil];
     
     //
-    self.txtUserName.delegate       = self;
-    self.txtOfficePhone.delegate     = self;
+    self.txtUserName.delegate    = self;
+    self.txtOfficePhone.delegate = self;
     self.txtMobilePhone.delegate = self;
-    self.txtFax.delegate     = self;
-    self.txtEmail.delegate = self;
+    self.txtFax.delegate         = self;
+    self.txtEmail.delegate       = self;
     
     //注册键盘出现与隐藏时候的通知
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -99,29 +96,93 @@
     NSString *strUserName = [self.txtUserName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if ([strUserName isEqualToString:@""]) { // No Ueser Name
         [self showMessageHUD:@"用户名不能为空."];
+        [self.txtUserName becomeFirstResponder];
         return;
+    } else {
+        if (strUserName.length > 10) {
+            [self showMessageHUD:@"用户名不能超过10个字符."];
+            [self.txtUserName becomeFirstResponder];
+            return;
+        }
     }
     
     NSString *strOfficePhone = [self.txtOfficePhone.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if ([strOfficePhone isEqualToString:@""]) { //
         [self showMessageHUD:@"办公电话不能为空."];
+        [self.txtOfficePhone becomeFirstResponder];
         return;
+    } else {
+        if (strOfficePhone.length > 20) {
+            [self showMessageHUD:@"办公电话不能超过20个字符."];
+            [self.txtOfficePhone becomeFirstResponder];
+            return;
+        }
     }
     
     NSString *strMobilePhone = [self.txtMobilePhone.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if ([strMobilePhone isEqualToString:@""]) { //
         [self showMessageHUD:@"手机号码不能为空."];
+        [self.txtMobilePhone becomeFirstResponder];
         return;
+    } else {
+        if (strMobilePhone.length > 11) {
+            [self showMessageHUD:@"手机号码不能超过11个字符."];
+            [self.txtMobilePhone becomeFirstResponder];
+            return;
+        }
+    }
+    
+    NSString *strFax = [self.txtFax.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([strFax isEqualToString:@""]) { //
+        // Nothing.
+    } else {
+        if (strFax.length > 20) {
+            [self showMessageHUD:@"传真号码不能超过20个字符."];
+            [self.txtFax becomeFirstResponder];
+            return;
+        }
     }
     
     NSString *strEmail = [self.txtEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if ([strEmail isEqualToString:@""]) { //
         [self showMessageHUD:@"邮箱不能为空."];
+        [self.txtEmail becomeFirstResponder];
         return;
+    } else {
+        if (strEmail.length > 30) {
+            [self showMessageHUD:@"邮箱不能超过30个字符."];
+            [self.txtEmail becomeFirstResponder];
+            return;
+        }
     }
     
-    //
-    [self api_UpdateMyInfo];
+    // 提示
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                    message:@"确定要修改吗？"
+                                                   delegate:self
+                                          cancelButtonTitle:@"取消"
+                                          otherButtonTitles:@"确定", nil];
+    [alert show];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+//AlertView的取消按钮的事件
+//- (void) alertViewCancel:(UIAlertView *)alertView
+//{
+//    NSLog(@"alertViewCancel");
+//}
+
+//根据被点击按钮的索引处理点击事件
+- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"clickButtonAtIndex: %d", buttonIndex);
+    
+    if (buttonIndex == 0) { // 取消
+        // Nothing.
+    } else if (buttonIndex == 1) { // 确定
+        [self api_UpdateMyInfo];
+    }
 }
 
 #pragma mark - Keyboad Method.
@@ -162,11 +223,11 @@
 }
 
 - (void) hideKeyboard {
-    [self.txtUserName       resignFirstResponder];
-    [self.txtOfficePhone     resignFirstResponder];
+    [self.txtUserName    resignFirstResponder];
+    [self.txtOfficePhone resignFirstResponder];
     [self.txtMobilePhone resignFirstResponder];
-    [self.txtFax resignFirstResponder];
-    [self.txtEmail resignFirstResponder];
+    [self.txtFax         resignFirstResponder];
+    [self.txtEmail       resignFirstResponder];
 }
 
 //点击return按钮所做的动作：
@@ -199,7 +260,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     
     //
-    [self showLoadingHUD];
+    [self showLoadingHUD:@"正在更新..."];
     
     //
     NSString *token       = [[NSUserDefaults standardUserDefaults] objectForKey:@"Token"];
@@ -236,7 +297,7 @@
         
     } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
         NSLog(@"--> 更新用户信息 -> ERROR = %@", [error description]);
-        [self showMessageHUD:@"更新用户信息失败，请检查网络设置！"];
+        [self showMessageHUD:@"更新失败，请重试！"];
     }];
     
     // Exe...
@@ -258,32 +319,41 @@
     NSString *strResult = [dicData objectForKey:@"result"];
     NSLog(@"--> UserInfoUpdate --> strResult = %@", strResult);
     if ([strResult isEqualToString:@"error"]) {
-        [self showMessageHUD:[dicData objectForKey:@"message"]];
+//        [self showMessageHUD:[dicData objectForKey:@"message"]];
+        [self showMessageHUD:@"更新失败，请重试！"];
     } else {
-        [self showMessageHUD:@"更新用户信息成功！"];
+        [self showMessageHUD:@"更新成功！"];
+        [self performSelector:@selector(backPreviousScreen)
+                   withObject:nil
+                   afterDelay:delay];
+        
     }
+}
+
+- (void) backPreviousScreen
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - MBProgressHUD methods
 
-// 显示收藏信息
-- (void)showMessageHUD:(NSString *)msg {
-	
+//
+- (void) showMessageHUD:(NSString *)msg
+{
 	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 	hud.mode = MBProgressHUDModeText;
 	hud.labelText = msg;
 	hud.removeFromSuperViewOnHide = YES;
-	[hud hide:YES afterDelay:2];
+	[hud hide:YES afterDelay:delay];
 }
 
-
-- (void)showLoadingHUD{
-	
+- (void) showLoadingHUD:(NSString *)msg
+{
 	MBProgressHUD *loadingHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 	loadingHUD.mode = MBProgressHUDModeIndeterminate;
-	loadingHUD.labelText = @"更新用户信息中...";
+	loadingHUD.labelText = msg;
 	loadingHUD.removeFromSuperViewOnHide = YES;
-    [loadingHUD hide:YES afterDelay:2];
+    [loadingHUD hide:YES afterDelay:delay];
 }
 
 @end

@@ -14,3 +14,5 @@
 #endif
 
 #define hostName @"117.34.92.46:80"
+
+#define delay 1.0f  // 提示框显示的时间

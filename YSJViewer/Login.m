@@ -213,7 +213,7 @@
     NSLog(@"--> api_SignIn");
     
     //
-    [self showLoadingHUD];
+    [self showLoadingHUD:@"登录中..."];
     
     //
     NSString *serviceCode = self.txtID.text;
@@ -297,17 +297,16 @@
 	hud.mode = MBProgressHUDModeText;
 	hud.labelText = msg;
 	hud.removeFromSuperViewOnHide = YES;
-	[hud hide:YES afterDelay:2];
+	[hud hide:YES afterDelay:delay];
 }
 
-
-- (void)showLoadingHUD{
-	
+- (void) showLoadingHUD:(NSString *)msg
+{
 	MBProgressHUD *loadingHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 	loadingHUD.mode = MBProgressHUDModeIndeterminate;
-	loadingHUD.labelText = @"登录中...";
+	loadingHUD.labelText = msg;
 	loadingHUD.removeFromSuperViewOnHide = YES;
-    [loadingHUD hide:YES afterDelay:2];
+    [loadingHUD hide:YES afterDelay:delay];
 }
 
 @end

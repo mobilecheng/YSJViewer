@@ -7,6 +7,7 @@
 //
 
 #import "AlarmInfo.h"
+#import "GlobalValue.h"
 
 @interface AlarmInfo ()
 
@@ -147,7 +148,7 @@
 	hud.mode = MBProgressHUDModeText;
 	hud.labelText = msg;
 	hud.removeFromSuperViewOnHide = YES;
-	[hud hide:YES afterDelay:2];
+	[hud hide:YES afterDelay:delay];
 }
 
 #pragma mark - SRWebSocketDelegate
