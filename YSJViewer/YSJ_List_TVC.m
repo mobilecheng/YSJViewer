@@ -429,18 +429,6 @@
 }
 
 
-#pragma mark - MBProgressHUD methods
-
-// 显示收藏信息
-- (void)showMessageHUD:(NSString *)msg {
-	
-	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-	hud.mode = MBProgressHUDModeText;
-	hud.labelText = msg;
-	hud.removeFromSuperViewOnHide = YES;
-	[hud hide:YES afterDelay:delay];
-}
-
 #pragma mark - SRWebSocketDelegate
 
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket;
@@ -483,5 +471,17 @@
     srWebSocket = nil;
 }
 
+
+#pragma mark - MBProgressHUD methods
+
+// 显示收藏信息
+- (void)showMessageHUD:(NSString *)msg {
+	
+	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	hud.mode = MBProgressHUDModeText;
+	hud.labelText = msg;
+	hud.removeFromSuperViewOnHide = YES;
+	[hud hide:YES afterDelay:delay];
+}
 
 @end

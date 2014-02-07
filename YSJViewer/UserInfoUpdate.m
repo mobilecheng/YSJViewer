@@ -43,16 +43,6 @@
     self.txtFax.delegate         = self;
     self.txtEmail.delegate       = self;
     
-    //注册键盘出现与隐藏时候的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboadWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-    
     //
     [self getCurrentUserInfo];
 }
@@ -187,41 +177,6 @@
 
 #pragma mark - Keyboad Method.
 
-//键盘出现时候调用的事件
--(void) keyboadWillShow:(NSNotification *)note{
-    /*
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         CGRect testFrame = self.view.frame;
-                         if ( bIPhone5 ) {
-                             testFrame.origin.y = -80;
-                         } else {
-                             testFrame.origin.y = -140;
-                         }
-                         self.view.frame = testFrame;
-                     }
-                     completion:^(BOOL finished) {
-                         //
-                         
-                     }];
-     */
-}
-
-//键盘消失时候调用的事件
--(void)keyboardWillHide:(NSNotification *)note{
-    /*
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         CGRect testFrame = self.view.frame;
-                         testFrame.origin.y = 0;
-                         self.view.frame = testFrame;
-                     }
-                     completion:^(BOOL finished) {
-                         //
-                     }];
-     */
-}
-
 - (void) hideKeyboard {
     [self.txtUserName    resignFirstResponder];
     [self.txtOfficePhone resignFirstResponder];
@@ -255,10 +210,6 @@
 {
     NSLog(@"--> api_UpdateMyInfo");
  
-    // Remove noti.
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    
     //
     [self showLoadingHUD:@"正在更新..."];
     

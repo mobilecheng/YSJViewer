@@ -61,6 +61,16 @@
     self.txtName.delegate     = self;
     self.txtPassword.delegate = self;
     
+    //
+    if ([self checkLoginInfo]) { // Has login info.
+        [self api_SignIn];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
     //注册键盘出现与隐藏时候的通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboadWillShow:)
@@ -70,11 +80,6 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
-    
-    //
-    if ([self checkLoginInfo]) { // Has login info.
-        [self api_SignIn];
-    }
 }
 
 - (void)didReceiveMemoryWarning

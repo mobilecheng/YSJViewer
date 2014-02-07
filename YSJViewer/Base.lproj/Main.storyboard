@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="wXm-2d-P6X">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B3116" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="wXm-2d-P6X">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
@@ -784,10 +784,10 @@
             </objects>
             <point key="canvasLocation" x="3499" y="2795"/>
         </scene>
-        <!--Table View Controller - 密码修改-->
+        <!--User Pwd Update - 密码修改-->
         <scene sceneID="pC1-C4-J6m">
             <objects>
-                <tableViewController id="pFb-tv-mH0" sceneMemberID="viewController">
+                <tableViewController id="pFb-tv-mH0" customClass="UserPwdUpdate" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="azb-Bi-OHc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -801,6 +801,9 @@
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="buttonClick" destination="pFb-tv-mH0" eventType="touchUpInside" id="asf-bA-3WC"/>
+                            </connections>
                         </button>
                         <sections>
                             <tableViewSection id="fnm-Fb-Ivf">
@@ -812,11 +815,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="当前密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QlQ-9F-Glr">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="当前密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QlQ-9F-Glr">
                                                     <rect key="frame" x="20" y="7" width="280" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -828,11 +831,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="新密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W6j-xH-aJ1">
+                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="新密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="W6j-xH-aJ1">
                                                     <rect key="frame" x="20" y="7" width="280" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -844,11 +847,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="确认新密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BjC-XX-vcZ">
+                                                <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="确认新密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="BjC-XX-vcZ">
                                                     <rect key="frame" x="20" y="7" width="280" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -862,6 +865,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="密码修改" id="pni-xX-lGJ"/>
+                    <connections>
+                        <outlet property="txtConfirmNewPwd" destination="BjC-XX-vcZ" id="sqw-7E-FvD"/>
+                        <outlet property="txtCurrentPwd" destination="QlQ-9F-Glr" id="P1W-JS-6WI"/>
+                        <outlet property="txtNewPwd" destination="W6j-xH-aJ1" id="9K8-Ci-pWk"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rDb-VG-AWP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -162,7 +162,6 @@
     [srWebSocket close];
     
     NSString *url = @"ws://117.34.92.46:3180/getrealtimedata";
-//    url = @"ws://echo.websocket.org";
     
     srWebSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     srWebSocket.delegate = self;
@@ -179,19 +178,6 @@
     [tableView setTableFooterView:view];
 }
 
-
-
-#pragma mark - MBProgressHUD methods
-
-// 显示收藏信息
-- (void)showMessageHUD:(NSString *)msg {
-	
-	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-	hud.mode = MBProgressHUDModeText;
-	hud.labelText = msg;
-	hud.removeFromSuperViewOnHide = YES;
-	[hud hide:YES afterDelay:delay];
-}
 
 #pragma mark - SRWebSocketDelegate
 
@@ -233,6 +219,18 @@
     NSLog(@"--> RealTimeData -> WebSocket closed");
     
     srWebSocket = nil;
+}
+
+#pragma mark - MBProgressHUD methods
+
+// 显示收藏信息
+- (void)showMessageHUD:(NSString *)msg {
+	
+	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	hud.mode = MBProgressHUDModeText;
+	hud.labelText = msg;
+	hud.removeFromSuperViewOnHide = YES;
+	[hud hide:YES afterDelay:delay];
 }
 
 @end
