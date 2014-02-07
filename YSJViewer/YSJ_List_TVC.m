@@ -1,5 +1,5 @@
 //
-//  YSJ_List_TVC.m
+//  YSJ_List_TVC.m -- 主菜单 --> 设备监控（一级页面-压缩机列表）
 //  YSJViewer
 //
 //  Created by Reload Digital Tech. on 14-1-5.

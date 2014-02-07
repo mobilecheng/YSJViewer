@@ -1,5 +1,5 @@
 //
-//  AlarmInfo.m -- 首页 - 报警信息
+//  AlarmInfo.m -- 主菜单 --> 报警信息
 //  YSJViewer
 //
 //  Created by Kevin Zhang on 14-1-31.

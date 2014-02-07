@@ -1,5 +1,5 @@
 //
-//  YSJ_InfoMenu.m
+//  YSJ_InfoMenu.m -- 主菜单 --> 设备监控 --> 点压缩机列表名称（二级页面-压缩机信息菜单）
 //  YSJViewer
 //
 //  Created by Reload Digital Tech. on 14-1-5.

@@ -1,5 +1,5 @@
  //
-//  GlobalValue.h
+//  GlobalValue.h -- 存储全局变量
 //  YSJViewer
 //
 //  Created by TMC_MAC_02 on 14-1-16.

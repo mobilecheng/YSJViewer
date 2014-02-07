@@ -1,5 +1,5 @@
 //
-//  AppDelegate.m
+//  AppDelegate.m -- 程序入口
 //  YSJViewer
 //
 //  Created by Reload Digital Tech. on 14-1-2.

@@ -1,5 +1,5 @@
 //
-//  UserInfo.h
+//  UserInfo.h -- 主菜单 --> 用户信息
 //  YSJViewer
 //
 //  Created by Kevin Zhang on 14-1-15.

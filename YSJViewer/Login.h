@@ -1,5 +1,5 @@
 //
-//  Login.h
+//  Login.h -- 登录画面
 //  YSJViewer
 //
 //  Created by TMC_MAC_02 on 14-1-7.

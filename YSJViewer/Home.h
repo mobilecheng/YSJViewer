@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  ViewController.h -- 主菜单页面
 //  YSJViewer
 //
 //  Created by Reload Digital Tech. on 14-1-2.

@@ -1,5 +1,5 @@
 //
-//  UserInfoUpdate.h
+//  UserInfoUpdate.h -- 主菜单 --> 用户信息 --> 修改信息
 //  YSJViewer
 //
 //  Created by Kevin Zhang on 14-2-2.
