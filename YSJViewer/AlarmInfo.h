@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SRWebSocket.h"
 
-@interface AlarmInfo : UITableViewController <SRWebSocketDelegate>
+@interface AlarmInfo : UITableViewController
 {
-    SRWebSocket *srWebSocket;
+    
 }
 @end

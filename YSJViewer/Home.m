@@ -10,7 +10,13 @@
 #import "GlobalValue.h"
 
 @interface Home ()
+
+@property (nonatomic) NSMutableArray *arrYSJ_ID;   // 压缩机 ID
+@property (nonatomic) NSMutableArray *arrModel;  // 压缩机型号
+@property (nonatomic) NSMutableArray *arrName;   // 压缩机名字
+
 @property (nonatomic) MKNetworkEngine *engine;
+
 @end
 
 @implementation Home
@@ -21,11 +27,13 @@
 	// Do any additional setup after loading the view, typically from a nib.
 
     //
+    [self initData];
+    
+    //
     self.engine = [[MKNetworkEngine alloc]
                    initWithHostName:hostName
                    customHeaderFields:nil];
     
-    //
     [self api_CompressorList];
 }
 
@@ -33,6 +41,15 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -  Init Data.
+
+- (void) initData
+{
+    self.arrName   = [[NSMutableArray alloc] init];
+    self.arrModel  = [[NSMutableArray alloc] init];
+    self.arrYSJ_ID = [[NSMutableArray alloc] init];
 }
 
 #pragma mark -  API call.
@@ -101,14 +118,22 @@
     for (NSDictionary *recordData in records) {
         NSLog(@"---------------------------------------");
         
+        // 压缩机ID
+        NSLog(@"DATA --> 压缩机-id   = %@", [recordData objectForKey:@"id"]);
+        [self.arrYSJ_ID addObject:[recordData objectForKey:@"id"]];
+        
+        // 压缩机名称
         NSLog(@"DATA --> alias   = %@", [recordData objectForKey:@"alias"]);
-//        [self.arrName addObject:[recordData objectForKey:@"alias"]];
+        [self.arrName addObject:[recordData objectForKey:@"alias"]];
         
-        NSLog(@"DATA --> cSN     = %@", [recordData objectForKey:@"cSN"]);
-//        [self.arrSN addObject:[recordData objectForKey:@"cSN"]];
-        
+        // 压缩机型号
         NSLog(@"DATA --> model   = %@", [recordData objectForKey:@"model"]);
-//        [self.arrModel addObject:[recordData objectForKey:@"model"]];
+        [self.arrModel addObject:[recordData objectForKey:@"model"]];
+        
+        //-------
+        /*
+//        NSLog(@"DATA --> cSN     = %@", [recordData objectForKey:@"cSN"]);
+//        [self.arrSN addObject:[recordData objectForKey:@"cSN"]];
         
         NSString *cId = [recordData objectForKey:@"cId"];
         NSLog(@"DATA --> cId     = %@", cId);
@@ -122,7 +147,7 @@
         NSDictionary *idInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                                 sID, @"sId", cId, @"cId", nil];
         [tempIDInfo addObject:idInfo];
-        
+        */
         
         // Items
         /*
@@ -151,15 +176,19 @@
          */
     }
     
+    /*
     // 构造参数，用于订阅信息查询
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             tempIDInfo, @"data", nil];
     NSString *dataForQuery = [params jsonEncodedKeyValueString];
 //    NSLog(@"--> 参数用于订阅信息查询 = %@", dataForQuery);
+    */
     
     // Save data to cache.
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
-    [saveData setObject:dataForQuery forKey:@"dataForQuery"];
+    [saveData setObject:self.arrYSJ_ID forKey:@"HOME_YSJ_ID"];
+    [saveData setObject:self.arrName   forKey:@"HOME_YSJ_NAME"];
+    [saveData setObject:self.arrModel  forKey:@"HOME_YSJ_MODEL"];
     [saveData synchronize];
 }
 

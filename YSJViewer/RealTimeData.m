@@ -32,23 +32,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-//    CGRect frame = self.tableView.frame;
-//    frame.origin.y = 100;
-//    self.tableView.frame = frame;
-//    
-//    // 压缩机名字
-//    CGRect labFrame = CGRectMake(0, 50, 320, 30);
-//    UILabel *labName = [[UILabel alloc] initWithFrame:labFrame];
-//    labName.backgroundColor = [UIColor blueColor];
-//    labName.text = @"YSJ Name";
-//    [self.view addSubview:labName];
     
     // Title.
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
