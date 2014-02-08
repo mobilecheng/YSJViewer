@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface AlarmInfo : UITableViewController
-{
-    
-}
+
+- (IBAction) refreshData;
+
 @end

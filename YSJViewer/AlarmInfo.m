@@ -121,6 +121,10 @@
 {
     NSLog(@"--> api_GetAlarmData...");
     
+    //
+    [self showLoadingHUD:@"正在查询..."];
+    
+    //
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     
     // 构造参数
@@ -181,19 +185,19 @@
     
     //
     for (NSDictionary *recordData in records) {
-        NSLog(@"---------------------------------------");
+//        NSLog(@"---------------------------------------");
         
         // 通过压缩机ID取名称和型号
         NSString *compId = [recordData objectForKey:@"compId"];
-        NSLog(@"DATA --> compId     = %@", compId);
+//        NSLog(@"DATA --> compId     = %@", compId);
         [self getCompNameAndModel:[compId intValue]];
         
         // 报警信息
-        NSLog(@"DATA --> message     = %@", [recordData objectForKey:@"message"]);
+//        NSLog(@"DATA --> message     = %@", [recordData objectForKey:@"message"]);
         [self.arrAlarmInfo addObject:[recordData objectForKey:@"message"]];
         
         // 报警时间
-        NSLog(@"DATA --> date   = %@", [recordData objectForKey:@"date"]);
+//        NSLog(@"DATA --> date   = %@", [recordData objectForKey:@"date"]);
         [self.arrTime addObject:[recordData objectForKey:@"date"]];
     }
     
@@ -205,13 +209,22 @@
 {
     for (int i = 0; i < self.tempID.count; i++) {
         NSString *strID = self.tempID[i];
-        NSLog(@"DATA --> strID     = %@", strID);
+//        NSLog(@"DATA --> strID     = %@", strID);
         if ( compId == [strID intValue] ) {
             [self.arrName  addObject:self.tempName[i]];
             [self.arrModel addObject:self.tempModel[i]];
             return;
         }
     }
+}
+
+#pragma mark -  IBAction Methods.
+
+- (IBAction) refreshData
+{
+    NSLog(@"refreshAlarmData");
+    
+    [self api_GetAlarmData];
 }
 
 #pragma mark -  Uitility Methods.
@@ -236,6 +249,13 @@
 	[hud hide:YES afterDelay:delay];
 }
 
-
+- (void) showLoadingHUD:(NSString *)msg
+{
+	MBProgressHUD *loadingHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	loadingHUD.mode = MBProgressHUDModeIndeterminate;
+	loadingHUD.labelText = msg;
+	loadingHUD.removeFromSuperViewOnHide = YES;
+    [loadingHUD hide:YES afterDelay:delay];
+}
 
 @end

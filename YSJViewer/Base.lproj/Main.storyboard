@@ -942,11 +942,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AlarmInfo_Cell" rowHeight="99" id="PB5-Sy-XGy">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AlarmInfo_Cell" rowHeight="99" id="PB5-Sy-XGy">
                                 <rect key="frame" x="0.0" y="86" width="320" height="99"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PB5-Sy-XGy" id="vtd-yC-xkH">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="98"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="98"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="压缩机名字" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xej-92-tZk">
@@ -982,6 +982,9 @@
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="XYy-WK-5fG" kind="push" id="Cvt-BV-AZC"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -989,11 +992,51 @@
                             <outlet property="delegate" destination="LOh-Ia-Stf" id="iiX-ZM-MOI"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="报警信息" id="VOf-h9-DWu"/>
+                    <navigationItem key="navigationItem" title="报警信息" id="VOf-h9-DWu">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="qKS-gF-Q5P">
+                            <connections>
+                                <action selector="refreshData" destination="LOh-Ia-Stf" id="wUL-o7-gFM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4F3-o3-co6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3106" y="701"/>
+        </scene>
+        <!--Alarm Info Detail - 报警信息详情-->
+        <scene sceneID="Sgo-Jc-m74">
+            <objects>
+                <viewController id="XYy-WK-5fG" customClass="AlarmInfoDetail" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BYf-xL-PmR"/>
+                        <viewControllerLayoutGuide type="bottom" id="qyk-Gh-BLE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Fdd-ev-G1z">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="压缩机名字" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Dp-10-euf">
+                                <rect key="frame" x="50" y="82" width="220" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.3123466396300858" green="0.51469555181470061" blue="0.94903045892715454" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6z-KU-PET">
+                                <rect key="frame" x="46" y="112" width="228" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="报警信息详情" id="23w-oz-Qsn"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ShG-hg-HtN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3531" y="701"/>
         </scene>
         <!--ListTVC - 压缩机列表-->
         <scene sceneID="eJh-bj-lUQ">
