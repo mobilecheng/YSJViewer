@@ -12,6 +12,7 @@
 @interface YSJ_List_TVC ()
 
 @property (nonatomic) NSMutableArray *arrName;   // 压缩机名字
+@property (nonatomic) NSMutableArray *arrID;   // 压缩机ID
 @property (nonatomic) NSMutableArray *arrSN;     // 压缩机编号
 @property (nonatomic) NSMutableArray *arrModel;  // 压缩机型号
 @property (nonatomic) NSMutableArray *arrStatus; // 压缩机状态（在线、离线）
@@ -141,10 +142,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *name = [self.arrName objectAtIndex:indexPath.row];
-    NSString *cid  = [self.arrCID  objectAtIndex:indexPath.row];
-    NSString *sid  = [self.arrSID  objectAtIndex:indexPath.row];
-//    NSLog(@"YSJ name = %@ | CID = %@ | SID = %@", name, cid, sid);
+    NSString *name  = [self.arrName objectAtIndex:indexPath.row];
+    NSString *ysjID = [self.arrID   objectAtIndex:indexPath.row]; // 压缩机ID
+    NSString *cid   = [self.arrCID  objectAtIndex:indexPath.row];
+    NSString *sid   = [self.arrSID  objectAtIndex:indexPath.row];
+    NSLog(@"YSJ name = %@ | ID = %@ | CID = %@ | SID = %@", name, ysjID, cid, sid);
     
     NSArray *items_iID  = [self.arrItems_iID  objectAtIndex:indexPath.row];
 //    NSLog(@"items_iID  = %@", items_iID);
@@ -158,9 +160,10 @@
     // Save data to cache.
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     
-    [saveData setObject:name forKey:@"YSJ_NAME"];
-    [saveData setObject:cid  forKey:@"YSJ_CID"];
-    [saveData setObject:sid  forKey:@"YSJ_SID"];
+    [saveData setObject:name  forKey:@"YSJ_NAME"];
+    [saveData setObject:ysjID forKey:@"YSJ_ID"];
+    [saveData setObject:cid   forKey:@"YSJ_CID"];
+    [saveData setObject:sid   forKey:@"YSJ_SID"];
     
     [saveData setObject:items_iID   forKey:@"YSJ_Items_iID"];
     [saveData setObject:items_name  forKey:@"YSJ_Items_name"];
@@ -235,6 +238,7 @@
 - (void)initData
 {
     self.arrName   = [[NSMutableArray alloc] init];
+    self.arrID     = [[NSMutableArray alloc] init];
     self.arrSN     = [[NSMutableArray alloc] init];
     self.arrModel  = [[NSMutableArray alloc] init];
     self.arrStatus = [[NSMutableArray alloc] init];
@@ -312,6 +316,9 @@
             
             NSLog(@"DATA --> alias   = %@", [recordData objectForKey:@"alias"]);
             [self.arrName addObject:[recordData objectForKey:@"alias"]];
+            
+            NSLog(@"DATA --> 压缩机ID   = %@", [recordData objectForKey:@"id"]);
+            [self.arrID addObject:[recordData objectForKey:@"id"]];
             
             NSLog(@"DATA --> cSN     = %@", [recordData objectForKey:@"cSN"]);
             [self.arrSN addObject:[recordData objectForKey:@"cSN"]];

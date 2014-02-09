@@ -19,7 +19,7 @@
 @property (nonatomic) NSArray *tempID;   // temp data.
 @property (nonatomic) NSArray *tempName; // temp data.
 @property (nonatomic) NSArray *tempModel; // temp data.
-
+            
 @property (nonatomic) MKNetworkEngine *engine;
 
 @end
@@ -223,6 +223,13 @@
 - (IBAction) refreshData
 {
     NSLog(@"refreshAlarmData");
+    
+    [self.arrName       removeAllObjects];
+    [self.arrAlarmInfo  removeAllObjects];
+    [self.arrModel      removeAllObjects];
+    [self.arrTime       removeAllObjects];
+
+    [self.tableView reloadData];
     
     [self api_GetAlarmData];
 }

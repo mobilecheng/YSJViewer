@@ -14,6 +14,8 @@
 @property (nonatomic) NSArray  *arrItems_iID, *arrItems_name, *arrItems_unit;
 @property (nonatomic) NSString *cID, *sID;
 
+@property (nonatomic) MKNetworkEngine *engine;
+
 @end
 
 @implementation RealTimeData
@@ -32,6 +34,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //
+    self.engine = [[MKNetworkEngine alloc]
+                   initWithHostName:hostName
+                   customHeaderFields:nil];
     
     // Title.
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
@@ -59,6 +66,8 @@
     //
     [self setExtraCellLineHidden:self.tableView];
     
+    //
+    [self api_GetCurrentData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -66,7 +75,7 @@
     [super viewWillAppear:animated];
     
     // Get data.
-    [self api_RealtimeData];
+//    [self api_RealtimeData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -98,7 +107,6 @@
 {
     // Return the number of rows in the section.
     return [self.arrItems_iID count];
-//    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,20 +130,88 @@
 }
 
 
-/*
-#pragma mark - Navigation
+#pragma mark -  API call.
 
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+// API - 实时数据初始化
+- (void) api_GetCurrentData
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    NSLog(@"--> api_GetCurrentData...");
+    
+    //
+    [self showLoadingHUD:@"正在查询..."];
+    
+    // 构造参数
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    NSString *token  = [saveData  objectForKey:@"Token"];
+    NSString *compId = [saveData  objectForKey:@"YSJ_ID"];
+    NSLog(@"--> api_GetCurrentData -> compId = %@", compId);
+    
+    //--------------------
+    NSString *nextPath = @"cis/mobile/getCurrentData";
+    
+    // params
+    NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                               token, @"token", compId, @"compId", nil];
+    
+    MKNetworkOperation* op = [self.engine operationWithPath:nextPath
+                                                     params:dicParams
+                                                 httpMethod:@"GET"
+                                                        ssl:NO];
+    
+    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+        NSData *data  = [completedOperation responseData];
+        NSString *str = [completedOperation responseString];
+        NSLog(@"--> api_GetCurrentData -> RESULT = %@", str);
+        
+        [self getCurrentData:data];
+        
+    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
+        NSLog(@"--> api_GetCurrentData -> ERROR = %@", [error description]);
+    }];
+    
+    // Exe...
+    [self.engine enqueueOperation:op];
 }
 
- */
-
-
-#pragma mark -  API call.
+- (void) getCurrentData:(id)theData
+{
+    NSError *error = nil;
+    NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:theData
+                                                            options:NSJSONReadingAllowFragments error:&error];
+    if (error) {
+        NSLog(@"--> ERROR = %@", error.description);
+        return;
+    }
+    
+    // Check result.
+    NSString *strResult = [dicData objectForKey:@"result"];
+    NSLog(@"--> strResult = %@", strResult);
+    if ([strResult isEqualToString:@"error"]) {
+        [self showMessageHUD:[dicData objectForKey:@"message"]];
+        return;
+    }
+    
+    NSArray *records = [dicData objectForKey:@"records"];
+    NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
+    
+    //
+    for (NSDictionary *recordData in records) {
+        NSLog(@"---------------------------------------");
+        
+        //
+        NSLog(@"DATA --> 检测量编号     = %@", [recordData objectForKey:@"iId"]);
+//        [self.arrName addObject:[recordData objectForKey:@"iId"]];
+        
+        //
+        NSString *value = [recordData objectForKey:@"value"];
+        NSLog(@"DATA -->  value    = %@", value);
+        
+        
+    }
+    
+    // 刷新数据
+    [self.tableView reloadData];
+}
 
 - (void) api_RealtimeData
 {
@@ -216,4 +292,12 @@
 	[hud hide:YES afterDelay:delay];
 }
 
+- (void) showLoadingHUD:(NSString *)msg
+{
+	MBProgressHUD *loadingHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	loadingHUD.mode = MBProgressHUDModeIndeterminate;
+	loadingHUD.labelText = msg;
+	loadingHUD.removeFromSuperViewOnHide = YES;
+    [loadingHUD hide:YES afterDelay:delay];
+}
 @end

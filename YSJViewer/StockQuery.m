@@ -96,9 +96,13 @@
     if ([value isEqualToString:@"yes"]) { // 库存不足
         labStockShort.hidden = NO;
         imgIcon.image = [UIImage imageNamed:@"inventory_supply_indicator"];
+        labName.textColor = [UIColor redColor];
+        labQtyStock.textColor = [UIColor redColor];
     } else if ([value isEqualToString:@"no"]) { // 库存够
         labStockShort.hidden = YES;
         imgIcon.image = [UIImage imageNamed:@"inventory_list_indicator"];
+        labName.textColor = [UIColor blackColor];
+        labQtyStock.textColor = [UIColor blackColor];
     }
     
     //
@@ -218,6 +222,14 @@
 - (IBAction) refreshData
 {
     NSLog(@"refreshStockData");
+    
+    [self.arrName      removeAllObjects];
+    [self.arrQtyStock  removeAllObjects];
+    [self.arrSafeStock removeAllObjects];
+    [self.arrUnit      removeAllObjects];
+    [self.arrCheck     removeAllObjects];
+    
+    [self.tableView reloadData];
     
     [self api_GetStock];
 }
