@@ -60,7 +60,7 @@
     
     // 构造参数
     NSString *token   = [saveData  objectForKey:@"Token"];
-    NSString *alarmID = @"4406";
+    NSString *alarmID = @"4345";
     
     //--------------------
     NSString *nextPath = @"cis/mobile/getAlarmDetail";

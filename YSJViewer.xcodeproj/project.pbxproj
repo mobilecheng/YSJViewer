@@ -63,6 +63,9 @@
 		5B64F6D9187B13CB002C0404 /* RealTimeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B64F6D8187B13CB002C0404 /* RealTimeData.m */; };
 		5BCE98891881945D00EEA687 /* HistoryData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BCE98881881945D00EEA687 /* HistoryData.m */; };
 		5BE9563A1882E80300AE94AA /* RunRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE956391882E80300AE94AA /* RunRecord.m */; };
+		702876A018A77C1400E39010 /* StockQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7028769F18A77C1400E39010 /* StockQuery.m */; };
+		702876A318A7926600E39010 /* inventory_list_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 702876A118A7926600E39010 /* inventory_list_indicator.png */; };
+		702876A418A7926600E39010 /* inventory_supply_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 702876A218A7926600E39010 /* inventory_supply_indicator.png */; };
 		703C269E189E30F7007D1F90 /* UserInfoUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 703C269D189E30F7007D1F90 /* UserInfoUpdate.m */; };
 		7064DB4D18A5075300894876 /* UserPwdUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7064DB4C18A5075300894876 /* UserPwdUpdate.m */; };
 		706525A218A68DE8003928F5 /* AlarmInfoDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 706525A118A68DE8003928F5 /* AlarmInfoDetail.m */; };
@@ -165,6 +168,10 @@
 		5BCE98881881945D00EEA687 /* HistoryData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryData.m; sourceTree = "<group>"; };
 		5BE956381882E80300AE94AA /* RunRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunRecord.h; sourceTree = "<group>"; };
 		5BE956391882E80300AE94AA /* RunRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunRecord.m; sourceTree = "<group>"; };
+		7028769E18A77C1400E39010 /* StockQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockQuery.h; sourceTree = "<group>"; };
+		7028769F18A77C1400E39010 /* StockQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockQuery.m; sourceTree = "<group>"; };
+		702876A118A7926600E39010 /* inventory_list_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inventory_list_indicator.png; sourceTree = "<group>"; };
+		702876A218A7926600E39010 /* inventory_supply_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inventory_supply_indicator.png; sourceTree = "<group>"; };
 		703C269C189E30F7007D1F90 /* UserInfoUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoUpdate.h; sourceTree = "<group>"; };
 		703C269D189E30F7007D1F90 /* UserInfoUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoUpdate.m; sourceTree = "<group>"; };
 		7064DB4B18A5075300894876 /* UserPwdUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPwdUpdate.h; sourceTree = "<group>"; };
@@ -264,6 +271,8 @@
 				34160FD5187BE46A00A8BCF2 /* Login.m */,
 				5B64F6441875BEF3002C0404 /* Home.h */,
 				5B64F6451875BEF3002C0404 /* Home.m */,
+				7028769E18A77C1400E39010 /* StockQuery.h */,
+				7028769F18A77C1400E39010 /* StockQuery.m */,
 				5B64F6771879437C002C0404 /* YSJ_List_TVC.h */,
 				5B64F6781879437C002C0404 /* YSJ_List_TVC.m */,
 				70A981BB189B8744001FC021 /* AlarmInfo.h */,
@@ -373,6 +382,8 @@
 		5B64F6B8187AFA89002C0404 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				702876A118A7926600E39010 /* inventory_list_indicator.png */,
+				702876A218A7926600E39010 /* inventory_supply_indicator.png */,
 				70A981BE189B8A69001FC021 /* alarm_list_indicator.png */,
 				347184E21887D26B001EA5AB /* ic_launcher.png */,
 				347184DE1887D0BC001EA5AB /* updateinfo_indicatro.png */,
@@ -510,7 +521,9 @@
 				34160FD2187BE39300A8BCF2 /* login_icon.png in Resources */,
 				5B64F6D2187AFA8A002C0404 /* Icon_RealTimeData.png in Resources */,
 				347184DC1887CF36001EA5AB /* icon_setting_about.png in Resources */,
+				702876A418A7926600E39010 /* inventory_supply_indicator.png in Resources */,
 				5B64F6D5187AFA8A002C0404 /* Icon_ServiceTime.png in Resources */,
+				702876A318A7926600E39010 /* inventory_list_indicator.png in Resources */,
 				3494FB14187BF63300FF8272 /* LoginStoryboard.storyboard in Resources */,
 				347184DD1887CF36001EA5AB /* icon_setting_apps.png in Resources */,
 				5B64F6D0187AFA8A002C0404 /* Icon_HistoryData.png in Resources */,
@@ -549,6 +562,7 @@
 				703C269E189E30F7007D1F90 /* UserInfoUpdate.m in Sources */,
 				5B64F69B18797C24002C0404 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				5B64F6D9187B13CB002C0404 /* RealTimeData.m in Sources */,
+				702876A018A77C1400E39010 /* StockQuery.m in Sources */,
 				70A6767A1886B48C0008F78C /* base64.c in Sources */,
 				5B64F69618797C24002C0404 /* MBProgressHUD.m in Sources */,
 				5B64F67C187962D9002C0404 /* YSJ_InfoMenu.m in Sources */,
