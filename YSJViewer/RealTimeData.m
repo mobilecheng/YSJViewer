@@ -11,8 +11,12 @@
 
 @interface RealTimeData ()
 
-@property (nonatomic) NSArray  *arrItems_iID, *arrItems_name, *arrItems_unit;
-@property (nonatomic) NSString *cID, *sID;
+//@property (nonatomic) NSMutableArray  *arrItems_iID, *arrItems_name, *arrItems_value, *arrItems_unit;
+@property (nonatomic) NSString *cID;
+@property (nonatomic) NSString *sID;
+
+@property (nonatomic) NSMutableArray *arrItems_name;
+@property (nonatomic) NSMutableArray *arrItems_value;
 
 @property (nonatomic) MKNetworkEngine *engine;
 
@@ -49,11 +53,14 @@
 //               @"末级级间温度", @"进油温度", @"电机前轴承温度", @"电机后轴承温度",
 //               @"电机定子温度", @"第一级级间温度", @"后冷空气温度", nil];
     
+    
     // cID, sID.
     self.cID  = [saveData objectForKey:@"YSJ_CID"];
     self.sID  = [saveData objectForKey:@"YSJ_SID"];
-    NSLog(@"RealTimeData -->  | CID = %@ | SID = %@", self.cID, self.sID);
+//    NSLog(@"RealTimeData -->  | CID = %@ | SID = %@", self.cID, self.sID);
     
+    // Comment on 2-10 - 原因： 接口返回这些值
+    /*
     // 数据项- 压缩机 items
     self.arrItems_iID  = [saveData objectForKey:@"YSJ_Items_iID"];
     self.arrItems_name = [saveData objectForKey:@"YSJ_Items_name"];
@@ -62,6 +69,10 @@
     NSLog(@"RealTimeData -->  | Items_iID  = %@", self.arrItems_iID);
     NSLog(@"RealTimeData -->  | Items_name = %@", self.arrItems_name);
     NSLog(@"RealTimeData -->  | Items_unit = %@", self.arrItems_unit);
+    */
+    
+    //
+    [self initData];
     
     //
     [self setExtraCellLineHidden:self.tableView];
@@ -106,7 +117,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.arrItems_iID count];
+    return [self.arrItems_name count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -119,16 +130,25 @@
     labItems_name.text = [self.arrItems_name objectAtIndex:indexPath.row];
     
     UILabel *labItems_value = (UILabel *)[cell viewWithTag:11];
-    labItems_value.text = @"109.38";
+    labItems_value.text = [self.arrItems_value objectAtIndex:indexPath.row];
     
-    UILabel *labItems_unit = (UILabel *)[cell viewWithTag:12];
-    NSString *strText = [self.arrItems_unit objectAtIndex:indexPath.row];
-    strText = [NSString stringWithFormat:@"(%@)", strText];
-    labItems_unit.text = strText;
+//    UILabel *labItems_unit = (UILabel *)[cell viewWithTag:12];
+//    NSString *strText = [self.arrItems_unit objectAtIndex:indexPath.row];
+//    strText = [NSString stringWithFormat:@"(%@)", strText];
+//    labItems_unit.text = strText;
     
     return cell;
 }
 
+
+#pragma mark -  Init Data.
+
+- (void)initData
+{
+    self.arrItems_name  = [[NSMutableArray alloc] init];
+    self.arrItems_value = [[NSMutableArray alloc] init];
+//    self.arrItems_unit  = [[NSMutableArray alloc] init];
+}
 
 #pragma mark -  API call.
 
@@ -198,21 +218,29 @@
     for (NSDictionary *recordData in records) {
         NSLog(@"---------------------------------------");
         
+        NSLog(@"DATA --> name     = %@", [recordData objectForKey:@"name"]);
+        [self.arrItems_name addObject:[recordData objectForKey:@"name"]];
+        
         //
-        NSLog(@"DATA --> 检测量编号     = %@", [recordData objectForKey:@"iId"]);
+//        NSLog(@"DATA --> 检测量编号     = %@", [recordData objectForKey:@"iId"]);
 //        [self.arrName addObject:[recordData objectForKey:@"iId"]];
         
         //
+        NSString *unit  = [recordData objectForKey:@"unit"];
         NSString *value = [recordData objectForKey:@"value"];
-        NSLog(@"DATA -->  value    = %@", value);
-        
-        
+        value = [NSString stringWithFormat:@"%@ (%@)", value, unit];
+        NSLog(@"DATA --> value    = %@", value);
+        [self.arrItems_value addObject:value];
     }
     
     // 刷新数据
     [self.tableView reloadData];
+    
+    // 订阅实时数据
+    [self api_RealtimeData];
 }
 
+// 订阅实时数据
 - (void) api_RealtimeData
 {
     NSLog(@"--> api_RealtimeData -> Opening WebSocket Connection...");
@@ -228,15 +256,45 @@
     [srWebSocket open];
 }
 
-#pragma mark -  Uitility Methods.
-
-- (void)setExtraCellLineHidden:(UITableView *)tableView
+// 解析实时数据
+- (void) getRealtimeData:(id)theData
 {
-    UIView *view = [UIView new];
-    view.backgroundColor = [UIColor clearColor];
-    [tableView setTableFooterView:view];
+    NSError *error = nil;
+    NSData  *aData = [theData dataUsingEncoding: NSUTF8StringEncoding];
+    NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:aData
+                                                            options:NSJSONReadingAllowFragments error:&error];
+    if (error) {
+        NSLog(@"--> ERROR = %@", error.description);
+        return;
+    }
+    
+    // Check result.
+    NSString *strResult = [dicData objectForKey:@"result"];
+    NSLog(@"--> getRealtimeData -> strResult = %@", strResult);
+    if ([strResult isEqualToString:@"error"]) {
+        [self showMessageHUD:[dicData objectForKey:@"message"]];
+        return;
+    }
+    
+    // 解析数据
+    NSArray *records = [dicData objectForKey:@"data"];
+    NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
+    
+    //
+    for (NSDictionary *recordData in records) {
+        NSLog(@"---------------------------------------");
+        
+        NSString *online = [recordData objectForKey:@"value"];
+        NSLog(@"  -- REAL DATA --> value  = %@", online);
+//        [self.arrStatus addObject:online];
+        
+        NSString *iId = [recordData objectForKey:@"iId"];
+        NSLog(@"  -- REAL DATA --> iId  = %@", iId);
+    }
+    
+    // 刷新数据
+    [self.tableView reloadData];
 }
-
 
 #pragma mark - SRWebSocketDelegate
 
@@ -244,8 +302,12 @@
 {
     NSLog(@"--> RealTimeData -> Websocket Connected");
     
-    //
-//    [srWebSocket send:self.dataForID];
+    // 构造参数，用于订阅信息查询
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            self.sID, @"sId", self.cID, @"cId", nil];
+    NSString *idInfo = [params jsonEncodedKeyValueString];
+    NSLog(@"构造参数 = %@", idInfo);
+    [srWebSocket send:idInfo];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
@@ -270,7 +332,7 @@
     //    }
     
     // 解析数据
-//    [self getCompressorStatus:message];
+    [self getRealtimeData:message];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
@@ -278,6 +340,15 @@
     NSLog(@"--> RealTimeData -> WebSocket closed");
     
     srWebSocket = nil;
+}
+
+#pragma mark -  Uitility Methods.
+
+- (void)setExtraCellLineHidden:(UITableView *)tableView
+{
+    UIView *view = [UIView new];
+    view.backgroundColor = [UIColor clearColor];
+    [tableView setTableFooterView:view];
 }
 
 #pragma mark - MBProgressHUD methods

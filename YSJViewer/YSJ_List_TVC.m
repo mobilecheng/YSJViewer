@@ -341,7 +341,7 @@
             
             
             // Items
-            NSLog(@"    ---> ------------------------------------");
+//            NSLog(@"    ---> ------------------------------------");
             NSMutableArray *tempIID   = [[NSMutableArray alloc] init];
             NSMutableArray *tempName  = [[NSMutableArray alloc] init];
             NSMutableArray *tempUnit  = [[NSMutableArray alloc] init];
@@ -349,13 +349,13 @@
             NSArray *items = [recordData objectForKey:@"items"];  // Get All items.
             
             for (NSDictionary *itemData in items) {
-                NSLog(@"    ITEMS --> iId   = %@", [itemData objectForKey:@"iId"]);
+//                NSLog(@"    ITEMS --> iId   = %@", [itemData objectForKey:@"iId"]);
                 [tempIID  addObject:[itemData objectForKey:@"iId"]];
                 
-                NSLog(@"    ITEMS --> name   = %@", [itemData objectForKey:@"name"]);
+//                NSLog(@"    ITEMS --> name   = %@", [itemData objectForKey:@"name"]);
                 [tempName addObject:[itemData objectForKey:@"name"]];
                 
-                NSLog(@"    ITEMS --> unit   = %@", [itemData objectForKey:@"unit"]);
+//                NSLog(@"    ITEMS --> unit   = %@", [itemData objectForKey:@"unit"]);
                 [tempUnit addObject:[itemData objectForKey:@"unit"]];
             }
             
