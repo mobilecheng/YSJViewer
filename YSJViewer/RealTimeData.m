@@ -11,12 +11,15 @@
 
 @interface RealTimeData ()
 
-//@property (nonatomic) NSMutableArray  *arrItems_iID, *arrItems_name, *arrItems_value, *arrItems_unit;
 @property (nonatomic) NSString *cID;
 @property (nonatomic) NSString *sID;
 
+@property (nonatomic) NSMutableArray *arrItems_iID;
 @property (nonatomic) NSMutableArray *arrItems_name;
 @property (nonatomic) NSMutableArray *arrItems_value;
+
+//@property (nonatomic) NSMutableArray *tmpID;
+//@property (nonatomic) NSMutableArray *tmpValue;
 
 @property (nonatomic) MKNetworkEngine *engine;
 
@@ -147,7 +150,9 @@
 {
     self.arrItems_name  = [[NSMutableArray alloc] init];
     self.arrItems_value = [[NSMutableArray alloc] init];
-//    self.arrItems_unit  = [[NSMutableArray alloc] init];
+    self.arrItems_iID   = [[NSMutableArray alloc] init];
+//    self.tmpID          = [[NSMutableArray alloc] init];
+//    self.tmpValue       = [[NSMutableArray alloc] init];
 }
 
 #pragma mark -  API call.
@@ -222,8 +227,8 @@
         [self.arrItems_name addObject:[recordData objectForKey:@"name"]];
         
         //
-//        NSLog(@"DATA --> 检测量编号     = %@", [recordData objectForKey:@"iId"]);
-//        [self.arrName addObject:[recordData objectForKey:@"iId"]];
+        NSLog(@"DATA --> 检测量编号     = %@", [recordData objectForKey:@"iId"]);
+        [self.arrItems_iID addObject:[recordData objectForKey:@"iId"]];
         
         //
         NSString *unit  = [recordData objectForKey:@"unit"];
@@ -280,16 +285,40 @@
     NSArray *records = [dicData objectForKey:@"data"];
     NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
     
+    // 临时变量
+    NSMutableArray *tmpID    = [[NSMutableArray alloc] init];
+    NSMutableArray *tmpValue = [[NSMutableArray alloc] init];
+    
     //
     for (NSDictionary *recordData in records) {
         NSLog(@"---------------------------------------");
         
-        NSString *online = [recordData objectForKey:@"value"];
-        NSLog(@"  -- REAL DATA --> value  = %@", online);
-//        [self.arrStatus addObject:online];
+        NSString *unit  = [recordData objectForKey:@"unit"];
+        NSString *value = [recordData objectForKey:@"value"];
+        value = [NSString stringWithFormat:@"%@ (%@)", value, unit];
+        NSLog(@"  -- REAL DATA --> value    = %@", value);
+        [tmpValue addObject:value];
         
         NSString *iId = [recordData objectForKey:@"iId"];
         NSLog(@"  -- REAL DATA --> iId  = %@", iId);
+        [tmpID addObject:iId];
+    }
+    
+    // 更新数据
+    [self.arrItems_value removeAllObjects];
+    for (int i = 0; i < self.arrItems_iID.count; i++) {
+        int val_iID = [[self.arrItems_iID objectAtIndex:i] intValue];
+//        NSLog(@"  -- REAL DATA --> val_iID  = %d", val_iID);
+        
+        for (int j = 0; j < tmpID.count; j++) {
+            int val_tmpID = [[tmpID objectAtIndex:j] intValue];
+//            NSLog(@"  -- REAL DATA --> val_tmpID  = %d", val_tmpID);
+            
+            if (val_iID == val_tmpID) { // 找到相同的检测量
+                [self.arrItems_value addObject:[tmpValue objectAtIndex:j]];
+                break;
+            }
+        }
     }
     
     // 刷新数据

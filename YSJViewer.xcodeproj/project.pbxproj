@@ -67,6 +67,7 @@
 		702876A318A7926600E39010 /* inventory_list_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 702876A118A7926600E39010 /* inventory_list_indicator.png */; };
 		702876A418A7926600E39010 /* inventory_supply_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 702876A218A7926600E39010 /* inventory_supply_indicator.png */; };
 		703C269E189E30F7007D1F90 /* UserInfoUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 703C269D189E30F7007D1F90 /* UserInfoUpdate.m */; };
+		704E97B618A919DF0043D907 /* About.m in Sources */ = {isa = PBXBuildFile; fileRef = 704E97B518A919DF0043D907 /* About.m */; };
 		7064DB4D18A5075300894876 /* UserPwdUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7064DB4C18A5075300894876 /* UserPwdUpdate.m */; };
 		706525A218A68DE8003928F5 /* AlarmInfoDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 706525A118A68DE8003928F5 /* AlarmInfoDetail.m */; };
 		70A6767A1886B48C0008F78C /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 70A676731886B48C0008F78C /* base64.c */; };
@@ -174,6 +175,8 @@
 		702876A218A7926600E39010 /* inventory_supply_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inventory_supply_indicator.png; sourceTree = "<group>"; };
 		703C269C189E30F7007D1F90 /* UserInfoUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoUpdate.h; sourceTree = "<group>"; };
 		703C269D189E30F7007D1F90 /* UserInfoUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoUpdate.m; sourceTree = "<group>"; };
+		704E97B418A919DF0043D907 /* About.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = About.h; sourceTree = "<group>"; };
+		704E97B518A919DF0043D907 /* About.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = About.m; sourceTree = "<group>"; };
 		7064DB4B18A5075300894876 /* UserPwdUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPwdUpdate.h; sourceTree = "<group>"; };
 		7064DB4C18A5075300894876 /* UserPwdUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPwdUpdate.m; sourceTree = "<group>"; };
 		706525A018A68DE8003928F5 /* AlarmInfoDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmInfoDetail.h; sourceTree = "<group>"; };
@@ -271,6 +274,8 @@
 				34160FD5187BE46A00A8BCF2 /* Login.m */,
 				5B64F6441875BEF3002C0404 /* Home.h */,
 				5B64F6451875BEF3002C0404 /* Home.m */,
+				704E97B418A919DF0043D907 /* About.h */,
+				704E97B518A919DF0043D907 /* About.m */,
 				7028769E18A77C1400E39010 /* StockQuery.h */,
 				7028769F18A77C1400E39010 /* StockQuery.m */,
 				5B64F6771879437C002C0404 /* YSJ_List_TVC.h */,
@@ -574,6 +579,7 @@
 				5B64F69E18797C24002C0404 /* MKNetworkOperation.m in Sources */,
 				5B64F63C1875BEF1002C0404 /* main.m in Sources */,
 				5B64F69A18797C24002C0404 /* NSString+MKNetworkKitAdditions.m in Sources */,
+				704E97B618A919DF0043D907 /* About.m in Sources */,
 				5B64F69818797C24002C0404 /* NSDate+RFC1123.m in Sources */,
 				70A981BD189B8744001FC021 /* AlarmInfo.m in Sources */,
 				7064DB4D18A5075300894876 /* UserPwdUpdate.m in Sources */,

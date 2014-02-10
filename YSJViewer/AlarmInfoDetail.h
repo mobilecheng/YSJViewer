@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AlarmInfoDetail : UIViewController
-
+@interface AlarmInfoDetail : UIViewController <UITableViewDataSource, UITableViewDelegate>
+{
+    NSString *testname;
+}
 @end
