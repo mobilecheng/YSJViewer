@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *myDatePicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *myPickerView;
 @property (weak, nonatomic) IBOutlet UIView *myDataView;
+@property (weak, nonatomic) IBOutlet UIButton *setCurrentTime;
 
 @property (nonatomic) UILabel *labStartTime;
 @property (nonatomic) UILabel *labEndTime;

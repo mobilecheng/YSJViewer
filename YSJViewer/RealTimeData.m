@@ -217,6 +217,12 @@
     }
     
     NSArray *records = [dicData objectForKey:@"records"];
+    NSLog(@"--> COUNT = %d", [records count]);
+    if (records.count == 0) {
+        [self showMessageHUD:@"没有实时数据."];
+        return;
+    }
+    
     NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
     
     //
@@ -283,6 +289,12 @@
     
     // 解析数据
     NSArray *records = [dicData objectForKey:@"data"];
+    NSLog(@"--> COUNT = %d", [records count]);
+    if (records.count == 0) {
+        [self showMessageHUD:@"没有实时数据."];
+        return;
+    }
+    
     NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
     
     // 临时变量

@@ -107,14 +107,27 @@
     curLine = indexPath.row;
     
     if (curLine == 0 || curLine == 1) { // Start and End time select.
-        self.myDataView.hidden   = NO;
+//        self.myDataView.hidden   = NO;
         self.myPickerView.hidden = YES;
         self.myDatePicker.hidden = NO;
+        self.setCurrentTime.hidden = NO;
     } else {
-        self.myDataView.hidden   = NO;
-        self.myDatePicker.hidden = YES;
+//        self.myDataView.hidden   = NO;
         self.myPickerView.hidden = NO;
+        self.myDatePicker.hidden = YES;
+        self.setCurrentTime.hidden = YES;
     }
+    
+    // myDataView 的位置是 Y = 305 （为了做动画，初始 Y = 570）
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         CGRect testFrame = self.myDataView.frame;
+                         testFrame.origin.y = 305;
+                         self.myDataView.frame = testFrame;
+                     }
+                     completion:^(BOOL finished) {
+                         //
+                     }];
 }
 
 #pragma mark - Picker Data Source Methods
@@ -141,7 +154,8 @@
 {
     NSLog(@"selectValue");
     
-    self.myDataView.hidden   = YES;
+//    self.myDataView.hidden   = YES;
+    [self dataViewHidden];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd  HH:mm"];
@@ -156,6 +170,60 @@
         NSInteger selValue  = [self.myPickerView selectedRowInComponent:0];
         self.labTimeJG.text = [self.myPickerData objectAtIndex:selValue];
     }
+}
+
+- (IBAction) currentTime
+{
+    NSLog(@"currentTime");
+    
+//    self.myDataView.hidden   = YES;
+    [self dataViewHidden];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setLocale:[NSLocale currentLocale]];
+    [formatter setDateFormat:@"yyyy-MM-dd  HH:mm"];
+    
+    NSDate *now = [NSDate date];
+    NSLog(@"myDate = %@", now);
+    
+    if (curLine == 0) { // 开始时间
+        NSString *startTime  = [formatter stringFromDate:now];
+        self.labStartTime.text = startTime;
+    } else if (curLine == 1) { // 结束时间
+        NSString *endTime  = [formatter stringFromDate:now];
+        self.labEndTime.text = endTime;
+    }
+}
+
+
+- (IBAction) clearTime
+{
+    NSLog(@"clearTime");
+    
+//    self.myDataView.hidden   = YES;
+    [self dataViewHidden];
+    
+    if (curLine == 0) { // 开始时间
+        self.labStartTime.text = @"设定";
+    } else if (curLine == 1) { // 结束时间
+        self.labEndTime.text = @"设定";
+    } else if (curLine == 2) { // 时间间隔
+        self.labTimeJG.text = @"设定";
+    }
+}
+
+- (void) dataViewHidden
+{
+    // myDataView 的位置是 Y = 305 （为了做动画，初始 Y = 570）
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         CGRect testFrame = self.myDataView.frame;
+                         testFrame.origin.y = 570;
+                         self.myDataView.frame = testFrame;
+                     }
+                     completion:^(BOOL finished) {
+                         //
+                     }];
 }
 
 @end

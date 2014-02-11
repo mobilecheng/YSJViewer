@@ -14,8 +14,9 @@
 
 @property (nonatomic) NSMutableArray *arrName;       // 压缩机名字
 @property (nonatomic) NSMutableArray *arrAlarmInfo;  // 压缩机报警信息
-@property (nonatomic) NSMutableArray *arrModel;  // 压缩机型号
-@property (nonatomic) NSMutableArray *arrTime; // 压缩机报警时间
+@property (nonatomic) NSMutableArray *arrModel;      // 压缩机型号
+@property (nonatomic) NSMutableArray *arrTime;       // 压缩机报警时间
+@property (nonatomic) NSMutableArray *arrAlarmID;    // 报警记录id
 
 @property (nonatomic) NSArray *tempID;   // temp data.
 @property (nonatomic) NSArray *tempName; // temp data.
@@ -61,6 +62,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+/*
 #pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
@@ -73,6 +75,7 @@
     
     
 }
+*/
 
 #pragma mark - Table view data source
 
@@ -114,6 +117,28 @@
     return cell;
 }
 
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *name  = [self.arrName      objectAtIndex:indexPath.row];  // 压缩机名字
+    NSString *info  = [self.arrAlarmInfo objectAtIndex:indexPath.row];  //
+    NSString *time  = [self.arrTime      objectAtIndex:indexPath.row];
+    NSString *aID   = [self.arrAlarmID   objectAtIndex:indexPath.row];
+//    NSLog(@"YSJ name = %@ | ID = %@ | CID = %@ | SID = %@", name, ysjID, cid, sid);
+    
+    // Save data to cache.
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    
+    [saveData setObject:name  forKey:@"ALARM_NAME"];
+    [saveData setObject:info  forKey:@"ALARM_INFO"];
+    [saveData setObject:time  forKey:@"ALARM_TIME"];
+    [saveData setObject:aID   forKey:@"ALARM_ID"];
+    
+    [saveData synchronize];
+}
+
+
 #pragma mark -  Init Data.
 
 - (void)initData
@@ -122,6 +147,7 @@
     self.arrAlarmInfo = [[NSMutableArray alloc] init];
     self.arrModel     = [[NSMutableArray alloc] init];
     self.arrTime      = [[NSMutableArray alloc] init];
+    self.arrAlarmID   = [[NSMutableArray alloc] init];
     
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     self.tempID    = [saveData objectForKey:@"HOME_YSJ_ID"];
@@ -213,6 +239,10 @@
         // 报警时间
 //        NSLog(@"DATA --> date   = %@", [recordData objectForKey:@"date"]);
         [self.arrTime addObject:[recordData objectForKey:@"date"]];
+        
+        // 报警时间
+        NSLog(@"DATA --> arrAlarmID   = %@", [recordData objectForKey:@"id"]);
+        [self.arrAlarmID addObject:[recordData objectForKey:@"id"]];
     }
     
     // 刷新数据
