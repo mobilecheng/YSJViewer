@@ -67,6 +67,9 @@
 		702876A318A7926600E39010 /* inventory_list_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 702876A118A7926600E39010 /* inventory_list_indicator.png */; };
 		702876A418A7926600E39010 /* inventory_supply_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 702876A218A7926600E39010 /* inventory_supply_indicator.png */; };
 		703C269E189E30F7007D1F90 /* UserInfoUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 703C269D189E30F7007D1F90 /* UserInfoUpdate.m */; };
+		704DEA5A18ABC211001896E7 /* RunRecord_TimeList.m in Sources */ = {isa = PBXBuildFile; fileRef = 704DEA5918ABC211001896E7 /* RunRecord_TimeList.m */; };
+		704DEA5C18ABC5E1001896E7 /* RunRecordSB.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 704DEA5B18ABC5E1001896E7 /* RunRecordSB.storyboard */; };
+		704DEA5F18ABD721001896E7 /* RunRecord_TimeList_Detail.m in Sources */ = {isa = PBXBuildFile; fileRef = 704DEA5E18ABD721001896E7 /* RunRecord_TimeList_Detail.m */; };
 		704E97B618A919DF0043D907 /* About.m in Sources */ = {isa = PBXBuildFile; fileRef = 704E97B518A919DF0043D907 /* About.m */; };
 		7064DB4D18A5075300894876 /* UserPwdUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7064DB4C18A5075300894876 /* UserPwdUpdate.m */; };
 		706525A218A68DE8003928F5 /* AlarmInfoDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 706525A118A68DE8003928F5 /* AlarmInfoDetail.m */; };
@@ -175,6 +178,11 @@
 		702876A218A7926600E39010 /* inventory_supply_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inventory_supply_indicator.png; sourceTree = "<group>"; };
 		703C269C189E30F7007D1F90 /* UserInfoUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoUpdate.h; sourceTree = "<group>"; };
 		703C269D189E30F7007D1F90 /* UserInfoUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoUpdate.m; sourceTree = "<group>"; };
+		704DEA5818ABC211001896E7 /* RunRecord_TimeList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunRecord_TimeList.h; sourceTree = "<group>"; };
+		704DEA5918ABC211001896E7 /* RunRecord_TimeList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunRecord_TimeList.m; sourceTree = "<group>"; };
+		704DEA5B18ABC5E1001896E7 /* RunRecordSB.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RunRecordSB.storyboard; sourceTree = "<group>"; };
+		704DEA5D18ABD721001896E7 /* RunRecord_TimeList_Detail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunRecord_TimeList_Detail.h; sourceTree = "<group>"; };
+		704DEA5E18ABD721001896E7 /* RunRecord_TimeList_Detail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunRecord_TimeList_Detail.m; sourceTree = "<group>"; };
 		704E97B418A919DF0043D907 /* About.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = About.h; sourceTree = "<group>"; };
 		704E97B518A919DF0043D907 /* About.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = About.m; sourceTree = "<group>"; };
 		7064DB4B18A5075300894876 /* UserPwdUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPwdUpdate.h; sourceTree = "<group>"; };
@@ -270,6 +278,7 @@
 				347184D918878B95001EA5AB /* GlobalValue.h */,
 				5B64F6411875BEF3002C0404 /* Main.storyboard */,
 				3494FB13187BF63300FF8272 /* LoginStoryboard.storyboard */,
+				704DEA5B18ABC5E1001896E7 /* RunRecordSB.storyboard */,
 				34160FD4187BE46A00A8BCF2 /* Login.h */,
 				34160FD5187BE46A00A8BCF2 /* Login.m */,
 				5B64F6441875BEF3002C0404 /* Home.h */,
@@ -290,6 +299,10 @@
 				5B64F6D8187B13CB002C0404 /* RealTimeData.m */,
 				5BE956381882E80300AE94AA /* RunRecord.h */,
 				5BE956391882E80300AE94AA /* RunRecord.m */,
+				704DEA5818ABC211001896E7 /* RunRecord_TimeList.h */,
+				704DEA5918ABC211001896E7 /* RunRecord_TimeList.m */,
+				704DEA5D18ABD721001896E7 /* RunRecord_TimeList_Detail.h */,
+				704DEA5E18ABD721001896E7 /* RunRecord_TimeList_Detail.m */,
 				5BCE98871881945D00EEA687 /* HistoryData.h */,
 				5BCE98881881945D00EEA687 /* HistoryData.m */,
 				70A6767F1886D2480008F78C /* UserInfo.h */,
@@ -517,6 +530,7 @@
 				5B64F6C9187AFA8A002C0404 /* BtnImg_AlarmInfo.png in Resources */,
 				5B64F6CB187AFA8A002C0404 /* BtnImg_ReserveService.png in Resources */,
 				5B64F6D3187AFA8A002C0404 /* Icon_ReserveService.png in Resources */,
+				704DEA5C18ABC5E1001896E7 /* RunRecordSB.storyboard in Resources */,
 				5B64F6431875BEF3002C0404 /* Main.storyboard in Resources */,
 				5B64F6CE187AFA8A002C0404 /* BtnImg_UserInfo.png in Resources */,
 				5B64F6CA187AFA8A002C0404 /* BtnImg_DeviceMonitor.png in Resources */,
@@ -555,6 +569,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BCE98891881945D00EEA687 /* HistoryData.m in Sources */,
+				704DEA5A18ABC211001896E7 /* RunRecord_TimeList.m in Sources */,
 				5B64F6461875BEF3002C0404 /* Home.m in Sources */,
 				5B64F69918797C24002C0404 /* NSDictionary+RequestEncoding.m in Sources */,
 				5B64F69D18797C24002C0404 /* MKNetworkEngine.m in Sources */,
@@ -576,6 +591,7 @@
 				70A6767B1886B48C0008F78C /* NSData+SRB64Additions.m in Sources */,
 				70A6767C1886B48C0008F78C /* SRWebSocket.m in Sources */,
 				5B64F69718797C24002C0404 /* NSData+MKBase64.m in Sources */,
+				704DEA5F18ABD721001896E7 /* RunRecord_TimeList_Detail.m in Sources */,
 				5B64F69E18797C24002C0404 /* MKNetworkOperation.m in Sources */,
 				5B64F63C1875BEF1002C0404 /* main.m in Sources */,
 				5B64F69A18797C24002C0404 /* NSString+MKNetworkKitAdditions.m in Sources */,

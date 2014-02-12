@@ -15,7 +15,6 @@
     
 }
 
-
 @property (weak, nonatomic) IBOutlet UIDatePicker *myDatePicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *myPickerView;
 @property (weak, nonatomic) IBOutlet UIView *myDataView;
@@ -26,6 +25,9 @@
 @property (nonatomic) UILabel *labTimeJG;
 
 @property (nonatomic) NSArray *myPickerData;
+@property (nonatomic) NSArray *myTimeJGData;
+@property (nonatomic) NSString *myTimeJGData_SelValue;
 
+@property (nonatomic) MKNetworkEngine *engine;
 
 @end

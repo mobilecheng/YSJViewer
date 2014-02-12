@@ -1495,7 +1495,7 @@
             </objects>
             <point key="canvasLocation" x="5151" y="1"/>
         </scene>
-        <!--Real Time Data - 压缩机名字-->
+        <!--Real Time Data - 实时数据-->
         <scene sceneID="EdM-2D-Erw">
             <objects>
                 <tableViewController id="MDq-ee-eCB" customClass="RealTimeData" sceneMemberID="viewController">
@@ -1532,7 +1532,7 @@
                             <outlet property="delegate" destination="MDq-ee-eCB" id="YSr-yc-w1z"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="压缩机名字" prompt="实时数据" id="IxL-N6-RUT"/>
+                    <navigationItem key="navigationItem" title="实时数据" prompt="压缩机名字" id="IxL-N6-RUT"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fyg-Bs-Llr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1691,25 +1691,44 @@
                                     <outlet property="delegate" destination="4iK-QA-IXG" id="1PG-c9-V6A"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGz-59-bch">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGz-59-bch">
                                 <rect key="frame" x="32" y="251" width="256" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.44378149729999999" green="0.79891304350000003" blue="0.25895767390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="256" id="7Zp-YB-rHz"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="查询">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="queryData" destination="4iK-QA-IXG" eventType="touchUpInside" id="tIp-Aq-LzP"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nac-Ay-JuA">
                                 <rect key="frame" x="0.0" y="570" width="320" height="263"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hy-NQ-Yfv">
-                                        <rect key="frame" x="0.0" y="0.0" width="59" height="27"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HYc-8E-q3F">
+                                        <rect key="frame" x="241" y="0.0" width="59" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.052082084520000002" green="0.67399752820000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="今天">
+                                        <state key="normal" title="取消">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="dataViewHidden" destination="4iK-QA-IXG" eventType="touchUpInside" id="DPj-vg-bhq"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hy-NQ-Yfv">
+                                        <rect key="frame" x="95" y="0.0" width="59" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.052082084520000002" green="0.67399752820000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="今日">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1718,7 +1737,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QpI-qc-UUC">
-                                        <rect key="frame" x="89" y="0.0" width="59" height="27"/>
+                                        <rect key="frame" x="168" y="0.0" width="59" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.052082084520000002" green="0.67399752820000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -1731,11 +1750,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYe-PB-PJz">
-                                        <rect key="frame" x="261" y="0.0" width="59" height="27"/>
+                                        <rect key="frame" x="20" y="0.0" width="59" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.052082084520000002" green="0.67399752820000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="确定">
+                                        <state key="normal" title="设置">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>

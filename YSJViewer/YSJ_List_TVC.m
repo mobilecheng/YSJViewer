@@ -144,6 +144,7 @@
 {
     NSString *name  = [self.arrName objectAtIndex:indexPath.row];
     NSString *ysjID = [self.arrID   objectAtIndex:indexPath.row]; // 压缩机ID
+    NSString *model = [self.arrModel objectAtIndex:indexPath.row]; // 压缩机型号
     NSString *cid   = [self.arrCID  objectAtIndex:indexPath.row];
     NSString *sid   = [self.arrSID  objectAtIndex:indexPath.row];
     NSLog(@"YSJ name = %@ | ID = %@ | CID = %@ | SID = %@", name, ysjID, cid, sid);
@@ -164,6 +165,7 @@
     [saveData setObject:ysjID forKey:@"YSJ_ID"];
     [saveData setObject:cid   forKey:@"YSJ_CID"];
     [saveData setObject:sid   forKey:@"YSJ_SID"];
+    [saveData setObject:model forKey:@"YSJ_MODEL"];
     
     [saveData setObject:items_iID   forKey:@"YSJ_Items_iID"];
     [saveData setObject:items_name  forKey:@"YSJ_Items_name"];

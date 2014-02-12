@@ -287,7 +287,6 @@
     [tableView setTableFooterView:view];
 }
 
-
 #pragma mark - MBProgressHUD methods
 
 // 显示收藏信息

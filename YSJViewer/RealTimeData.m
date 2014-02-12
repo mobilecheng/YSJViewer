@@ -49,7 +49,7 @@
     
     // Title.
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
-    self.navigationItem.title = [saveData stringForKey:@"YSJ_NAME"];
+    self.navigationItem.prompt = [saveData stringForKey:@"YSJ_NAME"];
     
     // 数据项
 //    self.arrMenu = [NSArray arrayWithObjects:
