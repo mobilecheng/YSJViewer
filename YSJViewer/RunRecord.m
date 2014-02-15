@@ -68,12 +68,6 @@
     return 3;
 }
 
-
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    return @"历史数据数据量很大，请尽量在免费WIFI下使用";
-//}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // 默认开始和结束时间

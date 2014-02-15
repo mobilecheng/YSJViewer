@@ -353,7 +353,7 @@
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
 {
-    NSLog(@"--> RealTimeData ->  :( Websocket Failed With Error %@", error);
+    NSLog(@"--> RealTimeData ->  :( Websocket Failed With Error:  %@", error);
     
     srWebSocket = nil;
 }

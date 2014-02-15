@@ -11,6 +11,9 @@
 
 @interface RunRecord_TimeList_Detail ()
 
+@property (nonatomic) NSArray *arrDetailName;
+@property (nonatomic) NSArray *arrDetailValue;
+
 @end
 
 @implementation RunRecord_TimeList_Detail
@@ -28,7 +31,14 @@
 {
     [super viewDidLoad];
 
+    // get data.
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    self.arrDetailName  = [saveData objectForKey:@"RRTItemNames"];
+    self.arrDetailValue = [saveData objectForKey:@"RRTItemValues"];
+    NSLog(@"RRTD --> | arrDetailName = %@ | arrDetailValue = %@",
+          self.arrDetailName, self.arrDetailValue);
     
+    [self setExtraCellLineHidden:self.tableView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,26 +51,39 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+//    NSLog(@"RRTD --> | self.arrDetailName.count = %d", self.arrDetailName.count);
+    return self.arrDetailName.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"RRTDetail";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
+    UILabel *labDetail_name = (UILabel *)[cell viewWithTag:10];
+    labDetail_name.text = [self.arrDetailName objectAtIndex:indexPath.row];
+    
+    UILabel *labDetail_value = (UILabel *)[cell viewWithTag:11];
+    labDetail_value.text = [self.arrDetailValue objectAtIndex:indexPath.row];
     
     return cell;
+}
+
+#pragma mark -  Uitility Methods.
+
+- (void)setExtraCellLineHidden:(UITableView *)tableView
+{
+    UIView *view = [UIView new];
+    view.backgroundColor = [UIColor clearColor];
+    [tableView setTableFooterView:view];
 }
 
 @end

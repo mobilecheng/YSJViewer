@@ -8,6 +8,27 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HistoryData : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface HistoryData : UIViewController <UITableViewDelegate, UITableViewDataSource,
+                    UIPickerViewDelegate, UIPickerViewDataSource>
+{
+    NSInteger curLine;
+}
+
+
+@property (weak, nonatomic) IBOutlet UIDatePicker *myDatePicker;
+@property (weak, nonatomic) IBOutlet UIPickerView *myPickerView;
+@property (weak, nonatomic) IBOutlet UIView *myDataView;
+@property (weak, nonatomic) IBOutlet UIButton *setCurrentTime;
+
+@property (nonatomic) UILabel *labStartTime;
+@property (nonatomic) UILabel *labEndTime;
+@property (nonatomic) UILabel *labJCL;
+
+@property (nonatomic) NSArray *myPickerData;
+@property (nonatomic) NSArray *myJCLData;
+@property (nonatomic) NSString *myJCLData_SelValue;
+
+@property (nonatomic) MKNetworkEngine *engine;
+
 
 @end

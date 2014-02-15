@@ -13,6 +13,7 @@
 @interface RunRecord_TimeList ()
 
 @property (nonatomic) NSMutableArray *arrTimeList;
+@property (nonatomic) NSMutableArray *arrItems;
 
 @property (nonatomic) MKNetworkEngine *engine;
 
@@ -83,19 +84,69 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    // 压缩机名字
+    // 
     UILabel *labTimeList = (UILabel *)[cell viewWithTag:10];
     labTimeList.text = [self.arrTimeList objectAtIndex:indexPath.row];
     
     return cell;
 }
 
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // 需要存储的值，用于下一个页面的显示。
+    NSMutableArray *saveItemNames  = [[NSMutableArray alloc] init];
+    NSMutableArray *saveItemValues = [[NSMutableArray alloc] init];
+    
+    // 点击行的值
+    NSString *rowTime  = [self.arrTimeList objectAtIndex:indexPath.row];  //
+    NSArray  *rowItems = [self.arrItems    objectAtIndex:indexPath.row];  //
+    
+    NSLog(@"RRT rowTime = %@ | rowItems = %@", rowTime, rowItems);
+    
+    // 开始构造数值 - 0
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    NSArray *tempID   = [saveData objectForKey:@"YSJ_Items_iID"];
+    NSArray *tempName = [saveData objectForKey:@"YSJ_Items_name"];
+    NSLog(@"RRT -->  | tempID   = %@", tempID);
+    NSLog(@"RRT -->  | tempName = %@", tempName);
+    
+    // 开始构造数值 - 1
+    [saveItemNames  addObject:@"时间"];
+    [saveItemValues addObject:rowTime];
+    
+    // 开始构造数值 - 2
+    for (NSDictionary *itemsData in rowItems) {
+        NSString *itemsID    = [itemsData objectForKey:@"iId"];
+        NSString *itemsValue = [itemsData objectForKey:@"value"];
+        int findID = [itemsID intValue];
+        
+        // 找到iID对应的名称数据
+        for (int i = 0; i < tempID.count; i++) {
+            int val_iID = [[tempID objectAtIndex:i] intValue];
+            //        NSLog(@"  -- REAL DATA --> val_iID  = %d", val_iID);
+            
+            if (findID == val_iID) { // 找到相同的检测量ID
+                [saveItemNames  addObject:[tempName objectAtIndex:i]];
+                [saveItemValues addObject:itemsValue];
+                break;
+            }
+        }
+    }
+    
+    // Save data to cache.
+    [saveData setObject:saveItemNames  forKey:@"RRTItemNames"];
+    [saveData setObject:saveItemValues forKey:@"RRTItemValues"];
+    [saveData synchronize];
+}
+
 #pragma mark -  Init Data.
 
 - (void)initData
 {
-    self.arrTimeList      = [[NSMutableArray alloc] init];
-    
+    self.arrTimeList = [[NSMutableArray alloc] init];
+    self.arrItems    = [[NSMutableArray alloc] init];
 }
 
 #pragma mark -  API call.
@@ -186,9 +237,9 @@
         [self.arrTimeList addObject:date];
         
         //
-//        NSArray *items = [recordData objectForKey:@"items"];
-//        NSLog(@"DATA --> items     = %@", items);
-//        [arrItems addObject:items];
+        NSArray *items = [recordData objectForKey:@"items"];
+        NSLog(@"DATA --> items    = %@", items);
+        [self.arrItems addObject:items];
     }
     
     // 刷新数据

@@ -150,13 +150,13 @@
     NSLog(@"YSJ name = %@ | ID = %@ | CID = %@ | SID = %@", name, ysjID, cid, sid);
     
     NSArray *items_iID  = [self.arrItems_iID  objectAtIndex:indexPath.row];
-//    NSLog(@"items_iID  = %@", items_iID);
+    NSLog(@"items_iID  = %@", items_iID);
     
     NSArray *items_name  = [self.arrItems_name  objectAtIndex:indexPath.row];
-//    NSLog(@"items_name = %@", items_name);
+    NSLog(@"items_name = %@", items_name);
     
     NSArray *items_unit  = [self.arrItems_unit  objectAtIndex:indexPath.row];
-//    NSLog(@"items_unit = %@", items_unit);
+    NSLog(@"items_unit = %@", items_unit);
     
     // Save data to cache.
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
@@ -450,7 +450,7 @@
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
 {
-    NSLog(@"--> YSJ_List ->  :( Websocket Failed With Error %@", error);
+    NSLog(@"--> YSJ_List ->  :( Websocket Failed With Error:  %@", error);
     
     srWebSocket = nil;
 }
