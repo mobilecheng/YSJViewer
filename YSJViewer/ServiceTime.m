@@ -1,29 +1,27 @@
 //
-//  AlarmInfoDetail.m -- 主菜单 --> 报警信息 --> 报警信息详情
+//  ServiceTime.m -- 主菜单 --> 设备监控 --> 压缩机列表 --> 菜单项（三级页面-服务时间）
 //  YSJViewer
 //
-//  Created by Kevin Zhang on 14-2-9.
+//  Created by Kevin Zhang on 14-2-16.
 //  Copyright (c) 2014年 Reload Digital Tech. All rights reserved.
 //
 
-#import "AlarmInfoDetail.h"
+#import "ServiceTime.h"
 #import "GlobalValue.h"
 
-@interface AlarmInfoDetail ()
+@interface ServiceTime ()
 
 @property (weak, nonatomic) IBOutlet UILabel *labCompName;
-@property (weak, nonatomic) IBOutlet UILabel *labAlarmTime;
-@property (weak, nonatomic) IBOutlet UILabel *labAlarmInfo;
-@property (weak, nonatomic) IBOutlet UITableView *tvDetail;
+@property (weak, nonatomic) IBOutlet UITableView *tvData;
 
-@property (nonatomic) NSMutableArray *arrDetailName;  
-@property (nonatomic) NSMutableArray *arrDetailValue;
+@property (nonatomic) NSMutableArray *arrItem;
+@property (nonatomic) NSMutableArray *arrValue;
 
 @property (nonatomic) MKNetworkEngine *engine;
 
 @end
 
-@implementation AlarmInfoDetail
+@implementation ServiceTime
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,11 +37,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    // get data.
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
-    self.labCompName.text  = [saveData stringForKey:@"ALARM_NAME"];
-    self.labAlarmInfo.text = [saveData stringForKey:@"ALARM_INFO"];
-    self.labAlarmTime.text = [saveData stringForKey:@"ALARM_TIME"];
+    self.labCompName.text = [saveData stringForKey:@"YSJ_NAME"];
     
     //
     self.engine = [[MKNetworkEngine alloc]
@@ -54,10 +49,10 @@
     [self initData];
     
     //
-    [self setExtraCellLineHidden:self.tvDetail];
+    [self setExtraCellLineHidden:self.tvData];
     
     //
-    [self api_GetAlarmDetail];
+    [self api_GetServiceTime];
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,8 +60,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
- 
 
 #pragma mark - Table view data source
 
@@ -79,51 +72,59 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return self.arrDetailName.count;
+    return [self.arrItem count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"AlarmInfoDetail";
+    static NSString *CellIdentifier = @"ServiceTime";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    UILabel *labDetail_name = (UILabel *)[cell viewWithTag:10];
-    labDetail_name.text = [self.arrDetailName objectAtIndex:indexPath.row];
+    UILabel *labItems = (UILabel *)[cell viewWithTag:10];
+    labItems.text = [self.arrItem objectAtIndex:indexPath.row];
     
-    UILabel *labDetail_value = (UILabel *)[cell viewWithTag:11];
-    labDetail_value.text = [self.arrDetailValue objectAtIndex:indexPath.row];
+//    UILabel *labItems_value = (UILabel *)[cell viewWithTag:11];
+//    labItems_value.text = [self.arrItems_value objectAtIndex:indexPath.row];
     
-    //
+    
     return cell;
+}
+
+#pragma mark -  Init Data.
+
+- (void)initData
+{
+    self.arrItem = [[NSMutableArray alloc] init];
+    self.arrValue    = [[NSMutableArray alloc] init];
 }
 
 #pragma mark -  API call.
 
-- (void) api_GetAlarmDetail
+- (void) api_GetServiceTime
 {
-    NSLog(@"--> api_GetAlarmDetail...");
+    NSLog(@"--> api_GetServiceTime...");
     
     //
-//    [self showLoadingHUD:@"正在查询..."];
+    [self showLoadingHUD:@"正在查询..."];
     
     //
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     
     // 构造参数
-    NSString *token   = [saveData objectForKey:@"Token"];
-    NSString *alarmID = [saveData stringForKey:@"ALARM_ID"];
-    NSLog(@"--> ALARM_ID = %@", alarmID);
-//    alarmID = @"4406"; // temp data.
+    NSString *token  = [saveData objectForKey:@"Token"];
+    NSString *compId = [saveData objectForKey:@"YSJ_ID"];
     
     //--------------------
-    NSString *nextPath = @"cis/mobile/getAlarmDetail";
+    NSString *nextPath = @"cis/mobile/getServiceTime";
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                               token,   @"token",
-                               alarmID, @"id",
+                               token,    @"token",
+                               compId,   @"compId",
                                nil];
+    
+    NSLog(@"--> api_GetServiceTime --> dicParams = %@", dicParams);
     
     MKNetworkOperation* op = [self.engine operationWithPath:nextPath
                                                      params:dicParams
@@ -133,19 +134,19 @@
     [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
         NSData *data  = [completedOperation responseData];
         NSString *str = [completedOperation responseString];
-        NSLog(@"--> api_GetAlarmDetail -> RESULT = %@", str);
+        NSLog(@"--> api_GetServiceTime -> RESULT = %@", str);
         
-        [self getAlarmDetailData:data];
+        [self getServiceTimeData:data];
         
     } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
-        NSLog(@"--> api_GetAlarmData -> ERROR = %@", [error description]);
+        NSLog(@"--> api_GetServiceTime -> ERROR = %@", [error description]);
     }];
     
     // Exe...
     [self.engine enqueueOperation:op];
 }
 
-- (void) getAlarmDetailData:(id)theData
+- (void) getServiceTimeData:(id)theData
 {
     NSError *error = nil;
     NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:theData
@@ -166,38 +167,29 @@
     NSArray *records = [dicData objectForKey:@"records"];
     NSLog(@"--> COUNT = %d", [records count]);
     if (records.count == 0) {
-        [self showMessageHUD:@"没有报警详情数据."];
+        [self showMessageHUD:@"没有服务时间数据."];
         return;
     }
     
     NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
     
-    //
+    // 解析数据
     for (NSDictionary *recordData in records) {
         NSLog(@"---------------------------------------");
         
-        NSLog(@"DATA --> name     = %@", [recordData objectForKey:@"name"]);
-        [self.arrDetailName addObject:[recordData objectForKey:@"name"]];
+        //
+        NSString *item = [recordData objectForKey:@"item"];
+        NSLog(@"DATA --> item     = %@", item);
+        [self.arrItem addObject:item];
         
         //
-        NSString *unit  = [recordData objectForKey:@"unit"];
-        NSString *value = [recordData objectForKey:@"value"];
-        value = [NSString stringWithFormat:@"%@ %@", value, unit];
+        NSArray *value = [recordData objectForKey:@"value"];
         NSLog(@"DATA --> value    = %@", value);
-        [self.arrDetailValue addObject:value];
+        [self.arrValue addObject:value];
     }
     
     // 刷新数据
-    [self.tvDetail reloadData];
-}
-
-
-#pragma mark -  Init Data.
-
-- (void)initData
-{
-    self.arrDetailName  = [[NSMutableArray alloc] init];
-    self.arrDetailValue = [[NSMutableArray alloc] init];
+    [self.tvData reloadData];
 }
 
 #pragma mark -  Uitility Methods.

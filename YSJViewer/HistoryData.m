@@ -154,7 +154,7 @@
 
 #pragma mark -  IBAction Methods.
 
-- (IBAction)selectValue
+- (IBAction) selectValue
 {
     NSLog(@"selectValue");
     
@@ -280,8 +280,109 @@
         //
         [self goTimeListScreen];
          */
+        
+        // API call.
+        [self api_GetHistoryData];
     }
 }
+
+#pragma mark -  API call.
+
+- (void) api_GetHistoryData
+{
+    NSLog(@"--> api_GetHistoryData...");
+    
+    //
+    [self showLoadingHUD:@"正在查询..."];
+    
+    //
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    
+    // 构造参数
+    NSString *token  = [saveData objectForKey:@"Token"];
+    NSString *compId = [saveData objectForKey:@"YSJ_ID"];
+    NSString *iId    = self.myJCLData_SelValue; // 检测量编号
+    NSString *start  = self.labStartTime.text;
+    NSString *end    = self.labEndTime.text;
+    
+    //--------------------
+    NSString *nextPath = @"cis/mobile/getHistoryData";
+    
+    // params
+    NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                               token,    @"token",
+                               compId,   @"compId",
+                               iId,      @"iId",
+                               start,    @"start",
+                               end,      @"end",
+                               nil];
+    
+    NSLog(@"--> api_GetHistoryData --> dicParams = %@", dicParams);
+    
+    MKNetworkOperation* op = [self.engine operationWithPath:nextPath
+                                                     params:dicParams
+                                                 httpMethod:@"GET"
+                                                        ssl:NO];
+    
+    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+        NSData *data  = [completedOperation responseData];
+        NSString *str = [completedOperation responseString];
+        NSLog(@"--> api_GetHistoryData -> RESULT = %@", str);
+        
+//        [self getRunRecordData:data];
+        
+    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
+        NSLog(@"--> api_GetHistoryData -> ERROR = %@", [error description]);
+    }];
+    
+    // Exe...
+    [self.engine enqueueOperation:op];
+}
+
+- (void) getRunRecordData:(id)theData
+{
+    NSError *error = nil;
+    NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:theData
+                                                            options:NSJSONReadingAllowFragments error:&error];
+    if (error) {
+        NSLog(@"--> ERROR = %@", error.description);
+        return;
+    }
+    
+    // Check result.
+    NSString *strResult = [dicData objectForKey:@"result"];
+    NSLog(@"--> strResult = %@", strResult);
+    if ([strResult isEqualToString:@"error"]) {
+        [self showMessageHUD:[dicData objectForKey:@"message"]];
+        return;
+    }
+    
+    NSArray *records = [dicData objectForKey:@"records"];
+    NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
+    
+    // 数据存储
+    //    NSMutableArray *arrTimeList = [[NSMutableArray alloc] init];
+    //    NSMutableArray *arrItems    = [[NSMutableArray alloc] init];
+    
+    // 解析数据
+    for (NSDictionary *recordData in records) {
+        NSLog(@"---------------------------------------");
+        
+        //
+        NSString *date = [recordData objectForKey:@"date"];
+        NSLog(@"DATA --> date     = %@", date);
+//        [self.arrTimeList addObject:date];
+        
+        //
+        NSArray *items = [recordData objectForKey:@"items"];
+        NSLog(@"DATA --> items    = %@", items);
+//        [self.arrItems addObject:items];
+    }
+    
+    // 刷新数据
+//    [self.tableView reloadData];
+}
+
 
 #pragma mark -  Go next screen.
 
