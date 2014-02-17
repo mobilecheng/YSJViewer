@@ -109,8 +109,9 @@
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     NSArray *tempID   = [saveData objectForKey:@"YSJ_Items_iID"];
     NSArray *tempName = [saveData objectForKey:@"YSJ_Items_name"];
-    NSLog(@"RRT -->  | tempID   = %@", tempID);
-    NSLog(@"RRT -->  | tempName = %@", tempName);
+    NSArray *tempUnit = [saveData objectForKey:@"YSJ_Items_unit"];
+//    NSLog(@"RRT -->  | tempID   = %@", tempID);
+//    NSLog(@"RRT -->  | tempName = %@", tempName);
     
     // 开始构造数值 - 1
     [saveItemNames  addObject:@"时间"];
@@ -120,15 +121,21 @@
     for (NSDictionary *itemsData in rowItems) {
         NSString *itemsID    = [itemsData objectForKey:@"iId"];
         NSString *itemsValue = [itemsData objectForKey:@"value"];
+        
         int findID = [itemsID intValue];
         
-        // 找到iID对应的名称数据
+        // 找到iID对应的名称数据和单位
         for (int i = 0; i < tempID.count; i++) {
             int val_iID = [[tempID objectAtIndex:i] intValue];
             //        NSLog(@"  -- REAL DATA --> val_iID  = %d", val_iID);
             
             if (findID == val_iID) { // 找到相同的检测量ID
                 [saveItemNames  addObject:[tempName objectAtIndex:i]];
+                
+                float value = [itemsValue floatValue];
+                itemsValue = [NSString stringWithFormat:@"%.2f", value];
+                itemsValue = [NSString stringWithFormat:@"%@%@",
+                              itemsValue, [tempUnit objectAtIndex:i]];
                 [saveItemValues addObject:itemsValue];
                 break;
             }

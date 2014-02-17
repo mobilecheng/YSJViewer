@@ -31,6 +31,9 @@
 {
     [super viewDidLoad];
 
+    self.arrDetailName  = [[NSArray alloc] init];
+    self.arrDetailValue = [[NSArray alloc] init];
+    
     // get data.
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     self.arrDetailName  = [saveData objectForKey:@"RRTItemNames"];
