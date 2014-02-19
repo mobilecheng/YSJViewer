@@ -239,6 +239,8 @@
         //
         NSString *unit  = [recordData objectForKey:@"unit"];
         NSString *value = [recordData objectForKey:@"value"];
+        float tmp = [value floatValue];
+        value = [NSString stringWithFormat:@"%.2f", tmp];
         value = [NSString stringWithFormat:@"%@ (%@)", value, unit];
         NSLog(@"DATA --> value    = %@", value);
         [self.arrItems_value addObject:value];
@@ -307,6 +309,8 @@
         
         NSString *unit  = [recordData objectForKey:@"unit"];
         NSString *value = [recordData objectForKey:@"value"];
+        float tmp = [value floatValue];
+        value = [NSString stringWithFormat:@"%.2f", tmp];
         value = [NSString stringWithFormat:@"%@ (%@)", value, unit];
         NSLog(@"  -- REAL DATA --> value    = %@", value);
         [tmpValue addObject:value];

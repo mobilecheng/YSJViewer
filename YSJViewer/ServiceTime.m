@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *labCompName;
 @property (weak, nonatomic) IBOutlet UITableView *tvData;
 
+@property (nonatomic) UIImageView *imgProgress;
+
 @property (nonatomic) NSMutableArray *arrItem;
 @property (nonatomic) NSMutableArray *arrValue;
 
@@ -72,11 +74,14 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    NSLog(@"INIT CELL COUNT");
     return [self.arrItem count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"INIT CELL SERVICE");
+    
     static NSString *CellIdentifier = @"ServiceTime";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
@@ -84,10 +89,21 @@
     UILabel *labItems = (UILabel *)[cell viewWithTag:10];
     labItems.text = [self.arrItem objectAtIndex:indexPath.row];
     
-//    UILabel *labItems_value = (UILabel *)[cell viewWithTag:11];
-//    labItems_value.text = [self.arrItems_value objectAtIndex:indexPath.row];
+    // Progress.
+    self.imgProgress = (UIImageView *)[cell viewWithTag:11];
     
+    CGRect testFrame = self.imgProgress.frame;
+    float value = [[self.arrValue objectAtIndex:indexPath.row] floatValue];
     
+    if ( value >= 0.00f && value <= 0.40f ) {
+        self.imgProgress.image = [UIImage imageNamed:@"progress_green_bg"];
+        testFrame.size.width = testFrame.size.width * value;
+        testFrame.size.width = 10;
+        NSLog(@"testFrame.size.width  = %f", testFrame.size.width);
+        self.imgProgress.frame = testFrame;
+    }
+    
+    //
     return cell;
 }
 
@@ -183,9 +199,15 @@
         [self.arrItem addObject:item];
         
         //
-        NSArray *value = [recordData objectForKey:@"value"];
+        NSString *maxValue = [recordData objectForKey:@"maxValue"];
+        NSLog(@"DATA --> maxValue    = %@", maxValue);
+        NSString *value = [recordData objectForKey:@"value"];
         NSLog(@"DATA --> value    = %@", value);
-        [self.arrValue addObject:value];
+        
+        float result = [value floatValue] / [maxValue floatValue];
+        NSString *strResult = [NSString stringWithFormat:@"%.2f", result];
+        NSLog(@"DATA --> strResult    = %@", strResult);
+        [self.arrValue addObject:strResult];
     }
     
     // 刷新数据
@@ -193,6 +215,19 @@
 }
 
 #pragma mark -  Uitility Methods.
+
+- (IBAction)go:(id)sender {
+    
+    // 刷新数据
+    [self.tvData reloadData];
+    
+    
+    //test
+//    CGRect testFrame = self.imgProgress.frame;
+//    testFrame.size.width = 60;
+//    self.imgProgress.frame = testFrame;
+}
+
 
 - (void)setExtraCellLineHidden:(UITableView *)tableView
 {
