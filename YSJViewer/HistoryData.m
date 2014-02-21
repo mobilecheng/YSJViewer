@@ -1,5 +1,5 @@
 //
-//  HistoryData.m -- 主菜单 --> 设备监控 --> 点压缩机列表名称 --> 点菜单项（三级页面-历史数据）
+//  HistoryData.m -- 主菜单 --> 设备监控 --> 压缩机列表 --> 菜单项（三级页面-历史数据）
 //  YSJViewer
 //
 //  Created by Reload Digital Tech. on 14-1-11.
@@ -339,7 +339,7 @@
     [self.engine enqueueOperation:op];
 }
 
-- (void) getRunRecordData:(id)theData
+- (void) getHistoryData:(id)theData
 {
     NSError *error = nil;
     NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:theData

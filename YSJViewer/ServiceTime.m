@@ -55,6 +55,9 @@
     
     //
     [self api_GetServiceTime];
+    
+    //for temp test...
+    [NSTimer scheduledTimerWithTimeInterval:(2.0) target:self selector:@selector(reloadTableViewData) userInfo:nil repeats:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,13 +77,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    NSLog(@"INIT CELL COUNT");
+//    NSLog(@"INIT CELL COUNT");
     return [self.arrItem count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"INIT CELL SERVICE");
+//    NSLog(@"INIT CELL SERVICE");
     
     static NSString *CellIdentifier = @"ServiceTime";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -91,17 +94,8 @@
     
     // Progress.
     self.imgProgress = (UIImageView *)[cell viewWithTag:11];
+    [self changeImgProgress:indexPath.row];
     
-    CGRect testFrame = self.imgProgress.frame;
-    float value = [[self.arrValue objectAtIndex:indexPath.row] floatValue];
-    
-    if ( value >= 0.00f && value <= 0.40f ) {
-        self.imgProgress.image = [UIImage imageNamed:@"progress_green_bg"];
-        testFrame.size.width = testFrame.size.width * value;
-        testFrame.size.width = 10;
-        NSLog(@"testFrame.size.width  = %f", testFrame.size.width);
-        self.imgProgress.frame = testFrame;
-    }
     
     //
     return cell;
@@ -206,6 +200,7 @@
         
         float result = [value floatValue] / [maxValue floatValue];
         NSString *strResult = [NSString stringWithFormat:@"%.2f", result];
+//        strResult = @"1.90"; // temp will del.
         NSLog(@"DATA --> strResult    = %@", strResult);
         [self.arrValue addObject:strResult];
     }
@@ -216,16 +211,32 @@
 
 #pragma mark -  Uitility Methods.
 
-- (IBAction)go:(id)sender {
+- (void) changeImgProgress:(NSUInteger)index
+{
+    CGRect testFrame = CGRectMake(22, 30, 238, 18);
+    float value = [[self.arrValue objectAtIndex:index] floatValue];
     
+    if ( value >= 0.00f && value < 0.40f ) {
+        self.imgProgress.image = [UIImage imageNamed:@"progress_green_bg"];
+    } else if ( value >= 0.40f && value < 0.80f ) {
+        self.imgProgress.image = [UIImage imageNamed:@"progress_yello_bg"];
+    } else if ( value >= 0.80f && value < 1.00f ) {
+        self.imgProgress.image = [UIImage imageNamed:@"progress_yello_bg"];
+    } else if ( value >= 1.00f ) {
+        self.imgProgress.image = [UIImage imageNamed:@"progress_red_bg"];
+        value = 1.00f;
+    }
+    
+    //
+    testFrame.size.width *= value;  // testFrame.size.width *
+//    NSLog(@"testFrame.size.width  = %f", testFrame.size.width);
+    self.imgProgress.frame = testFrame;
+}
+
+- (void) reloadTableViewData
+{
     // 刷新数据
     [self.tvData reloadData];
-    
-    
-    //test
-//    CGRect testFrame = self.imgProgress.frame;
-//    testFrame.size.width = 60;
-//    self.imgProgress.frame = testFrame;
 }
 
 
@@ -234,6 +245,23 @@
     UIView *view = [UIView new];
     view.backgroundColor = [UIColor clearColor];
     [tableView setTableFooterView:view];
+}
+
+#pragma mark -  IBAction Methods.
+
+- (IBAction) refreshData
+{
+    NSLog(@"refreshServiceTimeData");
+    
+    [self.arrItem   removeAllObjects];
+    [self.arrValue  removeAllObjects];
+    
+    [self.tvData reloadData];
+    [self api_GetServiceTime];
+}
+
+- (IBAction)go:(id)sender {
+    
 }
 
 #pragma mark - MBProgressHUD methods
