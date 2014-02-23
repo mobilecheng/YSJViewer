@@ -116,7 +116,7 @@
     NSLog(@"--> api_GetServiceTime...");
     
     //
-    [self showLoadingHUD:@"正在查询..."];
+    [self showLoadingHUD:@"正在加载..."];
     
     //
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
@@ -258,10 +258,6 @@
     
     [self.tvData reloadData];
     [self api_GetServiceTime];
-}
-
-- (IBAction)go:(id)sender {
-    
 }
 
 #pragma mark - MBProgressHUD methods

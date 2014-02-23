@@ -147,6 +147,10 @@
     NSString *model = [self.arrModel objectAtIndex:indexPath.row]; // 压缩机型号
     NSString *cid   = [self.arrCID  objectAtIndex:indexPath.row];
     NSString *sid   = [self.arrSID  objectAtIndex:indexPath.row];
+    
+    // add 2-23
+    NSString *strCSN   = [self.arrSN  objectAtIndex:indexPath.row];
+    
     NSLog(@"YSJ name = %@ | ID = %@ | CID = %@ | SID = %@", name, ysjID, cid, sid);
     
     NSArray *items_iID  = [self.arrItems_iID  objectAtIndex:indexPath.row];
@@ -166,6 +170,9 @@
     [saveData setObject:cid   forKey:@"YSJ_CID"];
     [saveData setObject:sid   forKey:@"YSJ_SID"];
     [saveData setObject:model forKey:@"YSJ_MODEL"];
+    
+    // add 2-23
+    [saveData setObject:strCSN forKey:@"YSJ_CSN"];
     
     [saveData setObject:items_iID   forKey:@"YSJ_Items_iID"];
     [saveData setObject:items_name  forKey:@"YSJ_Items_name"];
@@ -459,15 +466,17 @@
 {
     NSLog(@"--> YSJ_List ->  Received =  %@", message);
     
-//    if ([message isKindOfClass:[NSString class]]) {
-//        NSLog(@"--> YSJ_List ->  Received =  NSString");
-//    } else if ([message isKindOfClass:[NSData class]]) {
-//        NSLog(@"--> YSJ_List ->  Received =  NSData");
-//    } else if (message == nil) {
-//        NSLog(@"--> YSJ_List ->  Received =  nil");
-//    } else {
-//        NSLog(@"--> YSJ_List ->  Received =  nothing...");
-//    }
+    /*
+    if ([message isKindOfClass:[NSString class]]) {
+        NSLog(@"--> YSJ_List ->  Received =  NSString");
+    } else if ([message isKindOfClass:[NSData class]]) {
+        NSLog(@"--> YSJ_List ->  Received =  NSData");
+    } else if (message == nil) {
+        NSLog(@"--> YSJ_List ->  Received =  nil");
+    } else {
+        NSLog(@"--> YSJ_List ->  Received =  nothing...");
+    }
+    */
     
     // 解析数据
     [self getCompressorStatus:message];

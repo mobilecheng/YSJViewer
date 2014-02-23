@@ -74,6 +74,9 @@
 		702876A018A77C1400E39010 /* StockQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7028769F18A77C1400E39010 /* StockQuery.m */; };
 		702876A318A7926600E39010 /* inventory_list_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 702876A118A7926600E39010 /* inventory_list_indicator.png */; };
 		702876A418A7926600E39010 /* inventory_supply_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 702876A218A7926600E39010 /* inventory_supply_indicator.png */; };
+		702A0C1018BA2C1700B60517 /* RealTimeData_LineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 702A0C0F18BA2C1700B60517 /* RealTimeData_LineChart.m */; };
+		702A0C1318BA44FE00B60517 /* ReserveHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 702A0C1218BA44FE00B60517 /* ReserveHistory.m */; };
+		702A0C1618BA4EA300B60517 /* ReserveHistoryDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 702A0C1518BA4EA300B60517 /* ReserveHistoryDetail.m */; };
 		703C269E189E30F7007D1F90 /* UserInfoUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 703C269D189E30F7007D1F90 /* UserInfoUpdate.m */; };
 		704DEA5A18ABC211001896E7 /* RunRecord_TimeList.m in Sources */ = {isa = PBXBuildFile; fileRef = 704DEA5918ABC211001896E7 /* RunRecord_TimeList.m */; };
 		704DEA5C18ABC5E1001896E7 /* RunRecordSB.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 704DEA5B18ABC5E1001896E7 /* RunRecordSB.storyboard */; };
@@ -194,6 +197,12 @@
 		7028769F18A77C1400E39010 /* StockQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockQuery.m; sourceTree = "<group>"; };
 		702876A118A7926600E39010 /* inventory_list_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inventory_list_indicator.png; sourceTree = "<group>"; };
 		702876A218A7926600E39010 /* inventory_supply_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inventory_supply_indicator.png; sourceTree = "<group>"; };
+		702A0C0E18BA2C1700B60517 /* RealTimeData_LineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeData_LineChart.h; sourceTree = "<group>"; };
+		702A0C0F18BA2C1700B60517 /* RealTimeData_LineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeData_LineChart.m; sourceTree = "<group>"; };
+		702A0C1118BA44FE00B60517 /* ReserveHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReserveHistory.h; sourceTree = "<group>"; };
+		702A0C1218BA44FE00B60517 /* ReserveHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReserveHistory.m; sourceTree = "<group>"; };
+		702A0C1418BA4EA300B60517 /* ReserveHistoryDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReserveHistoryDetail.h; sourceTree = "<group>"; };
+		702A0C1518BA4EA300B60517 /* ReserveHistoryDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReserveHistoryDetail.m; sourceTree = "<group>"; };
 		703C269C189E30F7007D1F90 /* UserInfoUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoUpdate.h; sourceTree = "<group>"; };
 		703C269D189E30F7007D1F90 /* UserInfoUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoUpdate.m; sourceTree = "<group>"; };
 		704DEA5818ABC211001896E7 /* RunRecord_TimeList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunRecord_TimeList.h; sourceTree = "<group>"; };
@@ -317,6 +326,8 @@
 				5B64F67B187962D9002C0404 /* YSJ_InfoMenu.m */,
 				5B64F6D7187B13CB002C0404 /* RealTimeData.h */,
 				5B64F6D8187B13CB002C0404 /* RealTimeData.m */,
+				702A0C0E18BA2C1700B60517 /* RealTimeData_LineChart.h */,
+				702A0C0F18BA2C1700B60517 /* RealTimeData_LineChart.m */,
 				5BE956381882E80300AE94AA /* RunRecord.h */,
 				5BE956391882E80300AE94AA /* RunRecord.m */,
 				704DEA5818ABC211001896E7 /* RunRecord_TimeList.h */,
@@ -329,6 +340,10 @@
 				5BCE98881881945D00EEA687 /* HistoryData.m */,
 				7022B94218B795E3005BEC22 /* ReserveService.h */,
 				7022B94318B795E3005BEC22 /* ReserveService.m */,
+				702A0C1118BA44FE00B60517 /* ReserveHistory.h */,
+				702A0C1218BA44FE00B60517 /* ReserveHistory.m */,
+				702A0C1418BA4EA300B60517 /* ReserveHistoryDetail.h */,
+				702A0C1518BA4EA300B60517 /* ReserveHistoryDetail.m */,
 				70A6767F1886D2480008F78C /* UserInfo.h */,
 				70A676801886D2480008F78C /* UserInfo.m */,
 				703C269C189E30F7007D1F90 /* UserInfoUpdate.h */,
@@ -611,6 +626,7 @@
 				704DEA5A18ABC211001896E7 /* RunRecord_TimeList.m in Sources */,
 				5B64F6461875BEF3002C0404 /* Home.m in Sources */,
 				5B64F69918797C24002C0404 /* NSDictionary+RequestEncoding.m in Sources */,
+				702A0C1318BA44FE00B60517 /* ReserveHistory.m in Sources */,
 				5B64F69D18797C24002C0404 /* MKNetworkEngine.m in Sources */,
 				5B64F69C18797C24002C0404 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
 				706525A218A68DE8003928F5 /* AlarmInfoDetail.m in Sources */,
@@ -622,6 +638,7 @@
 				703C269E189E30F7007D1F90 /* UserInfoUpdate.m in Sources */,
 				5B64F69B18797C24002C0404 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				5B64F6D9187B13CB002C0404 /* RealTimeData.m in Sources */,
+				702A0C1018BA2C1700B60517 /* RealTimeData_LineChart.m in Sources */,
 				702876A018A77C1400E39010 /* StockQuery.m in Sources */,
 				70A6767A1886B48C0008F78C /* base64.c in Sources */,
 				5B64F69618797C24002C0404 /* MBProgressHUD.m in Sources */,
@@ -630,6 +647,7 @@
 				5B64F6791879437C002C0404 /* YSJ_List_TVC.m in Sources */,
 				70A6767B1886B48C0008F78C /* NSData+SRB64Additions.m in Sources */,
 				70A6767C1886B48C0008F78C /* SRWebSocket.m in Sources */,
+				702A0C1618BA4EA300B60517 /* ReserveHistoryDetail.m in Sources */,
 				5B64F69718797C24002C0404 /* NSData+MKBase64.m in Sources */,
 				704DEA5F18ABD721001896E7 /* RunRecord_TimeList_Detail.m in Sources */,
 				5B64F69E18797C24002C0404 /* MKNetworkOperation.m in Sources */,

@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *myDatePicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *myPickerView;
 @property (weak, nonatomic) IBOutlet UIView *myDataView;
+@property (weak, nonatomic) IBOutlet UILabel *labTopTitle;
+@property (weak, nonatomic) IBOutlet UITableView *myTableView;
 
 @property (nonatomic) UITextField *txtDescription;
 @property (nonatomic) UITextField *txtContacter;
@@ -59,14 +61,21 @@
                    initWithHostName:hostName
                    customHeaderFields:nil];
     
-    self.txtDescription.delegate = self;
-    self.txtContacter.delegate   = self;
-    self.txtTelephone.delegate   = self;
-    self.txtDetails.delegate     = self;
+//    self.txtDescription.delegate = self;
+//    self.txtContacter.delegate   = self;
+//    self.txtTelephone.delegate   = self;
+//    self.txtDetails.delegate     = self;
     
-    // Background image - Single Tap
-//    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard_RS)];
-//    [self.view addGestureRecognizer:singleTap];
+    //   - Single Tap
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard_RS)];
+    [self.labTopTitle addGestureRecognizer:singleTap];
+    
+    //
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    NSString *name  = [saveData stringForKey:@"YSJ_NAME"];
+    NSString *csn   = [saveData stringForKey:@"YSJ_CSN"];
+    NSString *title = [NSString stringWithFormat:@"%@  %@", name, csn];
+    self.labTopTitle.text = title;
 }
 
 - (void)didReceiveMemoryWarning
@@ -139,6 +148,12 @@
     }
     
     //
+    self.txtDescription.delegate = self;
+    self.txtContacter.delegate   = self;
+    self.txtTelephone.delegate   = self;
+    self.txtDetails.delegate     = self;
+    
+    //
     return cell;
 }
 
@@ -147,28 +162,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //
+    [self hideKeyboard_RS];
+    
+    //
     curLine = indexPath.row;
     NSLog(@"curLine = %d", curLine);
     
     if (curLine == 1) { // 服务类型
         self.myPickerView.hidden = NO;
         self.myDatePicker.hidden = YES;
-        
+        [self dataViewOpen];
     } else if (curLine == 4) { // 期望服务时间
         self.myPickerView.hidden = YES;
         self.myDatePicker.hidden = NO;
+        [self dataViewOpen];
     }
-    
-    // myDataView 的位置是 Y = 378 （为了做动画，初始 Y = 570）
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         CGRect testFrame = self.myDataView.frame;
-                         testFrame.origin.y = 378;
-                         self.myDataView.frame = testFrame;
-                     }
-                     completion:^(BOOL finished) {
-                         //
-                     }];
 }
 
 #pragma mark - Picker Data Source Methods
@@ -213,10 +222,23 @@
     }
 }
 
+- (void) dataViewOpen
+{
+    // myDataView 的位置是 Y = 378 （为了做动画，初始 Y = 570）
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         CGRect testFrame = self.myDataView.frame;
+                         testFrame.origin.y = 378;
+                         self.myDataView.frame = testFrame;
+                     }
+                     completion:^(BOOL finished) {
+                         //
+                     }];
+}
 
 - (IBAction) dataViewHidden
 {
-    // myDataView 的位置是 Y = 305 （为了做动画，初始 Y = 570）
+    // myDataView 的位置是 Y = 378 （为了做动画，初始 Y = 570）
     [UIView animateWithDuration:0.5
                      animations:^{
                          CGRect testFrame = self.myDataView.frame;
@@ -228,48 +250,181 @@
                      }];
 }
 
-
-- (IBAction) queryData
+/**
+ * @brief  107: 原来位置  60: 移动位置
+ */
+- (void) moveTableView:(CGFloat)yValue
 {
-    NSLog(@"queryData");
+    // TableView 的位置是 Y = 107 （为了做动画， Y = 60）
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         CGRect testFrame = self.myTableView.frame;
+                         testFrame.origin.y = yValue;
+                         self.myTableView.frame = testFrame;
+                     }
+                     completion:^(BOOL finished) {
+                         //
+                     }];
+}
+
+- (IBAction) saveServiceRequest
+{
+    NSLog(@"saveServiceRequest");
     
-    /*
-    // Check
-    if ( [self.labStartTime.text isEqualToString:@"设定"] ) {
-        [self showMessageHUD:@"请设定开始时间！"];
+    // Check the desciption that NO NULL.
+    NSString *strDescription = [self.txtDescription.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([strDescription isEqualToString:@""]) { //
+        [self showMessageHUD:@"请输入描述信息."];
+        [self.txtDescription becomeFirstResponder];
+        return;
+    } else {
+        if (strDescription.length > 100) {
+            [self showMessageHUD:@"描述信息不能超过100个字符."];
+            [self.txtDescription becomeFirstResponder];
+            return;
+        }
+    }
+    
+    // Check the ServiceType that NO NULL.
+    NSString *strServiceType = [self.labServiceType.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([strServiceType isEqualToString:@""]) { //
+        [self showMessageHUD:@"服务申请类型必须选择."];
         return;
     }
     
-    if ( [self.labEndTime.text isEqualToString:@"设定"] ) {
-        [self showMessageHUD:@"请设定结束时间！"];
+    // Check the Contacter that NO NULL.
+    NSString *strContacter = [self.txtContacter.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([strContacter isEqualToString:@""]) { //
+        [self showMessageHUD:@"请输入联系人."];
+        [self.txtContacter becomeFirstResponder];
+        return;
+    } else {
+        if (strContacter.length > 10) {
+            [self showMessageHUD:@"联系人不能超过10个字符."];
+            [self.txtContacter becomeFirstResponder];
+            return;
+        }
+    }
+    
+    // Check the Telephone that NO NULL.
+    NSString *strTelephone = [self.txtTelephone.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([strTelephone isEqualToString:@""]) { //
+        [self showMessageHUD:@"请输入联系电话."];
+        [self.txtTelephone becomeFirstResponder];
+        return;
+    } else {
+        if (strTelephone.length > 30) {
+            [self showMessageHUD:@"联系电话不能超过30个字符."];
+            [self.txtTelephone becomeFirstResponder];
+            return;
+        }
+    }
+    
+    // Check the ExpectDate that NO NULL.
+    NSString *strExpectDate = [self.labExpectDate.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([strExpectDate isEqualToString:@""]) { //
+        [self showMessageHUD:@"期望服务时间不能为空."];
         return;
     }
     
-    if ( [self.labTimeJG.text isEqualToString:@"设定"] ) {
-        [self showMessageHUD:@"请设定间隔时间！"];
+    // Check the Details.
+    NSString *strDetails = [self.txtDetails.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (strDetails.length > 200) {
+        [self showMessageHUD:@"详细信息不能超过200个字符."];
+        [self.txtDetails becomeFirstResponder];
         return;
     }
     
-    // Start query data.
-    //    [self api_RunReport];
-    
-    // 保持值，跳转页面。
-    // Save data to cache.
-    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
-    [saveData setObject:self.labStartTime.text  forKey:@"StartTime"];
-    [saveData setObject:self.labEndTime.text    forKey:@"EndTime"];
-    [saveData setObject:self.myTimeJGData_SelValue forKey:@"TimeJG"];
-    [saveData synchronize];
+    // API CALL.
+    [self api_SaveServiceRequest];
+}
+
+#pragma mark -  API call.
+
+- (void) api_SaveServiceRequest
+{
+    NSLog(@"--> api_SaveServiceRequest");
     
     //
-    [self goTimeListScreen];
-     */
+    [self showLoadingHUD:@"正在提交服务申请..."];
+    
+    //
+    NSString *token       = [[NSUserDefaults standardUserDefaults] objectForKey:@"Token"];
+    NSString *description = self.txtDescription.text;
+    NSString *serviceType = self.labServiceType.text;
+    NSString *details     = self.txtDetails.text;
+    NSString *compId      = [[NSUserDefaults standardUserDefaults] objectForKey:@"YSJ_ID"];
+    NSString *contacter   = self.txtContacter.text;
+    NSString *telephone   = self.txtTelephone.text;
+    NSString *expectDate  = self.labExpectDate.text;
+    
+    //--------------------
+    NSString *nextPath = @"cis/mobile/saveServiceRequest";
+    
+    NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                               token,        @"token",
+                               description,  @"description",
+                               serviceType,  @"serviceType",
+                               details,      @"details",
+                               compId,       @"compId",
+                               contacter,    @"contacter",
+                               telephone,    @"telephone",
+                               expectDate,   @"expectDate",
+                               nil];
+    
+    NSLog(@"--> api_SaveServiceRequest --> dicParams = %@", dicParams);
+    
+    MKNetworkOperation* op = [self.engine operationWithPath:nextPath
+                                                     params:dicParams
+                                                 httpMethod:@"GET"
+                                                        ssl:NO];
+    
+    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+        NSData *data  = [completedOperation responseData];
+        NSString *str = [completedOperation responseString];
+        NSLog(@"--> api_SaveServiceRequest -> RESULT = %@", str);
+        
+        // Check result.
+        [self checkResult:data];
+        
+    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
+        NSLog(@"--> api_SaveServiceRequest -> ERROR = %@", [error description]);
+        [self showMessageHUD:@"提交服务申请失败，请重试！"];
+    }];
+    
+    // Exe...
+    [self.engine enqueueOperation:op];
+}
+
+
+- (void) checkResult:(id)theData
+{
+    NSError *error = nil;
+    NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:theData
+                                                            options:NSJSONReadingAllowFragments error:&error];
+    if (error) {
+        NSLog(@"--> ERROR = %@", error.description);
+        return;
+    }
+    
+    // Check result.
+    NSString *strResult = [dicData objectForKey:@"result"];
+    NSLog(@"--> api_SaveServiceRequest --> strResult = %@", strResult);
+    if ([strResult isEqualToString:@"error"]) {
+        [self showMessageHUD:[dicData objectForKey:@"message"]];
+//        [self showMessageHUD:@"更新失败，请重试！"];
+    } else {
+        [self showMessageHUD:@"提交服务申请成功！"];
+        
+    }
 }
 
 
 #pragma mark - Keyboad Method.
 
 - (void) hideKeyboard_RS {
+    [self dataViewHidden];
+    [self moveTableView:107];
     [self.txtDetails     resignFirstResponder];
     [self.txtTelephone   resignFirstResponder];
     [self.txtContacter   resignFirstResponder];
@@ -279,19 +434,53 @@
 //点击return按钮所做的动作：
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-//    if (textField.tag == 10) {  //
-//        [self.txtContacter becomeFirstResponder];
-//    } else if (textField.tag == 11) { //
-//        [self.txtTelephone becomeFirstResponder];
-//    } else if (textField.tag == 12) { //
-//        [self.txtDetails becomeFirstResponder];
-//    } else if (textField.tag == 14) { //
-//        [textField resignFirstResponder];
-//    }
-    
-    [self hideKeyboard_RS];
+    if (textField.tag == 10) {  //
+        [self.txtContacter becomeFirstResponder];
+    } else if (textField.tag == 11) { //
+        [self.txtTelephone becomeFirstResponder];
+    } else if (textField.tag == 12) { //
+        [self.txtDetails becomeFirstResponder];
+    } else if (textField.tag == 14) { //
+        [textField resignFirstResponder];
+        [self hideKeyboard_RS];
+    }
     
     return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    switch (textField.tag) {
+        case 11:
+        case 12:
+        case 14:
+            [self moveTableView:60];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark - MBProgressHUD methods
+
+//
+- (void) showMessageHUD:(NSString *)msg
+{
+	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	hud.mode = MBProgressHUDModeText;
+	hud.labelText = msg;
+	hud.removeFromSuperViewOnHide = YES;
+	[hud hide:YES afterDelay:delay];
+}
+
+- (void) showLoadingHUD:(NSString *)msg
+{
+	MBProgressHUD *loadingHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	loadingHUD.mode = MBProgressHUDModeIndeterminate;
+	loadingHUD.labelText = msg;
+	loadingHUD.removeFromSuperViewOnHide = YES;
+    [loadingHUD hide:YES afterDelay:delay];
 }
 
 @end
