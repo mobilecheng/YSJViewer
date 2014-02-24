@@ -87,14 +87,14 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-//    UILabel *labItemName = (UILabel *)[cell viewWithTag:10];
-//    labItemName.text = [self.arrItemName objectAtIndex:indexPath.row];
+    UILabel *labItemName = (UILabel *)[cell viewWithTag:10];
+    labItemName.text = [self.arrItemName objectAtIndex:indexPath.row];
 
 
     if (indexPath.row == 4) {
         
-        self.labName = (UILabel *)[cell viewWithTag:10];
-        self.labName.text = [self.arrItemName objectAtIndex:indexPath.row];
+//        self.labName = (UILabel *)[cell viewWithTag:10];
+//        self.labName.text = [self.arrItemName objectAtIndex:indexPath.row];
         
         CGRect testFrame = self.labName.frame;
         NSLog(@"testFrame.origin.y = %f", testFrame.origin.y);
@@ -104,10 +104,11 @@
         
     } else {
         
-        UILabel *labItemName = (UILabel *)[cell viewWithTag:10];
-        labItemName.text = [self.arrItemName objectAtIndex:indexPath.row];
+//        UILabel *labItemName = (UILabel *)[cell viewWithTag:10];
+//        labItemName.text = [self.arrItemName objectAtIndex:indexPath.row];
     }
     
+    //
     UILabel *labItemValue = (UILabel *)[cell viewWithTag:11];
     labItemValue.text = [self.arrItemValue objectAtIndex:indexPath.row];
     
@@ -233,21 +234,17 @@
 
     NSLog(@"arrItemName -> %@", self.arrItemName);
     
-    // test
-    CGRect testFrame = self.labName.frame;
-    NSLog(@"TEST - testFrame.origin.y = %f", testFrame.origin.y);
-    testFrame.origin.y = 40;
-    self.labName.frame = testFrame;
-    NSLog(@"TEST - testFrame.origin.y = %f", self.labName.frame.origin.y);
-    
     // 刷新数据
     [self.tableView reloadData];
     
-    [self performSelector:@selector(backPreviousScreen)
-               withObject:nil
-               afterDelay:1];
+    [self performSelector:@selector(reloadTableView) withObject:nil afterDelay:0.01f];
 }
 
+- (void) reloadTableView
+{
+    // 刷新数据
+    [self.tableView reloadData];
+}
 
 #pragma mark -  IBAction Methods.
 
