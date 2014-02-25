@@ -175,21 +175,9 @@
         return;
     }
     
-    //----
-    /*
-    if ([record isKindOfClass:[NSString class]]) {
-        NSLog(@"--> NSString class");
-    } else if ([record isKindOfClass:[NSDictionary class]]) {
-        NSLog(@"--> NSDictionary class");
-    } else if ([record isKindOfClass:[NSArray class]]) {
-        NSLog(@"--> NSArray class");
-    } else {
-        NSLog(@"--> NO KNOW");
-    }
-     */
-    //----
     
-    NSLog(@"IS NSDictionary -> %@", record);
+    
+//    NSLog(@"IS NSDictionary -> %@", record);
     
     //
 //    NSLog(@"---------------------------------------");
@@ -205,16 +193,42 @@
     [self.arrItemValue addObject:[record objectForKey:@"contacter"]];
     [self.arrItemValue addObject:[record objectForKey:@"telephone"]];
     [self.arrItemValue addObject:[record objectForKey:@"expectDate"]];
-//    [self.arrItemValue addObject:[record objectForKey:@"comments"]];
     
-    NSLog(@"self.arrItemValue -> %@", self.arrItemValue);
+    // for comments obj.
+    NSArray *arrComments = [record objectForKey:@"comments"];
+    NSMutableArray *totalValue = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *commentsData in arrComments) {
+        NSString *commenter  = [commentsData objectForKey:@"commenter"];
+        NSString *createDate = [commentsData objectForKey:@"createDate"];
+        NSString *content    = [commentsData objectForKey:@"content"];
+        NSString *str = [NSString stringWithFormat:@"commenter: %@ | createDate: %@ | content: %@", commenter, createDate, content];
+        [totalValue addObject:str];
+    }
+    NSString *strComments = [totalValue componentsJoinedByString:@" , "];
+    NSLog(@"strComments -> %@", strComments);
+    [self.arrItemValue addObject:strComments];
+    
+    //----
+//    id test = [record objectForKey:@"comments"];
+    /*
+     if ([test isKindOfClass:[NSString class]]) {
+         NSLog(@"--> NSString class");
+     } else if ([test isKindOfClass:[NSDictionary class]]) {
+         NSLog(@"--> NSDictionary class");
+     } else if ([test isKindOfClass:[NSArray class]]) {
+         NSLog(@"--> NSArray class");
+     } else {
+         NSLog(@"--> NO KNOW");
+     }
+     */
+    //----
+    
     
     //
     self.arrItemName = [[NSMutableArray alloc] initWithObjects:
                         @"压缩机", @"描述", @"状态", @"服务类型",
-                        @"详情", @"联系人", @"联系电话", @"期望时间", nil];
-
-    NSLog(@"arrItemName -> %@", self.arrItemName);
+                        @"详情", @"联系人", @"联系电话", @"期望时间", @"备注", nil];
     
     // 刷新数据
     [self.tableView reloadData];

@@ -1,15 +1,18 @@
 //
-//  AlarmInfo.m -- 主菜单 --> 报警信息
+//  HistoryAlarm.m -- 主菜单 --> 设备监控 --> 压缩机列表 --> 菜单项（三级页面-历史报警）
 //  YSJViewer
 //
-//  Created by Kevin Zhang on 14-1-31.
+//  Created by Kevin Zhang on 14-2-25.
 //  Copyright (c) 2014年 Reload Digital Tech. All rights reserved.
 //
 
-#import "AlarmInfo.h"
+#import "HistoryAlarm.h"
 #import "GlobalValue.h"
 
-@interface AlarmInfo ()
+@interface HistoryAlarm ()
+
+@property (weak, nonatomic) IBOutlet UILabel *labCompName;
+@property (weak, nonatomic) IBOutlet UITableView *tvAlarmInfo;
 
 @property (nonatomic) NSMutableArray *arrName;       // 压缩机名字
 @property (nonatomic) NSMutableArray *arrAlarmInfo;  // 压缩机报警信息
@@ -20,16 +23,16 @@
 @property (nonatomic) NSArray *tempID;   // temp data.
 @property (nonatomic) NSArray *tempName; // temp data.
 @property (nonatomic) NSArray *tempModel; // temp data.
-            
+
 @property (nonatomic) MKNetworkEngine *engine;
 
 @end
 
-@implementation AlarmInfo
+@implementation HistoryAlarm
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -39,6 +42,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	// Do any additional setup after loading the view.
+    
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    self.labCompName.text = [saveData stringForKey:@"YSJ_NAME"];
     
     //
     self.engine = [[MKNetworkEngine alloc]
@@ -49,7 +56,7 @@
     [self initData];
     
     //
-    [self setExtraCellLineHidden:self.tableView];
+    [self setExtraCellLineHidden:self.tvAlarmInfo];
     
     //
     [self api_GetAlarmData];
@@ -60,7 +67,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 #pragma mark - Table view data source
 
@@ -78,24 +84,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"AlarmInfo_Cell";
+    static NSString *CellIdentifier = @"OneCompAlarmInfo_Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    // 压缩机名字
-    UILabel *labName = (UILabel *)[cell viewWithTag:101];
-    labName.text = [self.arrName objectAtIndex:indexPath.row];
-    
     // 压缩机报警信息
-    UILabel *labAlarmInfo = (UILabel *)[cell viewWithTag:102];
+    UILabel *labAlarmInfo = (UILabel *)[cell viewWithTag:10];
     labAlarmInfo.text = [self.arrAlarmInfo objectAtIndex:indexPath.row];
     
-    // 压缩机型号
-    UILabel *labModel = (UILabel *)[cell viewWithTag:103];
-    labModel.text = [self.arrModel objectAtIndex:indexPath.row];
-    
     // 压缩机报警时间
-    UILabel *labTime = (UILabel *)[cell viewWithTag:104];
+    UILabel *labTime = (UILabel *)[cell viewWithTag:11];
     labTime.text = [self.arrTime objectAtIndex:indexPath.row];
     
     //
@@ -110,7 +108,7 @@
     NSString *info  = [self.arrAlarmInfo objectAtIndex:indexPath.row];  //
     NSString *time  = [self.arrTime      objectAtIndex:indexPath.row];
     NSString *aID   = [self.arrAlarmID   objectAtIndex:indexPath.row];
-//    NSLog(@"YSJ name = %@ | ID = %@ | CID = %@ | SID = %@", name, ysjID, cid, sid);
+    //    NSLog(@"YSJ name = %@ | ID = %@ | CID = %@ | SID = %@", name, ysjID, cid, sid);
     
     // Save data to cache.
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
@@ -144,7 +142,7 @@
 
 - (void) api_GetAlarmData
 {
-    NSLog(@"--> api_GetAlarmData...");
+    NSLog(@"--> HA_api_GetAlarmData...");
     
     //
     [self showLoadingHUD:@"正在查询..."];
@@ -154,6 +152,7 @@
     
     // 构造参数
     NSString *token  = [saveData  objectForKey:@"Token"];
+    NSString *compId = [saveData objectForKey:@"YSJ_ID"];
     NSString *max    = @"100";
     NSString *offset = @"0";
     
@@ -163,6 +162,7 @@
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                token,  @"token",
+                               compId, @"compId",
                                max,    @"max",
                                offset, @"offset",
                                nil];
@@ -175,12 +175,12 @@
     [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
         NSData *data  = [completedOperation responseData];
         NSString *str = [completedOperation responseString];
-        NSLog(@"--> api_GetAlarmData -> RESULT = %@", str);
+        NSLog(@"--> HA_api_GetAlarmData -> RESULT = %@", str);
         
         [self getAlarmData:data];
         
     } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
-        NSLog(@"--> api_GetAlarmData -> ERROR = %@", [error description]);
+        NSLog(@"--> HA_api_GetAlarmData -> ERROR = %@", [error description]);
     }];
     
     // Exe...
@@ -216,35 +216,35 @@
     
     //
     for (NSDictionary *recordData in records) {
-//        NSLog(@"---------------------------------------");
+        //        NSLog(@"---------------------------------------");
         
         // 通过压缩机ID取名称和型号
         NSString *compId = [recordData objectForKey:@"compId"];
-//        NSLog(@"DATA --> compId     = %@", compId);
+        //        NSLog(@"DATA --> compId     = %@", compId);
         [self getCompNameAndModel:[compId intValue]];
         
         // 报警信息
-//        NSLog(@"DATA --> message     = %@", [recordData objectForKey:@"message"]);
+        //        NSLog(@"DATA --> message     = %@", [recordData objectForKey:@"message"]);
         [self.arrAlarmInfo addObject:[recordData objectForKey:@"message"]];
         
         // 报警时间
-//        NSLog(@"DATA --> date   = %@", [recordData objectForKey:@"date"]);
+        //        NSLog(@"DATA --> date   = %@", [recordData objectForKey:@"date"]);
         [self.arrTime addObject:[recordData objectForKey:@"date"]];
         
-        // 报警时间
-//        NSLog(@"DATA --> arrAlarmID   = %@", [recordData objectForKey:@"id"]);
+        // 报警ID
+        //        NSLog(@"DATA --> arrAlarmID   = %@", [recordData objectForKey:@"id"]);
         [self.arrAlarmID addObject:[recordData objectForKey:@"id"]];
     }
     
     // 刷新数据
-    [self.tableView reloadData];
+    [self.tvAlarmInfo reloadData];
 }
 
 - (void) getCompNameAndModel:(int)compId
 {
     for (int i = 0; i < self.tempID.count; i++) {
         NSString *strID = self.tempID[i];
-//        NSLog(@"DATA --> strID     = %@", strID);
+        //        NSLog(@"DATA --> strID     = %@", strID);
         if ( compId == [strID intValue] ) {
             [self.arrName  addObject:self.tempName[i]];
             [self.arrModel addObject:self.tempModel[i]];
@@ -265,7 +265,7 @@
     [self.arrTime       removeAllObjects];
     [self.arrAlarmID    removeAllObjects];
     
-    [self.tableView reloadData];
+    [self.tvAlarmInfo reloadData];
     
     [self api_GetAlarmData];
 }
@@ -299,5 +299,6 @@
 	loadingHUD.removeFromSuperViewOnHide = YES;
     [loadingHUD hide:YES afterDelay:delay];
 }
+
 
 @end

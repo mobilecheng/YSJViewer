@@ -84,6 +84,7 @@
 		704E97B618A919DF0043D907 /* About.m in Sources */ = {isa = PBXBuildFile; fileRef = 704E97B518A919DF0043D907 /* About.m */; };
 		7064DB4D18A5075300894876 /* UserPwdUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7064DB4C18A5075300894876 /* UserPwdUpdate.m */; };
 		706525A218A68DE8003928F5 /* AlarmInfoDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 706525A118A68DE8003928F5 /* AlarmInfoDetail.m */; };
+		7065E1B818BCDDE90084B82D /* HistoryAlarm.m in Sources */ = {isa = PBXBuildFile; fileRef = 7065E1B718BCDDE90084B82D /* HistoryAlarm.m */; };
 		7072D8B418B0F920004002C0 /* ServiceTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 7072D8B318B0F920004002C0 /* ServiceTime.m */; };
 		70A6767A1886B48C0008F78C /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 70A676731886B48C0008F78C /* base64.c */; };
 		70A6767B1886B48C0008F78C /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A676761886B48C0008F78C /* NSData+SRB64Additions.m */; };
@@ -216,6 +217,8 @@
 		7064DB4C18A5075300894876 /* UserPwdUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPwdUpdate.m; sourceTree = "<group>"; };
 		706525A018A68DE8003928F5 /* AlarmInfoDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmInfoDetail.h; sourceTree = "<group>"; };
 		706525A118A68DE8003928F5 /* AlarmInfoDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmInfoDetail.m; sourceTree = "<group>"; };
+		7065E1B618BCDDE90084B82D /* HistoryAlarm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryAlarm.h; sourceTree = "<group>"; };
+		7065E1B718BCDDE90084B82D /* HistoryAlarm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryAlarm.m; sourceTree = "<group>"; };
 		7072D8B218B0F920004002C0 /* ServiceTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceTime.h; sourceTree = "<group>"; };
 		7072D8B318B0F920004002C0 /* ServiceTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceTime.m; sourceTree = "<group>"; };
 		70A676731886B48C0008F78C /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base64.c; sourceTree = "<group>"; };
@@ -344,6 +347,8 @@
 				702A0C1218BA44FE00B60517 /* ReserveHistory.m */,
 				702A0C1418BA4EA300B60517 /* ReserveHistoryDetail.h */,
 				702A0C1518BA4EA300B60517 /* ReserveHistoryDetail.m */,
+				7065E1B618BCDDE90084B82D /* HistoryAlarm.h */,
+				7065E1B718BCDDE90084B82D /* HistoryAlarm.m */,
 				70A6767F1886D2480008F78C /* UserInfo.h */,
 				70A676801886D2480008F78C /* UserInfo.m */,
 				703C269C189E30F7007D1F90 /* UserInfoUpdate.h */,
@@ -621,6 +626,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7065E1B818BCDDE90084B82D /* HistoryAlarm.m in Sources */,
 				7022B94418B795E3005BEC22 /* ReserveService.m in Sources */,
 				5BCE98891881945D00EEA687 /* HistoryData.m in Sources */,
 				704DEA5A18ABC211001896E7 /* RunRecord_TimeList.m in Sources */,
