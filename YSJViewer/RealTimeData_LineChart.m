@@ -38,6 +38,9 @@
     
     //
     [self api_GetRecentItemData];
+    
+    // test
+    [self showLineChart];
 }
 
 - (void)didReceiveMemoryWarning
@@ -88,6 +91,75 @@
     
     // Exe...
     [self.engine enqueueOperation:op];
+}
+
+#pragma mark - 显示曲线
+
+- (NSUInteger) supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskLandscapeRight;
+}
+
+- (BOOL) shouldAutorotate
+{
+    return YES;
+}
+
+
+- (void) showLineChart
+{
+    /*
+//    UIInterfaceOrientation orientation = [UIDevice currentDevice].orientation;
+    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsPortrait(orientation) || orientation == UIDeviceOrientationUnknown)
+    {
+        if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)])
+        {
+            [[UIDevice currentDevice] performSelector:@selector(setOrientation:)
+                                           withObject:(NSUInteger)UIDeviceOrientationLandscapeRight];
+        }
+    }
+    
+    //
+//    [[UIDevice currentDevice] performSelector:@selector(setOrientation:)
+//                                   withObject:(id)UIDeviceOrientationLandscapeRight];
+    */
+    
+    
+    CGRect webFrame = self.view.frame;
+    webFrame.origin.x = 0;
+    webFrame.origin.y =  0;
+    
+    webViewForSelectDate = [[UIWebView alloc] initWithFrame:webFrame];
+    webViewForSelectDate.delegate = self;
+    webViewForSelectDate.scalesPageToFit = YES;
+    webViewForSelectDate.opaque = NO;
+    webViewForSelectDate.backgroundColor = [UIColor clearColor];
+    webViewForSelectDate.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+    [self.view addSubview:webViewForSelectDate];
+    
+    //所有的资源都在source.bundle这个文件夹里
+    NSString* htmlPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"source.bundle/index.html"];
+    
+    NSURL* url = [NSURL fileURLWithPath:htmlPath];
+    NSURLRequest* request = [NSURLRequest requestWithURL:url];
+    [webViewForSelectDate loadRequest:request];
+    int trueWidth = self.view.frame.size.width;
+    if (trueWidth < self.view.frame.size.height && ![UIApplication sharedApplication].statusBarHidden)
+    {
+        trueWidth = self.view.frame.size.height + MIN([UIApplication sharedApplication].statusBarFrame.size.height,[UIApplication sharedApplication].statusBarFrame.size.width);
+    }
+    
+    /*
+    CGRect closeBtnFrame = CGRectMake(trueWidth - 70, 0, 70, 20);
+    closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeBtn setFrame:closeBtnFrame];
+    [closeBtn setTitle:@"close" forState:UIControlStateNormal];
+    [closeBtn addTarget:self action:@selector(closePage) forControlEvents:UIControlEventTouchUpInside];
+    [closeBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    [self.view addSubview:closeBtn];
+    [self.view bringSubviewToFront:closeBtn];
+    */
 }
 
 #pragma mark - MBProgressHUD methods

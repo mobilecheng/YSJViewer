@@ -10,6 +10,7 @@
 		34160FD2187BE39300A8BCF2 /* login_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 34160FD0187BE39300A8BCF2 /* login_icon.png */; };
 		34160FD3187BE39300A8BCF2 /* BtnImg_Login.png in Resources */ = {isa = PBXBuildFile; fileRef = 34160FD1187BE39300A8BCF2 /* BtnImg_Login.png */; };
 		34160FD6187BE46A00A8BCF2 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 34160FD5187BE46A00A8BCF2 /* Login.m */; };
+		3467B02018BED26A003084AA /* source.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3467B01F18BED26A003084AA /* source.bundle */; };
 		347184DC1887CF36001EA5AB /* icon_setting_about.png in Resources */ = {isa = PBXBuildFile; fileRef = 347184DA1887CF36001EA5AB /* icon_setting_about.png */; };
 		347184DD1887CF36001EA5AB /* icon_setting_apps.png in Resources */ = {isa = PBXBuildFile; fileRef = 347184DB1887CF36001EA5AB /* icon_setting_apps.png */; };
 		347184E01887D0BC001EA5AB /* updateinfo_indicatro.png in Resources */ = {isa = PBXBuildFile; fileRef = 347184DE1887D0BC001EA5AB /* updateinfo_indicatro.png */; };
@@ -110,6 +111,7 @@
 		34160FD1187BE39300A8BCF2 /* BtnImg_Login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BtnImg_Login.png; sourceTree = "<group>"; };
 		34160FD4187BE46A00A8BCF2 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
 		34160FD5187BE46A00A8BCF2 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
+		3467B01F18BED26A003084AA /* source.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = source.bundle; sourceTree = "<group>"; };
 		347184D918878B95001EA5AB /* GlobalValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalValue.h; sourceTree = "<group>"; };
 		347184DA1887CF36001EA5AB /* icon_setting_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_setting_about.png; sourceTree = "<group>"; };
 		347184DB1887CF36001EA5AB /* icon_setting_apps.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_setting_apps.png; sourceTree = "<group>"; };
@@ -264,9 +266,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3467B01E18BED26A003084AA /* LineChart */ = {
+			isa = PBXGroup;
+			children = (
+				3467B01F18BED26A003084AA /* source.bundle */,
+			);
+			path = LineChart;
+			sourceTree = "<group>";
+		};
 		5B64F6231875BEEC002C0404 = {
 			isa = PBXGroup;
 			children = (
+				3467B01E18BED26A003084AA /* LineChart */,
 				70A676721886B48C0008F78C /* SocketRocket */,
 				5B64F67D18797C24002C0404 /* MBProgressHUD */,
 				5B64F68018797C24002C0404 /* MKNetworkKit */,
@@ -579,6 +590,7 @@
 				5B64F6CC187AFA8A002C0404 /* BtnImg_StorageList.png in Resources */,
 				5B64F63A1875BEF1002C0404 /* InfoPlist.strings in Resources */,
 				5B64F6C9187AFA8A002C0404 /* BtnImg_AlarmInfo.png in Resources */,
+				3467B02018BED26A003084AA /* source.bundle in Resources */,
 				5B64F6CB187AFA8A002C0404 /* BtnImg_ReserveService.png in Resources */,
 				7023032018B4DA4A0052517E /* green_indicator.png in Resources */,
 				5B64F6D3187AFA8A002C0404 /* Icon_ReserveService.png in Resources */,

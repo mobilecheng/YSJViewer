@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RealTimeData_LineChart : UIViewController
+@interface RealTimeData_LineChart : UIViewController <UIWebViewDelegate>
+
+{
+    UIWebView* webViewForSelectDate;
+}
 
 @end
