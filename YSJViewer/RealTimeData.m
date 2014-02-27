@@ -144,6 +144,13 @@
 }
 
 
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self goLineChart];
+}
+
 #pragma mark -  Init Data.
 
 - (void)initData
@@ -388,6 +395,19 @@
 }
 
 #pragma mark -  Uitility Methods.
+
+- (void) goLineChart
+{
+    // Go to Home screen.
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"RTD_LineChart" bundle:nil];
+    UIViewController *homeVC     = [mainStoryboard instantiateViewControllerWithIdentifier:@"RTD_LineChart"];
+    
+    [self.navigationController pushViewController:homeVC animated:YES];
+//    [self presentViewController:homeVC animated:YES completion:^{
+//    }];
+    
+
+}
 
 - (void)setExtraCellLineHidden:(UITableView *)tableView
 {

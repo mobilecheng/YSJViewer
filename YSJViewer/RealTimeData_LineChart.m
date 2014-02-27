@@ -9,6 +9,8 @@
 #import "RealTimeData_LineChart.h"
 #import "GlobalValue.h"
 
+#define degreesToRadians(x) (M_PI * x / 180.0)
+
 @interface RealTimeData_LineChart ()
 
 @property (nonatomic) MKNetworkEngine *engine;
@@ -30,6 +32,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    
     
     //
     self.engine = [[MKNetworkEngine alloc]
@@ -95,15 +99,15 @@
 
 #pragma mark - 显示曲线
 
-- (NSUInteger) supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskLandscapeRight;
-}
-
-- (BOOL) shouldAutorotate
-{
-    return YES;
-}
+//- (NSUInteger) supportedInterfaceOrientations
+//{
+//    return UIInterfaceOrientationMaskLandscapeRight;
+//}
+//
+//- (BOOL) shouldAutorotate
+//{
+//    return NO;
+//}
 
 
 - (void) showLineChart
@@ -160,7 +164,49 @@
     [self.view addSubview:closeBtn];
     [self.view bringSubviewToFront:closeBtn];
     */
+    
+//    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
+//    self.navigationController.navigationBar.transform = CGAffineTransformMakeRotation(M_PI/2);
+    
+//    self.view.transform = CGAffineTransformMakeRotation(M_PI/2);
+//    self.view.bounds = CGRectMake(0, 0, 568, 320);
+    
+    
+//    CGRect newBounds = CGRectMake(0, 0, 568, 320);
+//    self.navigationController.view.bounds = newBounds;
+//    self.navigationController.view.center = CGPointMake(newBounds.size.height / 2.0, newBounds.size.width / 2.0);
+//    
+//    self.navigationController.view.transform = CGAffineTransformMakeRotation(degreesToRadians(90));
+    
 }
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
+    
+    CGRect newBounds = CGRectMake(0, 0, 568, 320);
+    self.navigationController.view.bounds = newBounds;
+    self.navigationController.view.center = CGPointMake(newBounds.size.height / 2.0, newBounds.size.width / 2.0);
+    
+    self.navigationController.view.transform = CGAffineTransformMakeRotation(degreesToRadians(90));
+    
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
+    
+    self.navigationController.view.transform = CGAffineTransformIdentity;
+    self.navigationController.view.transform = CGAffineTransformMakeRotation(degreesToRadians(0));
+    self.navigationController.view.bounds = CGRectMake(0.0, 0.0, 320.0, 568.0);
+    
+    [super viewWillDisappear:animated];
+}
+
+
 
 #pragma mark - MBProgressHUD methods
 

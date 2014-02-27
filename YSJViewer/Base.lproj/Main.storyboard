@@ -2080,27 +2080,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="5151" y="1"/>
         </scene>
-        <!--Real Time Data Line Chart - 曲线图-->
-        <scene sceneID="mcm-TB-Zg6">
-            <objects>
-                <viewController id="OUy-Ya-nGs" customClass="RealTimeData_LineChart" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="bQD-98-XAK"/>
-                        <viewControllerLayoutGuide type="bottom" id="42Z-7N-lIs"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="AH9-ET-T8f">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="曲线图" id="Tl7-qH-acv"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rK5-wK-62T" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4123" y="556"/>
-        </scene>
         <!--Real Time Data - 实时数据-->
         <scene sceneID="EdM-2D-Erw">
             <objects>
@@ -2375,6 +2354,27 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="4362" y="1"/>
         </scene>
+        <!--Real Time Data Line Chart-->
+        <scene sceneID="5qa-7w-MYo">
+            <objects>
+                <viewController id="Yp4-S4-KK2" customClass="RealTimeData_LineChart" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2ps-ij-FLa"/>
+                        <viewControllerLayoutGuide type="bottom" id="VAy-IT-wTr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sXs-kZ-68y">
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="roY-jo-0B6"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xUT-n1-spk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3902" y="548"/>
+        </scene>
         <!--Service Time - 服务时间-->
         <scene sceneID="1RO-m0-EPI">
             <objects>
@@ -2533,7 +2533,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="0el-8L-qHP"/>
-        <segue reference="MxP-zn-62i"/>
+        <segue reference="tRw-ve-0oR"/>
+        <segue reference="Cvt-BV-AZC"/>
     </inferredMetricsTieBreakers>
 </document>

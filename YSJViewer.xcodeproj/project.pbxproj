@@ -11,6 +11,9 @@
 		34160FD3187BE39300A8BCF2 /* BtnImg_Login.png in Resources */ = {isa = PBXBuildFile; fileRef = 34160FD1187BE39300A8BCF2 /* BtnImg_Login.png */; };
 		34160FD6187BE46A00A8BCF2 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 34160FD5187BE46A00A8BCF2 /* Login.m */; };
 		3467B02018BED26A003084AA /* source.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3467B01F18BED26A003084AA /* source.bundle */; };
+		3467B02218BF0DDF003084AA /* RTD_LineChart.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3467B02118BF0DDF003084AA /* RTD_LineChart.storyboard */; };
+		3467B02518BF1176003084AA /* NavLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 3467B02418BF1176003084AA /* NavLineChart.m */; };
+		3467B02818BF299B003084AA /* NavLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3467B02718BF299B003084AA /* NavLogin.m */; };
 		347184DC1887CF36001EA5AB /* icon_setting_about.png in Resources */ = {isa = PBXBuildFile; fileRef = 347184DA1887CF36001EA5AB /* icon_setting_about.png */; };
 		347184DD1887CF36001EA5AB /* icon_setting_apps.png in Resources */ = {isa = PBXBuildFile; fileRef = 347184DB1887CF36001EA5AB /* icon_setting_apps.png */; };
 		347184E01887D0BC001EA5AB /* updateinfo_indicatro.png in Resources */ = {isa = PBXBuildFile; fileRef = 347184DE1887D0BC001EA5AB /* updateinfo_indicatro.png */; };
@@ -112,6 +115,11 @@
 		34160FD4187BE46A00A8BCF2 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
 		34160FD5187BE46A00A8BCF2 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
 		3467B01F18BED26A003084AA /* source.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = source.bundle; sourceTree = "<group>"; };
+		3467B02118BF0DDF003084AA /* RTD_LineChart.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RTD_LineChart.storyboard; sourceTree = "<group>"; };
+		3467B02318BF1176003084AA /* NavLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavLineChart.h; sourceTree = "<group>"; };
+		3467B02418BF1176003084AA /* NavLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavLineChart.m; sourceTree = "<group>"; };
+		3467B02618BF299B003084AA /* NavLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavLogin.h; sourceTree = "<group>"; };
+		3467B02718BF299B003084AA /* NavLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavLogin.m; sourceTree = "<group>"; };
 		347184D918878B95001EA5AB /* GlobalValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalValue.h; sourceTree = "<group>"; };
 		347184DA1887CF36001EA5AB /* icon_setting_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_setting_about.png; sourceTree = "<group>"; };
 		347184DB1887CF36001EA5AB /* icon_setting_apps.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_setting_apps.png; sourceTree = "<group>"; };
@@ -322,8 +330,11 @@
 				5B64F6411875BEF3002C0404 /* Main.storyboard */,
 				3494FB13187BF63300FF8272 /* LoginStoryboard.storyboard */,
 				704DEA5B18ABC5E1001896E7 /* RunRecordSB.storyboard */,
+				3467B02118BF0DDF003084AA /* RTD_LineChart.storyboard */,
 				34160FD4187BE46A00A8BCF2 /* Login.h */,
 				34160FD5187BE46A00A8BCF2 /* Login.m */,
+				3467B02618BF299B003084AA /* NavLogin.h */,
+				3467B02718BF299B003084AA /* NavLogin.m */,
 				5B64F6441875BEF3002C0404 /* Home.h */,
 				5B64F6451875BEF3002C0404 /* Home.m */,
 				704E97B418A919DF0043D907 /* About.h */,
@@ -342,6 +353,8 @@
 				5B64F6D8187B13CB002C0404 /* RealTimeData.m */,
 				702A0C0E18BA2C1700B60517 /* RealTimeData_LineChart.h */,
 				702A0C0F18BA2C1700B60517 /* RealTimeData_LineChart.m */,
+				3467B02318BF1176003084AA /* NavLineChart.h */,
+				3467B02418BF1176003084AA /* NavLineChart.m */,
 				5BE956381882E80300AE94AA /* RunRecord.h */,
 				5BE956391882E80300AE94AA /* RunRecord.m */,
 				704DEA5818ABC211001896E7 /* RunRecord_TimeList.h */,
@@ -613,6 +626,7 @@
 				702876A318A7926600E39010 /* inventory_list_indicator.png in Resources */,
 				3494FB14187BF63300FF8272 /* LoginStoryboard.storyboard in Resources */,
 				347184DD1887CF36001EA5AB /* icon_setting_apps.png in Resources */,
+				3467B02218BF0DDF003084AA /* RTD_LineChart.storyboard in Resources */,
 				5B64F6D0187AFA8A002C0404 /* Icon_HistoryData.png in Resources */,
 				70A981BF189B8A69001FC021 /* alarm_list_indicator.png in Resources */,
 				7023031E18B4D9B10052517E /* yello_indicator.png in Resources */,
@@ -652,12 +666,14 @@
 				7072D8B418B0F920004002C0 /* ServiceTime.m in Sources */,
 				5BE9563A1882E80300AE94AA /* RunRecord.m in Sources */,
 				34160FD6187BE46A00A8BCF2 /* Login.m in Sources */,
+				3467B02518BF1176003084AA /* NavLineChart.m in Sources */,
 				70A676811886D2480008F78C /* UserInfo.m in Sources */,
 				703C269E189E30F7007D1F90 /* UserInfoUpdate.m in Sources */,
 				5B64F69B18797C24002C0404 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				5B64F6D9187B13CB002C0404 /* RealTimeData.m in Sources */,
 				702A0C1018BA2C1700B60517 /* RealTimeData_LineChart.m in Sources */,
 				702876A018A77C1400E39010 /* StockQuery.m in Sources */,
+				3467B02818BF299B003084AA /* NavLogin.m in Sources */,
 				70A6767A1886B48C0008F78C /* base64.c in Sources */,
 				5B64F69618797C24002C0404 /* MBProgressHUD.m in Sources */,
 				5B64F67C187962D9002C0404 /* YSJ_InfoMenu.m in Sources */,
