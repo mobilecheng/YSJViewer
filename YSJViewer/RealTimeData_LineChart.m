@@ -8,16 +8,21 @@
 
 #import "RealTimeData_LineChart.h"
 #import "GlobalValue.h"
+#import "LCLineChartView.h"
 
 #define degreesToRadians(x) (M_PI * x / 180.0)
+#define SECS_PER_DAY (86400)
 
 @interface RealTimeData_LineChart ()
 
 @property (nonatomic) MKNetworkEngine *engine;
 
+@property (strong) NSDateFormatter *formatter;
+
 @end
 
 @implementation RealTimeData_LineChart
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,6 +51,33 @@
     // test
     [self showLineChart];
 }
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
+    
+    CGRect newBounds = CGRectMake(0, 0, 568, 320);
+    self.navigationController.view.bounds = newBounds;
+    self.navigationController.view.center = CGPointMake(newBounds.size.height / 2.0, newBounds.size.width / 2.0);
+    
+    self.navigationController.view.transform = CGAffineTransformMakeRotation(degreesToRadians(90));
+    
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
+    
+    self.navigationController.view.transform = CGAffineTransformIdentity;
+    self.navigationController.view.transform = CGAffineTransformMakeRotation(degreesToRadians(0));
+    self.navigationController.view.bounds = CGRectMake(0, 0, 320, 568);
+    
+    [super viewWillDisappear:animated];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -112,100 +144,125 @@
 
 - (void) showLineChart
 {
-    /*
-//    UIInterfaceOrientation orientation = [UIDevice currentDevice].orientation;
-    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-    if (UIDeviceOrientationIsPortrait(orientation) || orientation == UIDeviceOrientationUnknown)
+    
     {
-        if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)])
-        {
-            [[UIDevice currentDevice] performSelector:@selector(setOrientation:)
-                                           withObject:(NSUInteger)UIDeviceOrientationLandscapeRight];
+        self.formatter = [[NSDateFormatter alloc] init];
+        [self.formatter setDateFormat:[NSDateFormatter dateFormatFromTemplate:@"yyyyMMMd" options:0 locale:[NSLocale currentLocale]]];
+    }
+    
+    LCLineChartData *d1x = [LCLineChartData new];
+    {
+        LCLineChartData *d1 = d1x;
+        // el-cheapo next/prev day. Don't use this in your Real Code (use NSDateComponents or objc-utils instead)
+        NSDate *date1 = [[NSDate date] dateByAddingTimeInterval:((-3) * SECS_PER_DAY)];
+        NSDate *date2 = [[NSDate date] dateByAddingTimeInterval:((2) * SECS_PER_DAY)];
+        d1.xMin = [date1 timeIntervalSinceReferenceDate];
+        d1.xMax = [date2 timeIntervalSinceReferenceDate];
+        d1.title = @"Foobarbang";
+        d1.color = [UIColor redColor];
+        d1.itemCount = 6;
+        NSMutableArray *arr = [NSMutableArray array];
+        for(NSUInteger i = 0; i < 4; ++i) {
+            [arr addObject:@(d1.xMin + (rand() / (float)RAND_MAX) * (d1.xMax - d1.xMin))];
         }
+        [arr addObject:@(d1.xMin)];
+        [arr addObject:@(d1.xMax)];
+        [arr sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            return [obj1 compare:obj2];
+        }];
+        NSMutableArray *arr2 = [NSMutableArray array];
+        for(NSUInteger i = 0; i < 6; ++i) {
+            [arr2 addObject:@((rand() / (float)RAND_MAX) * 6)];
+        }
+        d1.getData = ^(NSUInteger item) {
+            float x = [arr[item] floatValue];
+            float y = [arr2[item] floatValue];
+            NSString *label1 = [self.formatter stringFromDate:[date1 dateByAddingTimeInterval:x]];
+            NSString *label2 = [NSString stringWithFormat:@"%f", y];
+            return [LCLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
+        };
     }
     
-    //
-//    [[UIDevice currentDevice] performSelector:@selector(setOrientation:)
-//                                   withObject:(id)UIDeviceOrientationLandscapeRight];
-    */
-    
-    
-    CGRect webFrame = self.view.frame;
-    webFrame.origin.x = 0;
-    webFrame.origin.y =  0;
-    
-    webViewForSelectDate = [[UIWebView alloc] initWithFrame:webFrame];
-    webViewForSelectDate.delegate = self;
-    webViewForSelectDate.scalesPageToFit = YES;
-    webViewForSelectDate.opaque = NO;
-    webViewForSelectDate.backgroundColor = [UIColor clearColor];
-    webViewForSelectDate.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-    [self.view addSubview:webViewForSelectDate];
-    
-    //所有的资源都在source.bundle这个文件夹里
-    NSString* htmlPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"source.bundle/index.html"];
-    
-    NSURL* url = [NSURL fileURLWithPath:htmlPath];
-    NSURLRequest* request = [NSURLRequest requestWithURL:url];
-    [webViewForSelectDate loadRequest:request];
-    int trueWidth = self.view.frame.size.width;
-    if (trueWidth < self.view.frame.size.height && ![UIApplication sharedApplication].statusBarHidden)
+    LCLineChartData *d2x = [LCLineChartData new];
     {
-        trueWidth = self.view.frame.size.height + MIN([UIApplication sharedApplication].statusBarFrame.size.height,[UIApplication sharedApplication].statusBarFrame.size.width);
+        LCLineChartData *d1 = d2x;
+        NSDate *date1 = [[NSDate date] dateByAddingTimeInterval:((-3) * SECS_PER_DAY)];
+        NSDate *date2 = [[NSDate date] dateByAddingTimeInterval:((2) * SECS_PER_DAY)];
+        d1.xMin = [date1 timeIntervalSinceReferenceDate];
+        d1.xMax = [date2 timeIntervalSinceReferenceDate];
+        d1.title = @"Bar";
+        d1.color = [UIColor blueColor];
+        d1.itemCount = 8;
+        NSMutableArray *arr = [NSMutableArray array];
+        for(NSUInteger i = 0; i < d1.itemCount - 2; ++i) {
+            [arr addObject:@(d1.xMin + (rand() / (float)RAND_MAX) * (d1.xMax - d1.xMin))];
+        }
+        [arr addObject:@(d1.xMin)];
+        [arr addObject:@(d1.xMax)];
+        [arr sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            return [obj1 compare:obj2];
+        }];
+        NSMutableArray *arr2 = [NSMutableArray array];
+        for(NSUInteger i = 0; i < d1.itemCount; ++i) {
+            [arr2 addObject:@((rand() / (float)RAND_MAX) * 6)];
+        }
+        d1.getData = ^(NSUInteger item) {
+            float x = [arr[item] floatValue];
+            float y = [arr2[item] floatValue];
+            NSString *label1 = [self.formatter stringFromDate:[date1 dateByAddingTimeInterval:x]];
+            NSString *label2 = [NSString stringWithFormat:@"%f", y];
+            return [LCLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
+        };
     }
     
-    /*
-    CGRect closeBtnFrame = CGRectMake(trueWidth - 70, 0, 70, 20);
-    closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeBtn setFrame:closeBtnFrame];
-    [closeBtn setTitle:@"close" forState:UIControlStateNormal];
-    [closeBtn addTarget:self action:@selector(closePage) forControlEvents:UIControlEventTouchUpInside];
-    [closeBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [self.view addSubview:closeBtn];
-    [self.view bringSubviewToFront:closeBtn];
-    */
+    LCLineChartView *chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(20, 400, 500, 300)];
+    chartView.yMin = 0;
+    chartView.yMax = 6;
+    chartView.ySteps = @[@"1.0",@"2.0",@"3.0",@"4.0",@"5.0",@"A big label at 6.0"];
+    chartView.data = @[d1x,d2x];
     
-//    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
-//    self.navigationController.navigationBar.transform = CGAffineTransformMakeRotation(M_PI/2);
+    //    chartView.drawsDataPoints = NO; // Uncomment to turn off circles at data points.
+    //    chartView.drawsDataLines = NO; // Uncomment to turn off lines connecting data points.
+    //    chartView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0]; // Uncomment for custom background color.
     
-//    self.view.transform = CGAffineTransformMakeRotation(M_PI/2);
-//    self.view.bounds = CGRectMake(0, 0, 568, 320);
+    [self.view addSubview:chartView];
     
-    
-//    CGRect newBounds = CGRectMake(0, 0, 568, 320);
-//    self.navigationController.view.bounds = newBounds;
-//    self.navigationController.view.center = CGPointMake(newBounds.size.height / 2.0, newBounds.size.width / 2.0);
-//    
-//    self.navigationController.view.transform = CGAffineTransformMakeRotation(degreesToRadians(90));
-    
+    {
+        LCLineChartData *d = [LCLineChartData new];
+        d.xMin = 1;
+        d.xMax = 31;
+        d.title = @"The title for the legend";
+        d.color = [UIColor redColor];
+        d.itemCount = 10;
+        
+        NSMutableArray *vals = [NSMutableArray new];
+        for(NSUInteger i = 0; i < d.itemCount; ++i)
+            [vals addObject:@((rand() / (float)RAND_MAX) * (31 - 1) + 1)];
+        [vals sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            return [obj1 compare:obj2];
+        }];
+        d.getData = ^(NSUInteger item) {
+            float x = [vals[item] floatValue];
+            float y = powf(2, x / 7);
+            NSString *label1 = [NSString stringWithFormat:@"%d", item];
+            NSString *label2 = [NSString stringWithFormat:@"%f", y];
+            return [LCLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
+        };
+        
+        LCLineChartView *chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(20, 700, 500, 300)];
+        chartView.yMin = 0;
+        chartView.yMax = powf(2, 31 / 7) + 0.5;
+        chartView.ySteps = @[@"0.0",
+                             [NSString stringWithFormat:@"%.02f", chartView.yMax / 2],
+                             [NSString stringWithFormat:@"%.02f", chartView.yMax]];
+        chartView.xStepsCount = 5;
+        chartView.data = @[d];
+        
+        chartView.axisLabelColor = [UIColor blueColor];
+        
+        [self.view addSubview:chartView];
+    }
 }
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    
-    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
-    
-    CGRect newBounds = CGRectMake(0, 0, 568, 320);
-    self.navigationController.view.bounds = newBounds;
-    self.navigationController.view.center = CGPointMake(newBounds.size.height / 2.0, newBounds.size.width / 2.0);
-    
-    self.navigationController.view.transform = CGAffineTransformMakeRotation(degreesToRadians(90));
-    
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
-    
-    self.navigationController.view.transform = CGAffineTransformIdentity;
-    self.navigationController.view.transform = CGAffineTransformMakeRotation(degreesToRadians(0));
-    self.navigationController.view.bounds = CGRectMake(0.0, 0.0, 320.0, 568.0);
-    
-    [super viewWillDisappear:animated];
-}
-
 
 
 #pragma mark - MBProgressHUD methods

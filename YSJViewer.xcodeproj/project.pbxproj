@@ -10,7 +10,6 @@
 		34160FD2187BE39300A8BCF2 /* login_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 34160FD0187BE39300A8BCF2 /* login_icon.png */; };
 		34160FD3187BE39300A8BCF2 /* BtnImg_Login.png in Resources */ = {isa = PBXBuildFile; fileRef = 34160FD1187BE39300A8BCF2 /* BtnImg_Login.png */; };
 		34160FD6187BE46A00A8BCF2 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 34160FD5187BE46A00A8BCF2 /* Login.m */; };
-		3467B02018BED26A003084AA /* source.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3467B01F18BED26A003084AA /* source.bundle */; };
 		3467B02218BF0DDF003084AA /* RTD_LineChart.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3467B02118BF0DDF003084AA /* RTD_LineChart.storyboard */; };
 		3467B02518BF1176003084AA /* NavLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 3467B02418BF1176003084AA /* NavLineChart.m */; };
 		3467B02818BF299B003084AA /* NavLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3467B02718BF299B003084AA /* NavLogin.m */; };
@@ -97,6 +96,10 @@
 		70A676811886D2480008F78C /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A676801886D2480008F78C /* UserInfo.m */; };
 		70A981BD189B8744001FC021 /* AlarmInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A981BC189B8744001FC021 /* AlarmInfo.m */; };
 		70A981BF189B8A69001FC021 /* alarm_list_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 70A981BE189B8A69001FC021 /* alarm_list_indicator.png */; };
+		70AE0D3718C0DBC6002C6C2D /* LCInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AE0D3018C0DBC6002C6C2D /* LCInfoView.m */; };
+		70AE0D3818C0DBC6002C6C2D /* LCLegendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AE0D3218C0DBC6002C6C2D /* LCLegendView.m */; };
+		70AE0D3918C0DBC6002C6C2D /* LCLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AE0D3418C0DBC6002C6C2D /* LCLineChartView.m */; };
+		70AE0D3A18C0DBC6002C6C2D /* UIKit+DrawingHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AE0D3618C0DBC6002C6C2D /* UIKit+DrawingHelpers.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,7 +117,6 @@
 		34160FD1187BE39300A8BCF2 /* BtnImg_Login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BtnImg_Login.png; sourceTree = "<group>"; };
 		34160FD4187BE46A00A8BCF2 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
 		34160FD5187BE46A00A8BCF2 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
-		3467B01F18BED26A003084AA /* source.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = source.bundle; sourceTree = "<group>"; };
 		3467B02118BF0DDF003084AA /* RTD_LineChart.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RTD_LineChart.storyboard; sourceTree = "<group>"; };
 		3467B02318BF1176003084AA /* NavLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavLineChart.h; sourceTree = "<group>"; };
 		3467B02418BF1176003084AA /* NavLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavLineChart.m; sourceTree = "<group>"; };
@@ -244,6 +246,14 @@
 		70A981BB189B8744001FC021 /* AlarmInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmInfo.h; sourceTree = "<group>"; };
 		70A981BC189B8744001FC021 /* AlarmInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmInfo.m; sourceTree = "<group>"; };
 		70A981BE189B8A69001FC021 /* alarm_list_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarm_list_indicator.png; sourceTree = "<group>"; };
+		70AE0D2F18C0DBC6002C6C2D /* LCInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCInfoView.h; sourceTree = "<group>"; };
+		70AE0D3018C0DBC6002C6C2D /* LCInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCInfoView.m; sourceTree = "<group>"; };
+		70AE0D3118C0DBC6002C6C2D /* LCLegendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCLegendView.h; sourceTree = "<group>"; };
+		70AE0D3218C0DBC6002C6C2D /* LCLegendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCLegendView.m; sourceTree = "<group>"; };
+		70AE0D3318C0DBC6002C6C2D /* LCLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCLineChartView.h; sourceTree = "<group>"; };
+		70AE0D3418C0DBC6002C6C2D /* LCLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCLineChartView.m; sourceTree = "<group>"; };
+		70AE0D3518C0DBC6002C6C2D /* UIKit+DrawingHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIKit+DrawingHelpers.h"; sourceTree = "<group>"; };
+		70AE0D3618C0DBC6002C6C2D /* UIKit+DrawingHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIKit+DrawingHelpers.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,18 +284,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3467B01E18BED26A003084AA /* LineChart */ = {
-			isa = PBXGroup;
-			children = (
-				3467B01F18BED26A003084AA /* source.bundle */,
-			);
-			path = LineChart;
-			sourceTree = "<group>";
-		};
 		5B64F6231875BEEC002C0404 = {
 			isa = PBXGroup;
 			children = (
-				3467B01E18BED26A003084AA /* LineChart */,
+				70AE0D2E18C0DBC6002C6C2D /* LineChart */,
 				70A676721886B48C0008F78C /* SocketRocket */,
 				5B64F67D18797C24002C0404 /* MBProgressHUD */,
 				5B64F68018797C24002C0404 /* MKNetworkKit */,
@@ -519,6 +521,21 @@
 			path = SocketRocket;
 			sourceTree = "<group>";
 		};
+		70AE0D2E18C0DBC6002C6C2D /* LineChart */ = {
+			isa = PBXGroup;
+			children = (
+				70AE0D2F18C0DBC6002C6C2D /* LCInfoView.h */,
+				70AE0D3018C0DBC6002C6C2D /* LCInfoView.m */,
+				70AE0D3118C0DBC6002C6C2D /* LCLegendView.h */,
+				70AE0D3218C0DBC6002C6C2D /* LCLegendView.m */,
+				70AE0D3318C0DBC6002C6C2D /* LCLineChartView.h */,
+				70AE0D3418C0DBC6002C6C2D /* LCLineChartView.m */,
+				70AE0D3518C0DBC6002C6C2D /* UIKit+DrawingHelpers.h */,
+				70AE0D3618C0DBC6002C6C2D /* UIKit+DrawingHelpers.m */,
+			);
+			path = LineChart;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -603,7 +620,6 @@
 				5B64F6CC187AFA8A002C0404 /* BtnImg_StorageList.png in Resources */,
 				5B64F63A1875BEF1002C0404 /* InfoPlist.strings in Resources */,
 				5B64F6C9187AFA8A002C0404 /* BtnImg_AlarmInfo.png in Resources */,
-				3467B02018BED26A003084AA /* source.bundle in Resources */,
 				5B64F6CB187AFA8A002C0404 /* BtnImg_ReserveService.png in Resources */,
 				7023032018B4DA4A0052517E /* green_indicator.png in Resources */,
 				5B64F6D3187AFA8A002C0404 /* Icon_ReserveService.png in Resources */,
@@ -660,6 +676,7 @@
 				5B64F69918797C24002C0404 /* NSDictionary+RequestEncoding.m in Sources */,
 				702A0C1318BA44FE00B60517 /* ReserveHistory.m in Sources */,
 				5B64F69D18797C24002C0404 /* MKNetworkEngine.m in Sources */,
+				70AE0D3918C0DBC6002C6C2D /* LCLineChartView.m in Sources */,
 				5B64F69C18797C24002C0404 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
 				706525A218A68DE8003928F5 /* AlarmInfoDetail.m in Sources */,
 				5B64F69F18797C24002C0404 /* Reachability.m in Sources */,
@@ -673,6 +690,7 @@
 				5B64F6D9187B13CB002C0404 /* RealTimeData.m in Sources */,
 				702A0C1018BA2C1700B60517 /* RealTimeData_LineChart.m in Sources */,
 				702876A018A77C1400E39010 /* StockQuery.m in Sources */,
+				70AE0D3718C0DBC6002C6C2D /* LCInfoView.m in Sources */,
 				3467B02818BF299B003084AA /* NavLogin.m in Sources */,
 				70A6767A1886B48C0008F78C /* base64.c in Sources */,
 				5B64F69618797C24002C0404 /* MBProgressHUD.m in Sources */,
@@ -685,7 +703,9 @@
 				5B64F69718797C24002C0404 /* NSData+MKBase64.m in Sources */,
 				704DEA5F18ABD721001896E7 /* RunRecord_TimeList_Detail.m in Sources */,
 				5B64F69E18797C24002C0404 /* MKNetworkOperation.m in Sources */,
+				70AE0D3818C0DBC6002C6C2D /* LCLegendView.m in Sources */,
 				5B64F63C1875BEF1002C0404 /* main.m in Sources */,
+				70AE0D3A18C0DBC6002C6C2D /* UIKit+DrawingHelpers.m in Sources */,
 				5B64F69A18797C24002C0404 /* NSString+MKNetworkKitAdditions.m in Sources */,
 				704E97B618A919DF0043D907 /* About.m in Sources */,
 				5B64F69818797C24002C0404 /* NSDate+RFC1123.m in Sources */,

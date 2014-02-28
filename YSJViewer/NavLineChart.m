@@ -28,10 +28,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-//    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
-//    self.navigationBar.transform = CGAffineTransformMakeRotation(M_PI/2);
-//    self.view.transform = CGAffineTransformMakeRotation(M_PI/2);
-//    self.view.bounds = CGRectMake(0, 0, 568, 320);
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,7 +45,5 @@
 //{
 //    return NO;
 //}
-
-
 
 @end
