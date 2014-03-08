@@ -2354,10 +2354,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="4362" y="1"/>
         </scene>
-        <!--Real Time Data Line Chart-->
+        <!--View Controller-->
         <scene sceneID="5qa-7w-MYo">
             <objects>
-                <viewController id="Yp4-S4-KK2" customClass="RealTimeData_LineChart" sceneMemberID="viewController">
+                <viewController id="Yp4-S4-KK2" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2ps-ij-FLa"/>
                         <viewControllerLayoutGuide type="bottom" id="VAy-IT-wTr"/>
