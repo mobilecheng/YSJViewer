@@ -11,6 +11,7 @@
 #import "LCLineChartView.h"
 #import "ViewLineChart.h"
 
+
 #define degreesToRadians(x) (M_PI * x / 180.0)
 #define SECS_PER_DAY (86400)
 
@@ -39,22 +40,17 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    
-    
     //
     self.engine = [[MKNetworkEngine alloc]
                    initWithHostName:hostName
                    customHeaderFields:nil];
     
     //
-//    [self api_GetRecentItemData];
+    [self api_GetRecentItemData];
     
     // test
     [self showLineChart];
     
-//    ViewLineChart *customView = [[ViewLineChart alloc] initWithFrame:CGRectMake(0, 0,
-//                            568, self.view.frame.size.height)];
-//    [self.view addSubview:customView];
 }
 
 
@@ -146,24 +142,26 @@
 //    return NO;
 //}
 
-
 - (void) showLineChart
 {
     
+    self.formatter = [[NSDateFormatter alloc] init];
+    [self.formatter setDateFormat:[NSDateFormatter dateFormatFromTemplate:@"yyyyMMMd" options:0 locale:[NSLocale currentLocale]]];
     
     LCLineChartData *d1 = [LCLineChartData new];
-//    LCLineChartData *d1 = d1x;
     
+    // el-cheapo next/prev day. Don't use this in your Real Code (use NSDateComponents or objc-utils instead)
     NSDate *date1 = [[NSDate date] dateByAddingTimeInterval:((-3) * SECS_PER_DAY)];
     NSDate *date2 = [[NSDate date] dateByAddingTimeInterval:((2) * SECS_PER_DAY)];
     
+    // 定义X轴数据
     d1.xMin = [date1 timeIntervalSinceReferenceDate];
     d1.xMax = [date2 timeIntervalSinceReferenceDate];
-    
-//    d1.title = @"Foobarbang";
-    d1.color = [UIColor redColor];
+    d1.title = @"Foobarbang";
+    d1.color = [UIColor blackColor];
     d1.itemCount = 6;
     
+    //给曲线图加数据
     NSMutableArray *arr = [NSMutableArray array];
     for(NSUInteger i = 0; i < 4; ++i) {
         [arr addObject:@(d1.xMin + (rand() / (float)RAND_MAX) * (d1.xMax - d1.xMin))];
@@ -184,11 +182,13 @@
         float y = [arr2[item] floatValue];
         NSString *label1 = [self.formatter stringFromDate:[date1 dateByAddingTimeInterval:x]];
         NSString *label2 = [NSString stringWithFormat:@"%f", y];
+        
         return [LCLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
     };
+
     
-    // Add to view.
-    LCLineChartView *chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, 80, 500, 200)];
+    // 显示曲线图 Add to view.
+    LCLineChartView *chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, 80, 550, 230)];
     chartView.yMin = 0;
     chartView.yMax = 6;
     chartView.ySteps = @[@"1.0",@"2.0",@"3.0",@"4.0",@"5.0",@"6.0"];
@@ -197,7 +197,6 @@
     [self.view addSubview:chartView];
     
 }
-
 
 #pragma mark - MBProgressHUD methods
 
