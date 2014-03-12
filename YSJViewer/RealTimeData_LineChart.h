@@ -12,7 +12,7 @@
 @interface RealTimeData_LineChart : UIViewController
 
 {
-    
+//    NSUInteger dataCount;
 }
 
 @end

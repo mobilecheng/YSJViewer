@@ -13,13 +13,16 @@
 
 
 #define degreesToRadians(x) (M_PI * x / 180.0)
-#define SECS_PER_DAY (86400)
+
 
 @interface RealTimeData_LineChart ()
 
 @property (nonatomic) MKNetworkEngine *engine;
 
-@property (strong) NSDateFormatter *formatter;
+@property (nonatomic) NSUInteger dataCount;
+
+@property (nonatomic) NSMutableArray *arrValue;
+@property (nonatomic) NSMutableArray *arrDate;
 
 @end
 
@@ -46,10 +49,10 @@
                    customHeaderFields:nil];
     
     //
-    [self api_GetRecentItemData];
+    [self initData];
     
-    // test
-    [self showLineChart];
+    //
+    [self api_GetRecentItemData];
     
 }
 
@@ -86,6 +89,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark -  Init Data.
+
+- (void)initData
+{
+    self.arrValue  = [[NSMutableArray alloc] init];
+    self.arrDate   = [[NSMutableArray alloc] init];
+}
+
 #pragma mark -  API call.
 
 // API - 曲线数据初始化
@@ -120,7 +131,7 @@
         NSString *str = [completedOperation responseString];
         NSLog(@"--> api_GetRecentItemData -> RESULT = %@", str);
         
-//        [self getCurrentData:data];
+        [self getRecentItemData:data];
         
     } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
         NSLog(@"--> api_GetRecentItemData -> ERROR = %@", [error description]);
@@ -129,6 +140,57 @@
     // Exe...
     [self.engine enqueueOperation:op];
 }
+
+- (void) getRecentItemData:(id)theData
+{
+    NSError *error = nil;
+    NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:theData
+                                                            options:NSJSONReadingAllowFragments error:&error];
+    if (error) {
+        NSLog(@"--> ERROR = %@", error.description);
+        return;
+    }
+    
+    // Check result.
+    NSString *strResult = [dicData objectForKey:@"result"];
+    NSLog(@"--> strResult = %@", strResult);
+    if ([strResult isEqualToString:@"error"]) {
+        [self showMessageHUD:[dicData objectForKey:@"message"]];
+        return;
+    }
+    
+    NSArray *records = [dicData objectForKey:@"records"];
+    self.dataCount = records.count;
+    NSLog(@"--> COUNT = %d", self.dataCount);
+    if (self.dataCount == 0) {
+        [self showMessageHUD:@"没有实时数据."];
+        return;
+    }
+    
+    NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", self.dataCount, [records objectAtIndex:0]);
+    
+    //
+    for (NSDictionary *recordData in records) {
+        NSLog(@"---------------------------------------");
+        
+        NSLog(@"DATA --> value    = %@", [recordData objectForKey:@"value"]);
+        [self.arrValue addObject:[recordData objectForKey:@"value"]];
+        
+        //
+        NSLog(@"DATA --> date     = %@", [recordData objectForKey:@"date"]);
+        [self.arrDate addObject:[recordData objectForKey:@"date"]];
+    }
+    
+    // 绘制曲线
+    [self showLineChart];
+    
+    // 刷新数据
+//    [self.tableView reloadData];
+    
+    // 订阅实时数据
+//    [self api_RealtimeData];
+}
+
 
 #pragma mark - 显示曲线
 
@@ -144,54 +206,37 @@
 
 - (void) showLineChart
 {
-    
-    self.formatter = [[NSDateFormatter alloc] init];
-    [self.formatter setDateFormat:[NSDateFormatter dateFormatFromTemplate:@"yyyyMMMd" options:0 locale:[NSLocale currentLocale]]];
-    
     LCLineChartData *d1 = [LCLineChartData new];
     
-    // el-cheapo next/prev day. Don't use this in your Real Code (use NSDateComponents or objc-utils instead)
-    NSDate *date1 = [[NSDate date] dateByAddingTimeInterval:((-3) * SECS_PER_DAY)];
-    NSDate *date2 = [[NSDate date] dateByAddingTimeInterval:((2) * SECS_PER_DAY)];
-    
-    // 定义X轴数据
-    d1.xMin = [date1 timeIntervalSinceReferenceDate];
-    d1.xMax = [date2 timeIntervalSinceReferenceDate];
-    d1.title = @"Foobarbang";
+    // 定义数据
+    d1.xMin = 1;
+    d1.xMax = 60;
+//    d1.title = @"Foobarbang";
     d1.color = [UIColor blackColor];
-    d1.itemCount = 6;
+    d1.itemCount = self.dataCount;
     
     //给曲线图加数据
-    NSMutableArray *arr = [NSMutableArray array];
-    for(NSUInteger i = 0; i < 4; ++i) {
-        [arr addObject:@(d1.xMin + (rand() / (float)RAND_MAX) * (d1.xMax - d1.xMin))];
-    }
-    [arr addObject:@(d1.xMin)];
-    [arr addObject:@(d1.xMax)];
-    [arr sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [obj1 compare:obj2];
-    }];
-    
-    NSMutableArray *arr2 = [NSMutableArray array];
-    for(NSUInteger i = 0; i < 6; ++i) {
-        [arr2 addObject:@((rand() / (float)RAND_MAX) * 6)];
+    NSMutableArray *vals = [NSMutableArray new];
+    for (NSUInteger i = 0; i < d1.itemCount; ++i) {
+        [vals addObject:[NSString stringWithFormat:@"%d", i + 1]];
     }
     
     d1.getData = ^(NSUInteger item) {
-        float x = [arr[item] floatValue];
-        float y = [arr2[item] floatValue];
-        NSString *label1 = [self.formatter stringFromDate:[date1 dateByAddingTimeInterval:x]];
-        NSString *label2 = [NSString stringWithFormat:@"%f", y];
+        float x = [vals[item] floatValue];
+        float y = [self.arrValue[item] floatValue];
+        NSString *x_label = self.arrDate[item];
+        NSString *y_label = [NSString stringWithFormat:@"%.2f", y];
         
-        return [LCLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
+        return [LCLineChartDataItem dataItemWithX:x y:y xLabel:x_label dataLabel:y_label];
     };
-
     
     // 显示曲线图 Add to view.
     LCLineChartView *chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, 80, 550, 230)];
-    chartView.yMin = 0;
-    chartView.yMax = 6;
-    chartView.ySteps = @[@"1.0",@"2.0",@"3.0",@"4.0",@"5.0",@"6.0"];
+    
+    chartView.yMin = 1;
+    chartView.yMax = 20;
+    chartView.ySteps = @[@"0.0",@"5.0",@"7.0",@"10.0",@"15.0",@"20.0",@"7.0",@"10.0",@"15.0",@"20.0"];
+    
     chartView.data = @[d1];
     
     [self.view addSubview:chartView];
