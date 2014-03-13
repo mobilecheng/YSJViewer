@@ -206,25 +206,36 @@
 
 - (void) showLineChart
 {
+    /*
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:[NSDateFormatter dateFormatFromTemplate:@"yyyy-MM-dd HH:mm:ss" options:0 locale:[NSLocale currentLocale]]];
+    
+    NSDateFormatter *outDate = [[NSDateFormatter alloc] init];
+    [outDate setDateFormat:[NSDateFormatter dateFormatFromTemplate:@"HH:mm:ss" options:0 locale:[NSLocale currentLocale]]];
+    */
+    
+    //
     LCLineChartData *d1 = [LCLineChartData new];
     
     // 定义数据
     d1.xMin = 1;
-    d1.xMax = 60;
-//    d1.title = @"Foobarbang";
+    d1.xMax = self.dataCount;
+    d1.title = @"Foobarbang";
     d1.color = [UIColor blackColor];
     d1.itemCount = self.dataCount;
     
     //给曲线图加数据
     NSMutableArray *vals = [NSMutableArray new];
-    for (NSUInteger i = 0; i < d1.itemCount; ++i) {
+    for (int i = 0; i < d1.itemCount; i++) {
         [vals addObject:[NSString stringWithFormat:@"%d", i + 1]];
     }
     
     d1.getData = ^(NSUInteger item) {
         float x = [vals[item] floatValue];
         float y = [self.arrValue[item] floatValue];
+        
         NSString *x_label = self.arrDate[item];
+        x_label = [x_label substringFromIndex:11];
         NSString *y_label = [NSString stringWithFormat:@"%.2f", y];
         
         return [LCLineChartDataItem dataItemWithX:x y:y xLabel:x_label dataLabel:y_label];
@@ -233,8 +244,30 @@
     // 显示曲线图 Add to view.
     LCLineChartView *chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, 80, 550, 230)];
     
-    chartView.yMin = 1;
-    chartView.yMax = 20;
+    // for test
+    NSMutableArray *arrY = [NSMutableArray arrayWithArray:self.arrValue];
+    [arrY sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj1 compare:obj2];
+    }];
+//    for (int i = 0; i < arrY.count; i++) {
+//        NSLog(@"rese = %@", arrY[i]);
+//    }
+    
+    //
+    NSString *strMin = [NSString stringWithFormat:@"%.2f", [arrY[0] floatValue]];
+    NSString *strMax = [NSString stringWithFormat:@"%.2f", [arrY[arrY.count - 1] floatValue]];
+    
+    float iMin = [arrY[0] floatValue];
+    float iMax = [arrY[arrY.count - 1] floatValue];
+    
+    iMin -= iMin * 0.5;
+    iMax += iMax * 0.5;
+    NSLog(@"iMin = %f", iMin);
+    NSLog(@"iMax = %f", iMax);
+    
+    //
+    chartView.yMin = iMin;
+    chartView.yMax = iMax;
     chartView.ySteps = @[@"0.0",@"5.0",@"7.0",@"10.0",@"15.0",@"20.0",@"7.0",@"10.0",@"15.0",@"20.0"];
     
     chartView.data = @[d1];

@@ -73,10 +73,15 @@
     self.currentPosView.alpha = 0.0;
     [self addSubview:self.currentPosView];
     
+    // comment by kevin 3-13 - START
+    /*
     self.legendView = [[LCLegendView alloc] init];
     self.legendView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
     self.legendView.backgroundColor = [UIColor clearColor];
     [self addSubview:self.legendView];
+    */
+    // comment by kevin 3-13 - END
+    
     
     self.axisLabelColor = [UIColor grayColor];
     
