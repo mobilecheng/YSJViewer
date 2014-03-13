@@ -21,7 +21,7 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {		
-        UIFont *fatFont = [UIFont boldSystemFontOfSize:12];
+        UIFont *fatFont = [UIFont boldSystemFontOfSize:15]; // update 3-13
         
         self.infoLabel = [[UILabel alloc] init]; self.infoLabel.font = fatFont;
         self.infoLabel.backgroundColor = [UIColor clearColor]; self.infoLabel.textColor = [UIColor whiteColor];
@@ -49,6 +49,9 @@
 #define SHADOWBLUR 5
 #define HOOK_SIZE 8
 
+// Add 3-13 by kevin
+#define OFFSET 30
+
 void CGContextAddRoundedRectWithHookSimple(CGContextRef c, CGRect rect, CGFloat radius) {
 	//eventRect must be relative to rect.
 	CGFloat hookSize = HOOK_SIZE;
@@ -72,7 +75,13 @@ void CGContextAddRoundedRectWithHookSimple(CGContextRef c, CGRect rect, CGFloat 
     [self recalculateFrame];
     
     [self.infoLabel sizeToFit];
-    self.infoLabel.frame = CGRectMake(self.bounds.origin.x + 7, self.bounds.origin.y + 2, self.infoLabel.frame.size.width, self.infoLabel.frame.size.height);
+    
+//    self.infoLabel.backgroundColor = [UIColor greenColor]; // add 3-13 by kevin
+    
+    self.infoLabel.frame = CGRectMake(self.bounds.origin.x + 7 - OFFSET,
+                                      self.bounds.origin.y + 2 - OFFSET,
+                                      self.infoLabel.frame.size.width + OFFSET,
+                                      self.infoLabel.frame.size.height + OFFSET);
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
@@ -84,7 +93,7 @@ void CGContextAddRoundedRectWithHookSimple(CGContextRef c, CGRect rect, CGFloat 
     s.height += 15;
     s.height += SHADOWSIZE;
     
-    s.width += 2 * SHADOWSIZE + 7;
+    s.width += 2 * SHADOWSIZE + 7 + OFFSET;  // update 3-13
     s.width = MAX(s.width, HOOK_SIZE * 2 + 2 * SHADOWSIZE + 10);
     
     return s;
@@ -97,8 +106,8 @@ void CGContextAddRoundedRectWithHookSimple(CGContextRef c, CGRect rect, CGFloat 
 	//passe x oder y Position sowie Hoehe oder Breite an, je nachdem, wo der Hook sitzt.
 	theRect.size.height -= SHADOWSIZE * 2;
 	theRect.origin.x += SHADOWSIZE;
-	theRect.size.width -= SHADOWSIZE * 2;
-    theRect.size.height -= SHADOWSIZE * 2;
+	theRect.size.width -= SHADOWSIZE * 2 - OFFSET;  // update 3-13
+    theRect.size.height -= SHADOWSIZE * 2 - OFFSET;  // update 3-13
 	
     [[UIColor colorWithWhite:0.0 alpha:1.0] set];
 	CGContextSetAlpha(c, 0.7);

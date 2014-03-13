@@ -18,6 +18,16 @@
 @interface RealTimeData_LineChart ()
 
 @property (weak, nonatomic) IBOutlet UILabel *labTitle;
+@property (weak, nonatomic) IBOutlet UILabel *labXValue_1;
+@property (weak, nonatomic) IBOutlet UILabel *labXValue_2;
+@property (weak, nonatomic) IBOutlet UILabel *labXValue_3;
+@property (weak, nonatomic) IBOutlet UILabel *labXValue_4;
+@property (weak, nonatomic) IBOutlet UILabel *labXValue_5;
+@property (weak, nonatomic) IBOutlet UIImageView *imgXValue_1;
+@property (weak, nonatomic) IBOutlet UIImageView *imgXValue_2;
+@property (weak, nonatomic) IBOutlet UIImageView *imgXValue_3;
+@property (weak, nonatomic) IBOutlet UIImageView *imgXValue_4;
+@property (weak, nonatomic) IBOutlet UIImageView *imgXValue_5;
 
 @property (nonatomic) MKNetworkEngine *engine;
 
@@ -252,6 +262,7 @@
     
     // 显示曲线图 Add to view.
     LCLineChartView *chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, 80, 550, 230)];
+//    chartView.backgroundColor= [UIColor blueColor];
     
     // for test
     NSMutableArray *arrY = [NSMutableArray arrayWithArray:self.arrValue];
@@ -262,11 +273,11 @@
 //        NSLog(@"rese = %@", arrY[i]);
 //    }
     
-    //
+    // Y轴数值显示
     float iMin = [arrY[0] floatValue];
     float iMax = [arrY[arrY.count - 1] floatValue];
-    iMin -= iMin * 0.5;
-    iMax += iMax * 0.5;
+    iMin -= iMin * 1.0;
+    iMax += iMax * 1.0;
 //    NSLog(@"iMin = %f", iMin);
 //    NSLog(@"iMax = %f", iMax);
     
@@ -293,6 +304,33 @@
     
     chartView.data = @[d1];
     [self.view addSubview:chartView];
+    
+    // X轴5个时间点显示
+    NSString *x_time = [self.arrDate[2] substringFromIndex:11];
+    self.labXValue_1.text = x_time;
+    [self.view addSubview:self.labXValue_1];
+    
+    x_time = [self.arrDate[16] substringFromIndex:11];
+    self.labXValue_2.text = x_time;
+    [self.view addSubview:self.labXValue_2];
+    
+    x_time = [self.arrDate[29] substringFromIndex:11];
+    self.labXValue_3.text = x_time;
+    [self.view addSubview:self.labXValue_3];
+    
+    x_time = [self.arrDate[42] substringFromIndex:11];
+    self.labXValue_4.text = x_time;
+    [self.view addSubview:self.labXValue_4];
+    
+    x_time = [self.arrDate[58] substringFromIndex:11];
+    self.labXValue_5.text = x_time;
+    [self.view addSubview:self.labXValue_5];
+    
+    [self.view addSubview:self.imgXValue_1];
+    [self.view addSubview:self.imgXValue_2];
+    [self.view addSubview:self.imgXValue_3];
+    [self.view addSubview:self.imgXValue_4];
+    [self.view addSubview:self.imgXValue_5];
 }
 
 #pragma mark - MBProgressHUD methods
