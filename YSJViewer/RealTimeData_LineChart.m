@@ -17,6 +17,8 @@
 
 @interface RealTimeData_LineChart ()
 
+@property (weak, nonatomic) IBOutlet UILabel *labTitle;
+
 @property (nonatomic) MKNetworkEngine *engine;
 
 @property (nonatomic) NSUInteger dataCount;
@@ -111,13 +113,18 @@
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     NSString *token  = [saveData  objectForKey:@"Token"];
     NSString *compId = [saveData  objectForKey:@"YSJ_ID"];
+    NSString *iId    = [saveData  objectForKey:@"RL_iID"];
+    NSString *name   = [saveData  objectForKey:@"RL_Name"];
+    
+    // 显示标题
+    self.labTitle.text = name;
     
     //--------------------
     NSString *nextPath = @"cis/mobile/getRecentItemData";
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                               token, @"token", compId, @"compId", @"31", @"iId", nil];
+                               token, @"token", compId, @"compId", iId, @"iId", nil];
     
     NSLog(@"--> api_GetRecentItemData -> dicParams = %@", dicParams);
     
@@ -171,13 +178,13 @@
     
     //
     for (NSDictionary *recordData in records) {
-        NSLog(@"---------------------------------------");
+//        NSLog(@"---------------------------------------");
         
-        NSLog(@"DATA --> value    = %@", [recordData objectForKey:@"value"]);
+//        NSLog(@"DATA --> value    = %@", [recordData objectForKey:@"value"]);
         [self.arrValue addObject:[recordData objectForKey:@"value"]];
         
         //
-        NSLog(@"DATA --> date     = %@", [recordData objectForKey:@"date"]);
+//        NSLog(@"DATA --> date     = %@", [recordData objectForKey:@"date"]);
         [self.arrDate addObject:[recordData objectForKey:@"date"]];
     }
     
@@ -241,6 +248,8 @@
         return [LCLineChartDataItem dataItemWithX:x y:y xLabel:x_label dataLabel:y_label];
     };
     
+    
+    
     // 显示曲线图 Add to view.
     LCLineChartView *chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, 80, 550, 230)];
     
@@ -254,26 +263,36 @@
 //    }
     
     //
-    NSString *strMin = [NSString stringWithFormat:@"%.2f", [arrY[0] floatValue]];
-    NSString *strMax = [NSString stringWithFormat:@"%.2f", [arrY[arrY.count - 1] floatValue]];
-    
     float iMin = [arrY[0] floatValue];
     float iMax = [arrY[arrY.count - 1] floatValue];
-    
     iMin -= iMin * 0.5;
     iMax += iMax * 0.5;
-    NSLog(@"iMin = %f", iMin);
-    NSLog(@"iMax = %f", iMax);
+//    NSLog(@"iMin = %f", iMin);
+//    NSLog(@"iMax = %f", iMax);
+    
+    //
+    float stepValue = (iMax - iMin) / 9.0;
+    NSMutableArray *arrSteps = [[NSMutableArray alloc] init];
+    for (int i = 0; i < 10; i++) {
+        float nextValue = iMin + stepValue * i;
+        NSString *strValue = [NSString stringWithFormat:@"%.2f", nextValue];
+        [arrSteps addObject:strValue];
+    }
     
     //
     chartView.yMin = iMin;
     chartView.yMax = iMax;
-    chartView.ySteps = @[@"0.0",@"5.0",@"7.0",@"10.0",@"15.0",@"20.0",@"7.0",@"10.0",@"15.0",@"20.0"];
+    
+    NSString *strMax = [NSString stringWithFormat:@"%.6f", iMax];
+    NSLog(@"strMax = %@", strMax);
+    if ([strMax isEqualToString:@"0.000000"] ) {
+        chartView.ySteps = @[@"0.00", @""];
+    } else {
+        chartView.ySteps = arrSteps;
+    }
     
     chartView.data = @[d1];
-    
     [self.view addSubview:chartView];
-    
 }
 
 #pragma mark - MBProgressHUD methods

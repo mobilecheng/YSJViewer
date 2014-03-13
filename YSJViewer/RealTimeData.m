@@ -148,6 +148,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSString *name = [self.arrItems_name objectAtIndex:indexPath.row];
+    NSString *iID  = [self.arrItems_iID  objectAtIndex:indexPath.row];
+//    NSLog(@"RL_iID = %@", iID);
+    
+    // Save data to cache.
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    [saveData setObject:iID  forKey:@"RL_iID"];
+    [saveData setObject:name forKey:@"RL_Name"];
+    [saveData synchronize];
+    
+    //
     [self goLineChart];
 }
 
@@ -240,7 +251,7 @@
         [self.arrItems_name addObject:[recordData objectForKey:@"name"]];
         
         //
-        NSLog(@"DATA --> 检测量编号     = %@", [recordData objectForKey:@"iId"]);
+        NSLog(@"DATA --> 检测量编号 = %@", [recordData objectForKey:@"iId"]);
         [self.arrItems_iID addObject:[recordData objectForKey:@"iId"]];
         
         //
