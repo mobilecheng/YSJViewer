@@ -358,7 +358,10 @@
     NSString *value = [NSString stringWithFormat:@"%@ - %@", closest.dataLabel, closest.xLabel];
     self.infoView.infoLabel.text = value;
     
-    //
+    // UPDATE BY KEVIN 3-14
+//    closestPos.y -= 50;
+    closestPos.y = 40;
+    
     self.infoView.tapPoint = closestPos;
     [self.infoView sizeToFit];
     [self.infoView setNeedsLayout];

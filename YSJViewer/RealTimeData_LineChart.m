@@ -36,6 +36,8 @@
 @property (nonatomic) NSMutableArray *arrValue;
 @property (nonatomic) NSMutableArray *arrDate;
 
+@property (nonatomic) NSTimer *myTimer;
+
 @end
 
 @implementation RealTimeData_LineChart
@@ -65,7 +67,6 @@
     
     //
     [self api_GetRecentItemData];
-    
 }
 
 
@@ -80,6 +81,10 @@
     
     self.navigationController.view.transform = CGAffineTransformMakeRotation(degreesToRadians(90));
     
+    // 每隔5秒更新一次数据
+    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:(5.0) target:self selector:@selector(api_GetRecentItemData) userInfo:nil repeats:YES];
+
+    //
     [super viewWillAppear:animated];
 }
 
@@ -91,6 +96,11 @@
     self.navigationController.view.transform = CGAffineTransformMakeRotation(degreesToRadians(0));
     self.navigationController.view.bounds = CGRectMake(0, 0, 320, 568);
     
+    // 取消5秒更新
+    [self.myTimer invalidate];
+    self.myTimer = nil;
+    
+    //
     [super viewWillDisappear:animated];
 }
 
@@ -186,6 +196,10 @@
     
     NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", self.dataCount, [records objectAtIndex:0]);
     
+    // 清空之前数据
+    [self.arrDate  removeAllObjects];
+    [self.arrValue removeAllObjects];
+    
     //
     for (NSDictionary *recordData in records) {
 //        NSLog(@"---------------------------------------");
@@ -200,12 +214,6 @@
     
     // 绘制曲线
     [self showLineChart];
-    
-    // 刷新数据
-//    [self.tableView reloadData];
-    
-    // 订阅实时数据
-//    [self api_RealtimeData];
 }
 
 
@@ -237,7 +245,7 @@
     // 定义数据
     d1.xMin = 1;
     d1.xMax = self.dataCount;
-    d1.title = @"Foobarbang";
+//    d1.title = @"Foobarbang";
     d1.color = [UIColor blackColor];
     d1.itemCount = self.dataCount;
     

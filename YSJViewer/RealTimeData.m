@@ -88,8 +88,8 @@
 {
     [super viewWillAppear:animated];
     
-    // Get data.
-//    [self api_RealtimeData];
+    // Get Realtime data. - Every 5 seconds.
+    [self api_RealtimeData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
