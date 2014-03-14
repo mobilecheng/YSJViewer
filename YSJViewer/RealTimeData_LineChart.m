@@ -276,8 +276,8 @@
     // Y轴数值显示
     float iMin = [arrY[0] floatValue];
     float iMax = [arrY[arrY.count - 1] floatValue];
-    iMin -= iMin * 1.0;
-    iMax += iMax * 1.0;
+    iMin -= iMin * 0.3;
+    iMax += iMax * 0.3;
 //    NSLog(@"iMin = %f", iMin);
 //    NSLog(@"iMax = %f", iMax);
     
