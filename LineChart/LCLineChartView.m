@@ -352,7 +352,13 @@
         }
     }
     
-    self.infoView.infoLabel.text = closest.dataLabel;
+//    self.infoView.infoLabel.text = closest.dataLabel; // COMMENT BY KEVIN 3-14
+    
+    // ADD BY KEVIN 3-14
+    NSString *value = [NSString stringWithFormat:@"%@ - %@", closest.dataLabel, closest.xLabel];
+    self.infoView.infoLabel.text = value;
+    
+    //
     self.infoView.tapPoint = closestPos;
     [self.infoView sizeToFit];
     [self.infoView setNeedsLayout];
