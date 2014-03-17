@@ -22,10 +22,9 @@
 //---------
 @property (weak, nonatomic) IBOutlet UIPickerView *myPickerView;
 @property (weak, nonatomic) IBOutlet UIView *myDataView;
-@property (nonatomic) NSMutableArray *myPickerData;
 
-@property (nonatomic) NSArray *tempArr;
-@property (nonatomic) NSMutableArray *arrCompID;
+@property (nonatomic) NSMutableArray *myPickerData;
+@property (nonatomic) NSArray *arrCompID;
 @property (nonatomic) NSString *selectCompID;
 //---------
 
@@ -51,23 +50,16 @@
     //
     [self initData];
     
-    //...
+    // 压缩机ID
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
-    [saveData removeObjectForKey:@"YSJ_NAME"];
-    [saveData removeObjectForKey:@"YSJ_CSN"];
-    [saveData removeObjectForKey:@"YSJ_ID"];
-    
-    // 压缩机列表
-    self.tempArr     = [saveData objectForKey:@"HOME_YSJ_ID"];
-    
+    self.arrCompID = [saveData objectForKey:@"HOME_YSJ_ID"];
     
     // 滚轮数据
-//    self.myPickerData  = [saveData objectForKey:@"HOME_YSJ_CSN"];
-//     self.arrCompID addObject:@"全部"];
-//    for (int i = 0; i < self.tempArr.count; i++) {
-//        [self.arrCompID addObject:self.tempArr[i]];
-//    }
-//    NSLog(@"self.arrCompID = %@", self.arrCompID);
+    NSArray *tempArr = [saveData objectForKey:@"HOME_YSJ_CSN"];
+    [self.myPickerData addObject:@"全部"];
+    for (int i = 0; i < tempArr.count; i++) {
+        [self.myPickerData addObject:tempArr[i]];
+    }
     
     //
     self.engine = [[MKNetworkEngine alloc]
@@ -142,7 +134,8 @@
     self.arrDescription = [[NSMutableArray alloc] init];
     self.arrState       = [[NSMutableArray alloc] init];
     self.arrExpectDate  = [[NSMutableArray alloc] init];
-    self.arrCompID      = [[NSMutableArray alloc] init];
+    
+    self.myPickerData   = [[NSMutableArray alloc] init];
 }
 
 #pragma mark -  API call.
@@ -214,13 +207,13 @@
     }
     
     NSArray *records = [dicData objectForKey:@"records"];
-    NSLog(@"--> COUNT = %d", [records count]);
+    NSLog(@"--> COUNT = %lu", (unsigned long)[records count]);
     if (records.count == 0) {
-        [self showMessageHUD:@"没有服务申请数据."];
+        [self showMessageHUD:@"没有查询到数据."];
         return;
     }
     
-    NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
+    NSLog(@"IS NSArray -> Count is : %lu  | 1 Data is: %@", (unsigned long)[records count], [records objectAtIndex:0]);
     
     //
     for (NSDictionary *recordData in records) {
@@ -279,11 +272,46 @@
     NSString *str = [NSString stringWithFormat:@"压缩机：%@", [self.myPickerData objectAtIndex:selValue]];
     [self.butSelectComp setTitle:str forState:UIControlStateNormal];
     
-    if (selValue == 0) {
+    // get comp name, csn, id.
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    
+    if (selValue == 0) { // 全部
         self.selectCompID = @"";
+        [saveData removeObjectForKey:@"YSJ_NAME"];
+        [saveData removeObjectForKey:@"YSJ_CSN"];
+        [saveData removeObjectForKey:@"YSJ_ID"];
+        
     } else {
-        self.selectCompID = [self.arrCompID objectAtIndex:selValue];
+        self.selectCompID = [self.arrCompID objectAtIndex:selValue - 1];
+        
+        //
+        NSArray *tempName = [saveData objectForKey:@"HOME_YSJ_NAME"];
+        NSArray *tempCSN  = [saveData objectForKey:@"HOME_YSJ_CSN"];
+        NSArray *tempID   = [saveData objectForKey:@"HOME_YSJ_ID"];
+        
+        for (int i = 0; i < tempID.count; i++) {
+            NSString *strID = tempID[i];
+            if ( [self.selectCompID intValue] == [strID intValue] ) {
+                [saveData setObject:tempName[i] forKey:@"YSJ_NAME"];
+                [saveData setObject:tempCSN[i]  forKey:@"YSJ_CSN"];
+                [saveData setObject:tempID[i]   forKey:@"YSJ_ID"];
+                [saveData synchronize];
+                break;
+            }
+        }
     }
+    
+    //
+    [self.arrDescription removeAllObjects];
+    [self.arrExpectDate  removeAllObjects];
+    [self.arrID          removeAllObjects];
+    [self.arrState       removeAllObjects];
+    
+    // 刷新数据
+    [self.tvData reloadData];
+    
+    //
+    [self api_GetServiceRequest];
 }
 
 - (IBAction) ShowDataView

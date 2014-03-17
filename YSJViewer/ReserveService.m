@@ -49,12 +49,11 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    
-    
-    self.myPickerData = [[NSArray alloc] initWithObjects:
-                         @"故障排除", @"现场培训", @"上海培训", @"常规保养",
-                         @"整机保养", @"巡检", @"零件销售", @"服务销售",
-                         @"客户考察", @"其他", nil];
+    //
+//    self.myPickerData = [[NSArray alloc] initWithObjects:
+//                         @"故障排除", @"现场培训", @"上海培训", @"常规保养",
+//                         @"整机保养", @"巡检", @"零件销售", @"服务销售",
+//                         @"客户考察", @"其他", nil];
     
     //
     self.engine = [[MKNetworkEngine alloc]
@@ -84,6 +83,8 @@
         self.labTopTitle.text = @"";
     }
     
+    // 获取服务类型
+    [self api_GetServiceType];
 }
 
 - (void)didReceiveMemoryWarning
@@ -349,6 +350,80 @@
 
 #pragma mark -  API call.
 
+- (IBAction) api_GetServiceType
+{
+    NSLog(@"--> api_GetServiceType");
+    
+    //
+//    [self showLoadingHUD:@"正在提交服务申请..."];
+    
+    //
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"Token"];
+    
+    //--------------------
+    NSString *nextPath = @"cis/mobile/getServiceType";
+    
+    NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                               token, @"token", nil];
+    
+    NSLog(@"--> api_GetServiceType --> dicParams = %@", dicParams);
+    
+    MKNetworkOperation* op = [self.engine operationWithPath:nextPath
+                                                     params:dicParams
+                                                 httpMethod:@"GET"
+                                                        ssl:NO];
+    
+    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+        NSData *data  = [completedOperation responseData];
+        NSString *str = [completedOperation responseString];
+        NSLog(@"--> api_GetServiceType -> RESULT = %@", str);
+        
+        //
+        [self getServiceType:data];
+        
+    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
+        NSLog(@"--> api_GetServiceType -> ERROR = %@", [error description]);
+        [self showMessageHUD:@"获取服务类型失败，请重试！"];
+    }];
+    
+    // Exe...
+    [self.engine enqueueOperation:op];
+}
+
+
+- (void) getServiceType:(id)theData
+{
+    NSError *error = nil;
+    NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:theData
+                                                            options:NSJSONReadingAllowFragments error:&error];
+    if (error) {
+        NSLog(@"--> ERROR = %@", error.description);
+        return;
+    }
+    
+    // Check result.
+    NSString *strResult = [dicData objectForKey:@"result"];
+    NSLog(@"--> strResult = %@", strResult);
+    if ([strResult isEqualToString:@"error"]) {
+        [self showMessageHUD:[dicData objectForKey:@"message"]];
+        return;
+    }
+    
+    NSArray *records = [dicData objectForKey:@"records"];
+    NSLog(@"--> COUNT = %lu", (unsigned long)[records count]);
+    if (records.count == 0) {
+        [self showMessageHUD:@"没有查询到数据."];
+        return;
+    }
+    
+    //
+//    self.myPickerData = [NSArray arrayWithArray:records];
+    self.myPickerData = records;
+    [self.myPickerView reloadAllComponents];
+    [self showMessageHUD:@"服务类型已加载."];
+    NSLog(@"IS NSArray -> self.myPickerData -> %@", self.myPickerData);
+}
+
 - (void) api_SaveServiceRequest
 {
     NSLog(@"--> api_SaveServiceRequest");
@@ -404,7 +479,6 @@
     [self.engine enqueueOperation:op];
 }
 
-
 - (void) checkResult:(id)theData
 {
     NSError *error = nil;
@@ -420,13 +494,11 @@
     NSLog(@"--> api_SaveServiceRequest --> strResult = %@", strResult);
     if ([strResult isEqualToString:@"error"]) {
         [self showMessageHUD:[dicData objectForKey:@"message"]];
-//        [self showMessageHUD:@"更新失败，请重试！"];
+        //        [self showMessageHUD:@"更新失败，请重试！"];
     } else {
         [self showMessageHUD:@"提交服务申请成功！"];
-        
     }
 }
-
 
 #pragma mark - Keyboad Method.
 
