@@ -74,8 +74,16 @@
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     NSString *name  = [saveData stringForKey:@"YSJ_NAME"];
     NSString *csn   = [saveData stringForKey:@"YSJ_CSN"];
-    NSString *title = [NSString stringWithFormat:@"%@  %@", name, csn];
-    self.labTopTitle.text = title;
+    
+    NSLog(@"name = %@ | csn = %@", name, csn);
+    
+    if ( name != nil ) {
+        NSString *title = [NSString stringWithFormat:@"%@  %@", name, csn];
+        self.labTopTitle.text = title;
+    } else {
+        self.labTopTitle.text = @"";
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning

@@ -10,6 +10,7 @@
 		34160FD2187BE39300A8BCF2 /* login_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 34160FD0187BE39300A8BCF2 /* login_icon.png */; };
 		34160FD3187BE39300A8BCF2 /* BtnImg_Login.png in Resources */ = {isa = PBXBuildFile; fileRef = 34160FD1187BE39300A8BCF2 /* BtnImg_Login.png */; };
 		34160FD6187BE46A00A8BCF2 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 34160FD5187BE46A00A8BCF2 /* Login.m */; };
+		3453511C18D6CD860011B9A8 /* Home_ReserveService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3453511B18D6CD860011B9A8 /* Home_ReserveService.m */; };
 		3467B02218BF0DDF003084AA /* RTD_LineChart.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3467B02118BF0DDF003084AA /* RTD_LineChart.storyboard */; };
 		3467B02518BF1176003084AA /* NavLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 3467B02418BF1176003084AA /* NavLineChart.m */; };
 		3467B02818BF299B003084AA /* NavLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3467B02718BF299B003084AA /* NavLogin.m */; };
@@ -118,6 +119,8 @@
 		34160FD1187BE39300A8BCF2 /* BtnImg_Login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BtnImg_Login.png; sourceTree = "<group>"; };
 		34160FD4187BE46A00A8BCF2 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
 		34160FD5187BE46A00A8BCF2 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
+		3453511A18D6CD860011B9A8 /* Home_ReserveService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Home_ReserveService.h; sourceTree = "<group>"; };
+		3453511B18D6CD860011B9A8 /* Home_ReserveService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Home_ReserveService.m; sourceTree = "<group>"; };
 		3467B02118BF0DDF003084AA /* RTD_LineChart.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RTD_LineChart.storyboard; sourceTree = "<group>"; };
 		3467B02318BF1176003084AA /* NavLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavLineChart.h; sourceTree = "<group>"; };
 		3467B02418BF1176003084AA /* NavLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavLineChart.m; sourceTree = "<group>"; };
@@ -378,6 +381,8 @@
 				702A0C1218BA44FE00B60517 /* ReserveHistory.m */,
 				702A0C1418BA4EA300B60517 /* ReserveHistoryDetail.h */,
 				702A0C1518BA4EA300B60517 /* ReserveHistoryDetail.m */,
+				3453511A18D6CD860011B9A8 /* Home_ReserveService.h */,
+				3453511B18D6CD860011B9A8 /* Home_ReserveService.m */,
 				7065E1B618BCDDE90084B82D /* HistoryAlarm.h */,
 				7065E1B718BCDDE90084B82D /* HistoryAlarm.m */,
 				70A6767F1886D2480008F78C /* UserInfo.h */,
@@ -685,6 +690,7 @@
 				5B64F69C18797C24002C0404 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
 				706525A218A68DE8003928F5 /* AlarmInfoDetail.m in Sources */,
 				70433F7C18CAEA3700888AEB /* ViewLineChart.m in Sources */,
+				3453511C18D6CD860011B9A8 /* Home_ReserveService.m in Sources */,
 				5B64F69F18797C24002C0404 /* Reachability.m in Sources */,
 				7072D8B418B0F920004002C0 /* ServiceTime.m in Sources */,
 				5BE9563A1882E80300AE94AA /* RunRecord.m in Sources */,

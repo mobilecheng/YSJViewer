@@ -14,6 +14,7 @@
 @property (nonatomic) NSMutableArray *arrYSJ_ID;   // 压缩机 ID
 @property (nonatomic) NSMutableArray *arrModel;  // 压缩机型号
 @property (nonatomic) NSMutableArray *arrName;   // 压缩机名字
+@property (nonatomic) NSMutableArray *arrCSN;   // 压缩机编号
 
 @property (nonatomic) MKNetworkEngine *engine;
 
@@ -50,6 +51,7 @@
     self.arrName   = [[NSMutableArray alloc] init];
     self.arrModel  = [[NSMutableArray alloc] init];
     self.arrYSJ_ID = [[NSMutableArray alloc] init];
+    self.arrCSN    = [[NSMutableArray alloc] init];
 }
 
 #pragma mark -  API call.
@@ -119,7 +121,7 @@
         NSLog(@"---------------------------------------");
         
         // 压缩机ID
-        NSLog(@"DATA --> 压缩机-id   = %@", [recordData objectForKey:@"id"]);
+        NSLog(@"DATA --> 压缩机-id = %@", [recordData objectForKey:@"id"]);
         [self.arrYSJ_ID addObject:[recordData objectForKey:@"id"]];
         
         // 压缩机名称
@@ -129,6 +131,10 @@
         // 压缩机型号
         NSLog(@"DATA --> model   = %@", [recordData objectForKey:@"model"]);
         [self.arrModel addObject:[recordData objectForKey:@"model"]];
+        
+        // 压缩机编号
+        NSLog(@"DATA --> cSN     = %@", [recordData objectForKey:@"cSN"]);
+        [self.arrCSN addObject:[recordData objectForKey:@"cSN"]];
         
         //-------
         /*
@@ -189,6 +195,7 @@
     [saveData setObject:self.arrYSJ_ID forKey:@"HOME_YSJ_ID"];
     [saveData setObject:self.arrName   forKey:@"HOME_YSJ_NAME"];
     [saveData setObject:self.arrModel  forKey:@"HOME_YSJ_MODEL"];
+    [saveData setObject:self.arrCSN    forKey:@"HOME_YSJ_CSN"];
     [saveData synchronize];
 }
 

@@ -19,6 +19,9 @@
 
 @property (nonatomic) MKNetworkEngine *engine;
 
+@property (nonatomic) NSArray *tempID;   // temp data.
+@property (nonatomic) NSArray *tempName; // temp data.
+
 @end
 
 @implementation ReserveHistoryDetail
@@ -182,10 +185,26 @@
     //
 //    NSLog(@"---------------------------------------");
     
-    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
-    NSString *compName  = [saveData  objectForKey:@"YSJ_NAME"];
+    // comment 3-17
+//    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+//    NSString *compName  = [saveData  objectForKey:@"YSJ_NAME"];
     
-    [self.arrItemValue addObject:compName];
+    // get comp name form compID.
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    self.tempID    = [saveData objectForKey:@"HOME_YSJ_ID"];
+    self.tempName  = [saveData objectForKey:@"HOME_YSJ_NAME"];
+    
+    NSString *compId = [record objectForKey:@"compId"];
+    
+    for (int i = 0; i < self.tempID.count; i++) {
+        NSString *strID = self.tempID[i];
+        //        NSLog(@"DATA --> strID     = %@", strID);
+        if ( [compId intValue] == [strID intValue] ) {
+            [self.arrItemValue addObject:self.tempName[i]];
+            break;
+        }
+    }
+    
     [self.arrItemValue addObject:[record objectForKey:@"description"]];
     [self.arrItemValue addObject:[record objectForKey:@"state"]];
     [self.arrItemValue addObject:[record objectForKey:@"serviceType"]];
