@@ -9,8 +9,6 @@
 #import "RealTimeData_LineChart.h"
 #import "GlobalValue.h"
 #import "LCLineChartView.h"
-#import "ViewLineChart.h"
-
 
 #define degreesToRadians(x) (M_PI * x / 180.0)
 
@@ -209,6 +207,102 @@
         
         //
 //        NSLog(@"DATA --> date     = %@", [recordData objectForKey:@"date"]);
+        [self.arrDate addObject:[recordData objectForKey:@"date"]];
+    }
+    
+    // 绘制曲线
+    [self showLineChart];
+}
+
+
+// API -
+- (void) api_GetAlarmdata
+{
+    NSLog(@"--> api_GetRecentItemData...");
+    
+    //
+    [self showLoadingHUD:@"正在查询..."];
+    
+    // 构造参数
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    NSString *token  = [saveData  objectForKey:@"Token"];
+    NSString *compId = [saveData  objectForKey:@"YSJ_ID"];
+    NSString *iId    = [saveData  objectForKey:@"RL_iID"];
+    NSString *name   = [saveData  objectForKey:@"RL_Name"];
+    
+    // 显示标题
+    self.labTitle.text = name;
+    
+    //--------------------
+    NSString *nextPath = @"cis/mobile/getRecentItemData";
+    
+    // params
+    NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                               token, @"token", compId, @"compId", iId, @"iId", nil];
+    
+    NSLog(@"--> api_GetRecentItemData -> dicParams = %@", dicParams);
+    
+    MKNetworkOperation* op = [self.engine operationWithPath:nextPath
+                                                     params:dicParams
+                                                 httpMethod:@"GET"
+                                                        ssl:NO];
+    
+    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+        NSData *data  = [completedOperation responseData];
+        NSString *str = [completedOperation responseString];
+        NSLog(@"--> api_GetRecentItemData -> RESULT = %@", str);
+        
+        [self getRecentItemData:data];
+        
+    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
+        NSLog(@"--> api_GetRecentItemData -> ERROR = %@", [error description]);
+    }];
+    
+    // Exe...
+    [self.engine enqueueOperation:op];
+}
+
+- (void) get:(id)theData
+{
+    NSError *error = nil;
+    NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:theData
+                                                            options:NSJSONReadingAllowFragments error:&error];
+    if (error) {
+        NSLog(@"--> ERROR = %@", error.description);
+        return;
+    }
+    
+    // Check result.
+    NSString *strResult = [dicData objectForKey:@"result"];
+    NSLog(@"--> strResult = %@", strResult);
+    if ([strResult isEqualToString:@"error"]) {
+        [self showMessageHUD:[dicData objectForKey:@"message"]];
+        return;
+    }
+    
+    NSArray *records = [dicData objectForKey:@"records"];
+    self.dataCount = records.count;
+    NSLog(@"--> COUNT = %d", self.dataCount);
+    if (self.dataCount == 0) {
+        [self showMessageHUD:@"没有实时数据."];
+        return;
+    }
+    
+    NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", self.dataCount, [records objectAtIndex:0]);
+    
+    // 清空之前数据
+    [self.arrDate  removeAllObjects];
+    [self.arrValue removeAllObjects];
+    
+    //
+    for (NSDictionary *recordData in records) {
+        //        NSLog(@"---------------------------------------");
+        
+        //        NSLog(@"DATA --> value    = %@", [recordData objectForKey:@"value"]);
+        [self.arrValue addObject:[recordData objectForKey:@"value"]];
+        
+        //
+        //        NSLog(@"DATA --> date     = %@", [recordData objectForKey:@"date"]);
         [self.arrDate addObject:[recordData objectForKey:@"date"]];
     }
     
