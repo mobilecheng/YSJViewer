@@ -37,14 +37,14 @@
 
 - (NSUInteger) supportedInterfaceOrientations
 {
-    NSLog(@"nav-1");
+//    NSLog(@"nav-1");
     return UIInterfaceOrientationMaskPortrait;
 //    return self.topViewController.supportedInterfaceOrientations;
 }
 
 - (BOOL) shouldAutorotate
 {
-    NSLog(@"nav-2");
+//    NSLog(@"nav-2");
     return NO;
 //    return self.topViewController.shouldAutorotate;
 }

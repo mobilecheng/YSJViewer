@@ -101,6 +101,7 @@
 		70AE0D3818C0DBC6002C6C2D /* LCLegendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AE0D3218C0DBC6002C6C2D /* LCLegendView.m */; };
 		70AE0D3918C0DBC6002C6C2D /* LCLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AE0D3418C0DBC6002C6C2D /* LCLineChartView.m */; };
 		70AE0D3A18C0DBC6002C6C2D /* UIKit+DrawingHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AE0D3618C0DBC6002C6C2D /* UIKit+DrawingHelpers.m */; };
+		70D97AB318E1C842000167EA /* SystemSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D97AB218E1C842000167EA /* SystemSetting.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -257,6 +258,8 @@
 		70AE0D3418C0DBC6002C6C2D /* LCLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCLineChartView.m; sourceTree = "<group>"; };
 		70AE0D3518C0DBC6002C6C2D /* UIKit+DrawingHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIKit+DrawingHelpers.h"; sourceTree = "<group>"; };
 		70AE0D3618C0DBC6002C6C2D /* UIKit+DrawingHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIKit+DrawingHelpers.m"; sourceTree = "<group>"; };
+		70D97AB118E1C842000167EA /* SystemSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemSetting.h; sourceTree = "<group>"; };
+		70D97AB218E1C842000167EA /* SystemSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemSetting.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,8 +338,8 @@
 				5B64F6411875BEF3002C0404 /* Main.storyboard */,
 				3494FB13187BF63300FF8272 /* LoginStoryboard.storyboard */,
 				704DEA5B18ABC5E1001896E7 /* RunRecordSB.storyboard */,
-				3467B02118BF0DDF003084AA /* RTD_LineChart.storyboard */,
 				34160FD4187BE46A00A8BCF2 /* Login.h */,
+				3467B02118BF0DDF003084AA /* RTD_LineChart.storyboard */,
 				34160FD5187BE46A00A8BCF2 /* Login.m */,
 				3467B02618BF299B003084AA /* NavLogin.h */,
 				3467B02718BF299B003084AA /* NavLogin.m */,
@@ -386,6 +389,8 @@
 				703C269D189E30F7007D1F90 /* UserInfoUpdate.m */,
 				7064DB4B18A5075300894876 /* UserPwdUpdate.h */,
 				7064DB4C18A5075300894876 /* UserPwdUpdate.m */,
+				70D97AB118E1C842000167EA /* SystemSetting.h */,
+				70D97AB218E1C842000167EA /* SystemSetting.m */,
 				5B64F6471875BEF4002C0404 /* Images.xcassets */,
 				5B64F6361875BEF1002C0404 /* Supporting Files */,
 			);
@@ -695,6 +700,7 @@
 				3467B02518BF1176003084AA /* NavLineChart.m in Sources */,
 				70A676811886D2480008F78C /* UserInfo.m in Sources */,
 				703C269E189E30F7007D1F90 /* UserInfoUpdate.m in Sources */,
+				70D97AB318E1C842000167EA /* SystemSetting.m in Sources */,
 				5B64F69B18797C24002C0404 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				5B64F6D9187B13CB002C0404 /* RealTimeData.m in Sources */,
 				702A0C1018BA2C1700B60517 /* RealTimeData_LineChart.m in Sources */,
