@@ -1,5 +1,5 @@
 //
-//  About.m
+//  About.m -- 主菜单 --> 系统设置 --> 关于
 //  YSJViewer
 //
 //  Created by Kevin Zhang on 14-2-10.
@@ -7,8 +7,20 @@
 //
 
 #import "About.h"
+#import "GlobalValue.h"
 
 @interface About ()
+
+@property (weak, nonatomic) IBOutlet UILabel *labName;
+@property (weak, nonatomic) IBOutlet UITableView *myTableView;
+@property (weak, nonatomic) IBOutlet UIImageView *imgLogo;
+
+@property (nonatomic) MKNetworkEngine *engine;
+
+@property (nonatomic) NSString *strTel;
+@property (nonatomic) NSString *strEmail;
+@property (nonatomic) NSString *strURL;
+@property (nonatomic) NSString *strAddress;
 
 @end
 
@@ -27,6 +39,15 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    //
+    self.engine = [[MKNetworkEngine alloc]
+                   initWithHostName:hostName
+                   customHeaderFields:nil];
+    
+    //
+    [self api_GetCompanyInfo];
+    [self api_FetchLogo];
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,6 +95,18 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
+    //
+    UILabel *labTel = (UILabel *)[cell viewWithTag:10];
+    labTel.text = self.strTel;
+    
+    UILabel *labEmail = (UILabel *)[cell viewWithTag:11];
+    labEmail.text = self.strEmail;
+    
+    UILabel *labURL = (UILabel *)[cell viewWithTag:12];
+    labURL.text = self.strURL;
+    
+    UILabel *labAddress = (UILabel *)[cell viewWithTag:13];
+    labAddress.text = self.strAddress;
     
     //
     return cell;
@@ -90,6 +123,104 @@
     return 44;
 }
 
+#pragma mark -  API call.
+
+- (void) api_FetchLogo
+{
+    NSLog(@"--> api_FetchLogo");
+    
+    //    [self showLoadingHUD:@"正在查询..."];
+    
+    //--------------------
+    NSString *nextPath = @"cis/mobile/fetchLogo";
+    NSString *url = [NSString stringWithFormat:@"http://%@/%@", hostName, nextPath];
+    NSLog(@"URL = %@", url);
+    
+    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+    UIImage *img = [UIImage imageWithData:data];
+    self.imgLogo.image = img;
+    
+//    UIImageView *test = [[UIImageView alloc] initWithFrame:CGRectMake(30, 350, 160, 160)];
+//    test.image = img;
+//    [self.view addSubview:test];
+}
+
+- (void) api_GetCompanyInfo
+{
+    NSLog(@"--> api_GetCompanyInfo");
+    
+//    [self showLoadingHUD:@"正在查询..."];
+    
+    //--------------------
+    NSString *nextPath = @"cis/mobile/getCompanyInfo";
+    
+    MKNetworkOperation* op = [self.engine operationWithPath:nextPath
+                                                     params:nil
+                                                 httpMethod:@"GET"
+                                                        ssl:NO];
+    
+    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+        NSData *data  = [completedOperation responseData];
+        NSString *str = [completedOperation responseString];
+        NSLog(@"--> api_GetCompanyInfo -> RESULT = %@", str);
+        
+        [self parseData:data];
+        
+    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
+        NSLog(@"--> api_GetCompanyInfo -> ERROR = %@", [error description]);
+    }];
+    
+    // Exe...
+    [self.engine enqueueOperation:op];
+}
+
+
+- (void) parseData:(id)theData
+{
+    NSError *error = nil;
+    NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:theData
+                                                            options:NSJSONReadingAllowFragments error:&error];
+    if (error) {
+        NSLog(@"--> ERROR = %@", error.description);
+        return;
+    }
+    
+    // Check result.
+    NSString *strResult = [dicData objectForKey:@"result"];
+    NSLog(@"--> api_GetCompanyInfo --> strResult = %@", strResult);
+    if ([strResult isEqualToString:@"error"]) {
+        [self showMessageHUD:[dicData objectForKey:@"message"]];
+        return;
+    }
+    
+    //
+    NSDictionary *record = [dicData objectForKey:@"record"];
+    NSLog(@"--> COUNT = %d", [record count]);
+    if (record.count == 0) {
+        [self showMessageHUD:@"没有数据."];
+        return;
+    }
+    
+    //
+    self.labName.text = [record objectForKey:@"name"];
+    NSLog(@"DATA --> name   = %@", self.labName.text);
+    
+    self.strTel = [record objectForKey:@"tel"];
+    NSLog(@"DATA --> tel   = %@", self.strTel);
+    
+    self.strEmail = [record objectForKey:@"email"];
+    NSLog(@"DATA --> email   = %@", self.strEmail);
+    
+    self.strURL = [record objectForKey:@"url"];
+    NSLog(@"DATA --> url   = %@", self.strURL);
+    
+    self.strAddress = [record objectForKey:@"address"];
+    NSLog(@"DATA --> address   = %@", self.strAddress);
+    
+    // 刷新数据
+    [self.myTableView reloadData];
+}
+
 #pragma mark -  Uitility Methods.
 
 - (void)setExtraCellLineHidden:(UITableView *)tableView
@@ -97,6 +228,28 @@
     UIView *view = [UIView new];
     view.backgroundColor = [UIColor clearColor];
     [tableView setTableFooterView:view];
+}
+
+
+#pragma mark - MBProgressHUD methods
+
+// 显示收藏信息
+- (void)showMessageHUD:(NSString *)msg {
+	
+	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	hud.mode = MBProgressHUDModeText;
+	hud.labelText = msg;
+	hud.removeFromSuperViewOnHide = YES;
+	[hud hide:YES afterDelay:delay];
+}
+
+- (void) showLoadingHUD:(NSString *)msg
+{
+	MBProgressHUD *loadingHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	loadingHUD.mode = MBProgressHUDModeIndeterminate;
+	loadingHUD.labelText = msg;
+	loadingHUD.removeFromSuperViewOnHide = YES;
+    [loadingHUD hide:YES afterDelay:delay];
 }
 
 @end

@@ -11,23 +11,24 @@
 
 @interface SystemSetting ()
 
-//@property (weak, nonatomic) IBOutlet UIButton *btnCheckAppUpdate;
+@property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UISwitch *switchVibration;
 
 @property (nonatomic) MKNetworkEngine *engine;
 
+//---------
+@property (weak, nonatomic) IBOutlet UIPickerView *myPickerView;
+@property (weak, nonatomic) IBOutlet UIView *myDataView;
+
+@property (nonatomic) NSArray *myPickerData;
+@property (nonatomic) NSArray *arrCompID;
+@property (nonatomic) NSString *selectCompID;
+//---------
+
+
 @end
 
 @implementation SystemSetting
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -36,6 +37,11 @@
     self.engine = [[MKNetworkEngine alloc]
                    initWithHostName:hostName
                    customHeaderFields:nil];
+    
+    //
+    self.myPickerData = [[NSArray alloc] initWithObjects:
+                         @"1", @"2", @"3", @"7", @"15", nil];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,6 +50,83 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 3;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    switch (section) {
+        case 0:
+        case 1:
+            return 1;
+        case 2:
+            return 2;
+        default:
+            return 1;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    static NSString *CellIdentifier;
+    
+    switch (indexPath.row) {
+        case 0:
+            CellIdentifier = @"SS_1";
+            break;
+        case 1:
+            CellIdentifier = @"SS_2";
+            break;
+        case 2:
+            CellIdentifier = @"SS_3";
+            break;
+        case 3:
+            CellIdentifier = @"SS_4";
+            break;
+        default:
+            break;
+    }
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    // Configure the cell...
+    
+    //
+    return cell;
+    
+    
+}
+
+
+#pragma mark - Picker Data Source Methods
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [self.myPickerData count];
+}
+
+#pragma mark - Picker Delegate Methods
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row             forComponent:(NSInteger)component
+{
+    return [self.myPickerData objectAtIndex:row];
+}
+
+#pragma mark -  IBAction Methods.
+
 - (IBAction) btnCheckAppUpdate
 {
     NSLog(@"btnCheckAppUpdate");
@@ -51,6 +134,45 @@
     [self api_CheckNewVersion];
 }
 
+- (IBAction) selectValue
+{
+    NSLog(@"selectValue");
+    
+    [self HiddenDataView];
+    
+    NSInteger selValue  = [self.myPickerView selectedRowInComponent:0];
+    NSString *str = [NSString stringWithFormat:@"压缩机：%@", [self.myPickerData objectAtIndex:selValue]];
+    
+    
+}
+
+- (IBAction) ShowDataView
+{
+    // myDataView 的位置是 Y = 350 （为了做动画，初始 Y = 570）
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         CGRect testFrame = self.myDataView.frame;
+                         testFrame.origin.y = 425;
+                         self.myDataView.frame = testFrame;
+                     }
+                     completion:^(BOOL finished) {
+                         //
+                     }];
+}
+
+- (IBAction) HiddenDataView
+{
+    // myDataView 的位置是 Y = 350 （为了做动画，初始 Y = 570）
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         CGRect testFrame = self.myDataView.frame;
+                         testFrame.origin.y = 570;
+                         self.myDataView.frame = testFrame;
+                     }
+                     completion:^(BOOL finished) {
+                         //
+                     }];
+}
 
 #pragma mark -  API call.
 

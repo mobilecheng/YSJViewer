@@ -1,5 +1,5 @@
 //
-//  About.h
+//  About.h -- 主菜单 --> 系统设置 --> 关于
 //  YSJViewer
 //
 //  Created by Kevin Zhang on 14-2-10.

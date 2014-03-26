@@ -227,7 +227,6 @@
     
     //--------------------
     NSString *nextPath = @"cis/mobile/signIn";
-//    NSString *nextPath = @"cis/mobile/getCompanyInfo"; // temp
     
     // params  @"013468000533137", @"imei",@"100007" longmen2 longmen
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:

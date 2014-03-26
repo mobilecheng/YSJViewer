@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SystemSetting : UITableViewController
+@interface SystemSetting : UIViewController <UITableViewDataSource, UITableViewDelegate,
+            UIPickerViewDelegate, UIPickerViewDataSource>
 
 @end
