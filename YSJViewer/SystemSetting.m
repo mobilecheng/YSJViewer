@@ -11,8 +11,8 @@
 
 @interface SystemSetting ()
 
-@property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UISwitch *switchVibration;
+@property (weak, nonatomic) IBOutlet UILabel *labDays;
 
 @property (nonatomic) MKNetworkEngine *engine;
 
@@ -21,10 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIView *myDataView;
 
 @property (nonatomic) NSArray *myPickerData;
-@property (nonatomic) NSArray *arrCompID;
-@property (nonatomic) NSString *selectCompID;
 //---------
-
 
 @end
 
@@ -44,67 +41,18 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self HiddenDataView];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 3;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    switch (section) {
-        case 0:
-        case 1:
-            return 1;
-        case 2:
-            return 2;
-        default:
-            return 1;
-    }
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    static NSString *CellIdentifier;
-    
-    switch (indexPath.row) {
-        case 0:
-            CellIdentifier = @"SS_1";
-            break;
-        case 1:
-            CellIdentifier = @"SS_2";
-            break;
-        case 2:
-            CellIdentifier = @"SS_3";
-            break;
-        case 3:
-            CellIdentifier = @"SS_4";
-            break;
-        default:
-            break;
-    }
-
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    //
-    return cell;
-    
-    
-}
-
 
 #pragma mark - Picker Data Source Methods
 
@@ -141,9 +89,8 @@
     [self HiddenDataView];
     
     NSInteger selValue  = [self.myPickerView selectedRowInComponent:0];
-    NSString *str = [NSString stringWithFormat:@"压缩机：%@", [self.myPickerData objectAtIndex:selValue]];
-    
-    
+    self.labDays.text = [self.myPickerData objectAtIndex:selValue];
+
 }
 
 - (IBAction) ShowDataView
@@ -152,7 +99,7 @@
     [UIView animateWithDuration:0.5
                      animations:^{
                          CGRect testFrame = self.myDataView.frame;
-                         testFrame.origin.y = 425;
+                         testFrame.origin.y = 300;
                          self.myDataView.frame = testFrame;
                      }
                      completion:^(BOOL finished) {
@@ -276,4 +223,5 @@
 	loadingHUD.removeFromSuperViewOnHide = YES;
     [loadingHUD hide:YES afterDelay:delay];
 }
+
 @end
