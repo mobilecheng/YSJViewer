@@ -95,6 +95,8 @@
 
 - (IBAction) ShowDataView
 {
+    NSLog(@"ShowDataView");
+    
     // myDataView 的位置是 Y = 350 （为了做动画，初始 Y = 570）
     [UIView animateWithDuration:0.5
                      animations:^{
@@ -109,6 +111,8 @@
 
 - (IBAction) HiddenDataView
 {
+    NSLog(@"HiddenDataView");
+    
     // myDataView 的位置是 Y = 350 （为了做动画，初始 Y = 570）
     [UIView animateWithDuration:0.5
                      animations:^{
