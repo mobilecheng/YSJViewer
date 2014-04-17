@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SRWebSocket.h"
 
-@interface Home : UIViewController
+@interface Home : UIViewController <SRWebSocketDelegate>
 
+{
+    SRWebSocket *srWebSocket;
+}
 @end

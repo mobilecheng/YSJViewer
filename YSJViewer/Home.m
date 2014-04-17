@@ -18,6 +18,8 @@
 
 @property (nonatomic) MKNetworkEngine *engine;
 
+@property (nonatomic) NSString *dataForID;
+
 @end
 
 @implementation Home
@@ -265,7 +267,7 @@
     NSArray *records = [dicData objectForKey:@"records"];
     NSLog(@"HOME--> IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
     
-    // 构造参数，用于订阅信息查询
+    // 构造参数，用于订阅压缩机报警查询
     NSMutableArray *tempIDInfo = [[NSMutableArray alloc] init];
     
     //
@@ -289,10 +291,6 @@
         [self.arrCSN addObject:[recordData objectForKey:@"cSN"]];
         
         //-------
-        /*
-//        NSLog(@"DATA --> cSN     = %@", [recordData objectForKey:@"cSN"]);
-//        [self.arrSN addObject:[recordData objectForKey:@"cSN"]];
-        
         NSString *cId = [recordData objectForKey:@"cId"];
         NSLog(@"DATA --> cId     = %@", cId);
 //        [self.arrCID addObject:cId];
@@ -301,46 +299,21 @@
         NSLog(@"DATA --> sId     = %@", sID);
 //        [self.arrSID addObject:sID];
         
-        // 构造参数，用于订阅信息查询
+        // 构造参数，用于订阅压缩机报警查询
         NSDictionary *idInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                                 sID, @"sId", cId, @"cId", nil];
         [tempIDInfo addObject:idInfo];
-        */
-        
-        // Items
-        /*
-        NSLog(@"    ---> ------------------------------------");
-        NSMutableArray *tempIID   = [[NSMutableArray alloc] init];
-        NSMutableArray *tempName  = [[NSMutableArray alloc] init];
-        NSMutableArray *tempUnit  = [[NSMutableArray alloc] init];
-        
-        NSArray *items = [recordData objectForKey:@"items"];  // Get All items.
-        
-        for (NSDictionary *itemData in items) {
-            NSLog(@"    ITEMS --> iId   = %@", [itemData objectForKey:@"iId"]);
-            [tempIID  addObject:[itemData objectForKey:@"iId"]];
-            
-            NSLog(@"    ITEMS --> name   = %@", [itemData objectForKey:@"name"]);
-            [tempName addObject:[itemData objectForKey:@"name"]];
-            
-            NSLog(@"    ITEMS --> unit   = %@", [itemData objectForKey:@"unit"]);
-            [tempUnit addObject:[itemData objectForKey:@"unit"]];
-        }
-        
-        // Save items data.
-        [self.arrItems_iID  addObject:tempIID];
-        [self.arrItems_name addObject:tempName];
-        [self.arrItems_unit addObject:tempUnit];
-         */
     }
     
-    /*
+    
     // 构造参数，用于订阅信息查询
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             tempIDInfo, @"data", nil];
-    NSString *dataForQuery = [params jsonEncodedKeyValueString];
-//    NSLog(@"--> 参数用于订阅信息查询 = %@", dataForQuery);
-    */
+    self.dataForID = [params jsonEncodedKeyValueString];
+    NSLog(@"--> 参数用于订阅压缩机报警查询 = %@", self.dataForID);
+    
+    // 订阅压缩机报警
+    [self api_GetAlarmdata];
     
     // Save data to cache.
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
@@ -349,6 +322,66 @@
     [saveData setObject:self.arrModel  forKey:@"HOME_YSJ_MODEL"];
     [saveData setObject:self.arrCSN    forKey:@"HOME_YSJ_CSN"];
     [saveData synchronize];
+}
+
+// 订阅压缩机报警
+- (void) api_GetAlarmdata
+{
+    NSLog(@"--> HOME - api_GetAlarmdata -> Opening WebSocket Connection...");
+    
+    srWebSocket.delegate = nil;
+    [srWebSocket close];
+    
+    NSString *url = @"ws://117.34.92.46:3180/getAlarmdata";
+    
+    srWebSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    srWebSocket.delegate = self;
+    
+    [srWebSocket open];
+}
+
+#pragma mark - SRWebSocketDelegate
+
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket;
+{
+    NSLog(@"--> Home -> Websocket Connected");
+    
+    //
+    [srWebSocket send:self.dataForID];
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
+{
+    NSLog(@"--> Home ->  :( Websocket Failed With Error:  %@", error);
+    
+    srWebSocket = nil;
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
+{
+    NSLog(@"--> Home ->  Received =  %@", message);
+    
+    /*
+     if ([message isKindOfClass:[NSString class]]) {
+     NSLog(@"--> YSJ_List ->  Received =  NSString");
+     } else if ([message isKindOfClass:[NSData class]]) {
+     NSLog(@"--> YSJ_List ->  Received =  NSData");
+     } else if (message == nil) {
+     NSLog(@"--> YSJ_List ->  Received =  nil");
+     } else {
+     NSLog(@"--> YSJ_List ->  Received =  nothing...");
+     }
+     */
+    
+    // 解析数据
+//    [self getCompressorStatus:message];
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
+{
+    NSLog(@"--> Home -> WebSocket closed");
+    
+    srWebSocket = nil;
 }
 
 
