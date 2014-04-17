@@ -39,6 +39,15 @@
     self.myPickerData = [[NSArray alloc] initWithObjects:
                          @"1", @"2", @"3", @"7", @"15", nil];
     
+    //
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    NSInteger days = [saveData integerForKey:@"StockQueryDays"];
+    NSLog(@"days = %d", days);
+    
+    if (days != 0) {
+        self.labDays.text = [NSString stringWithFormat:@"%d", days];
+    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -90,6 +99,12 @@
     
     NSInteger selValue  = [self.myPickerView selectedRowInComponent:0];
     self.labDays.text = [self.myPickerData objectAtIndex:selValue];
+    
+    NSInteger days = [self.labDays.text integerValue];
+    NSLog(@"selValue = %d", days);
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    [saveData setInteger:days forKey:@"StockQueryDays"];
+    [saveData synchronize];
 
 }
 

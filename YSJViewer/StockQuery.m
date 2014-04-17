@@ -278,7 +278,7 @@
     // 创建一个本地推送
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     //设置1秒之后
-    NSDate *pushDate = [NSDate dateWithTimeIntervalSinceNow:3];
+    NSDate *pushDate = [NSDate dateWithTimeIntervalSinceNow:2];
     
     if (notification != nil) {
         // 设置推送时间
@@ -298,8 +298,9 @@
         //        notification.applicationIconBadgeNumber = 1;
         
         //设置userinfo 方便在之后需要撤销的时候使用
-        NSDictionary *info = [NSDictionary dictionaryWithObject:@"name" forKey:@"key"];
-        notification.userInfo = info;
+//        NSDictionary *info = [NSDictionary dictionaryWithObject:@"name" forKey:@"key"];
+//        notification.userInfo = info;
+        
         //添加推送到UIApplication
         UIApplication *app = [UIApplication sharedApplication];
         [app scheduleLocalNotification:notification];

@@ -38,7 +38,27 @@
     [self api_CompressorList];
     
     // for test noti.
+    // Query Now.
+    [NSTimer scheduledTimerWithTimeInterval:(1.0) target:self selector:@selector(api_GetStock_forLocalNoti) userInfo:nil repeats:NO];
+    
+    
+    // 定期查询库存 - 时间间隔根据设置界面的数值（1，2，3，7，15天），测试目的，改为120秒。
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    NSInteger days = [saveData integerForKey:@"StockQueryDays"];
+    NSLog(@"StockQueryDays = %d", days);
+    
+    //
+    long seconds;
+    if (days == 0) {
+        return;
+    } else {
+        seconds = days * 24 * 60 * 60;
+        NSLog(@"StockQuery Seconds = %ld", seconds);
+    }
+    
+//    [NSTimer scheduledTimerWithTimeInterval:(seconds) target:self selector:@selector(api_GetStock_forLocalNoti) userInfo:nil repeats:YES];
     [NSTimer scheduledTimerWithTimeInterval:(120.0) target:self selector:@selector(api_GetStock_forLocalNoti) userInfo:nil repeats:YES];
+     
 }
 
 - (void)didReceiveMemoryWarning
@@ -116,8 +136,8 @@
         NSLog(@"DATA --> 零件名字     = %@", theName);
         
         // 零件单位
-        NSString *unit = [recordData objectForKey:@"unit"];
-        NSLog(@"DATA --> 零件单位     = %@", unit);
+//        NSString *unit = [recordData objectForKey:@"unit"];
+//        NSLog(@"DATA --> 零件单位     = %@", unit);
         
         // 用于库存不足的判断
         NSString *qtyStock  = [recordData objectForKey:@"qty"];
@@ -130,12 +150,12 @@
         }
         
         // 目前库存数量
-        qtyStock = [NSString stringWithFormat:@"%@%@", qtyStock, unit];
-        NSLog(@"DATA --> 目前库存数量     = %@", qtyStock);
+//        qtyStock = [NSString stringWithFormat:@"%@%@", qtyStock, unit];
+//        NSLog(@"DATA --> 目前库存数量     = %@", qtyStock);
         
         // 安全库存数量
-        safeStock = [NSString stringWithFormat:@"%@%@", safeStock, unit];
-        NSLog(@"DATA --> 安全库存数量     = %@", safeStock);
+//        safeStock = [NSString stringWithFormat:@"%@%@", safeStock, unit];
+//        NSLog(@"DATA --> 安全库存数量     = %@", safeStock);
     }
     
 }
@@ -166,8 +186,9 @@
         //        notification.applicationIconBadgeNumber = 1;
         
         //设置userinfo 方便在之后需要撤销的时候使用
-        NSDictionary *info = [NSDictionary dictionaryWithObject:@"name" forKey:@"key"];
-        notification.userInfo = info;
+//        NSDictionary *info = [NSDictionary dictionaryWithObject:@"name" forKey:@"key"];
+//        notification.userInfo = info;
+        
         //添加推送到UIApplication
         UIApplication *app = [UIApplication sharedApplication];
         [app scheduleLocalNotification:notification];
