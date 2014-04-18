@@ -399,7 +399,7 @@
     srWebSocket.delegate = nil;
     [srWebSocket close];
     
-    NSString *url = @"ws://117.34.92.46:3180/getCompressorStatus";
+    NSString *url = @"ws://117.34.92.46:3182/getCompressorStatus";
     //    url = @"ws://echo.websocket.org";
     
     srWebSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];

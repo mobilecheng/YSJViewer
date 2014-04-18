@@ -279,7 +279,7 @@
     srWebSocket.delegate = nil;
     [srWebSocket close];
     
-    NSString *url = @"ws://117.34.92.46:3180/getrealtimedata";
+    NSString *url = @"ws://117.34.92.46:3182/getrealtimedata";
     
     srWebSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     srWebSocket.delegate = self;

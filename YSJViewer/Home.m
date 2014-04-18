@@ -59,7 +59,7 @@
     }
     
 //    [NSTimer scheduledTimerWithTimeInterval:(seconds) target:self selector:@selector(api_GetStock_forLocalNoti) userInfo:nil repeats:YES];
-    [NSTimer scheduledTimerWithTimeInterval:(120.0) target:self selector:@selector(api_GetStock_forLocalNoti) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:(120000.0) target:self selector:@selector(api_GetStock_forLocalNoti) userInfo:nil repeats:YES];
      
 }
 
@@ -332,12 +332,50 @@
     srWebSocket.delegate = nil;
     [srWebSocket close];
     
-    NSString *url = @"ws://117.34.92.46:3180/getAlarmdata";
+    NSString *url = @"ws://117.34.92.46:3182/getAlarmdata";
     
     srWebSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     srWebSocket.delegate = self;
     
     [srWebSocket open];
+}
+
+// 解析订阅压缩机报警数据
+- (void) getAlarmdata:(id)theData
+{
+    NSError *error = nil;
+    NSData  *aData = [theData dataUsingEncoding: NSUTF8StringEncoding];
+    NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:aData
+                                                            options:NSJSONReadingAllowFragments error:&error];
+    if (error) {
+        NSLog(@"--> ERROR = %@", error.description);
+        return;
+    }
+    
+    // Check result.
+    NSString *strResult = [dicData objectForKey:@"result"];
+    NSLog(@"--> getAlarmdata -> strResult = %@", strResult);
+    if ([strResult isEqualToString:@"error"]) {
+//        [self showMessageHUD:[dicData objectForKey:@"message"]];
+        NSLog(@"--> ERROR = %@", [dicData objectForKey:@"message"]);
+        return;
+    }
+    
+    // 解析数据
+    NSDictionary *records = [dicData objectForKey:@"data"];
+//    NSLog(@"--> COUNT = %d", [records count]);
+    if (records.count == 0) {
+//        [self showMessageHUD:@"没有实时数据."];
+        NSLog(@"--> ERROR = 没有订阅压缩机报警数据");
+        return;
+    }
+    
+    // itemName
+    NSString *notiBody = [records objectForKey:@"alarmStr"];
+    NSLog(@"DATA --> notiBody = %@", notiBody);
+
+    //
+    [self addLocalNoti:notiBody];
 }
 
 #pragma mark - SRWebSocketDelegate
@@ -374,7 +412,7 @@
      */
     
     // 解析数据
-//    [self getCompressorStatus:message];
+    [self getAlarmdata:message];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
