@@ -372,6 +372,7 @@
     
     // itemName
     NSString *notiBody = [records objectForKey:@"alarmStr"];
+    notiBody = [notiBody substringFromIndex:25];
     NSLog(@"DATA --> notiBody = %@", notiBody);
 
     //
