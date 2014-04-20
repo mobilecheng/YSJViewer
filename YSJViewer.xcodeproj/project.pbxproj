@@ -13,7 +13,6 @@
 		3453511C18D6CD860011B9A8 /* Home_ReserveService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3453511B18D6CD860011B9A8 /* Home_ReserveService.m */; };
 		3467B02218BF0DDF003084AA /* RTD_LineChart.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3467B02118BF0DDF003084AA /* RTD_LineChart.storyboard */; };
 		3467B02518BF1176003084AA /* NavLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 3467B02418BF1176003084AA /* NavLineChart.m */; };
-		3467B02818BF299B003084AA /* NavLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3467B02718BF299B003084AA /* NavLogin.m */; };
 		347184DC1887CF36001EA5AB /* icon_setting_about.png in Resources */ = {isa = PBXBuildFile; fileRef = 347184DA1887CF36001EA5AB /* icon_setting_about.png */; };
 		347184DD1887CF36001EA5AB /* icon_setting_apps.png in Resources */ = {isa = PBXBuildFile; fileRef = 347184DB1887CF36001EA5AB /* icon_setting_apps.png */; };
 		347184E01887D0BC001EA5AB /* updateinfo_indicatro.png in Resources */ = {isa = PBXBuildFile; fileRef = 347184DE1887D0BC001EA5AB /* updateinfo_indicatro.png */; };
@@ -75,6 +74,8 @@
 		7023031D18B4D9B10052517E /* red_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 7023031718B4D9B10052517E /* red_indicator.png */; };
 		7023031E18B4D9B10052517E /* yello_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 7023031818B4D9B10052517E /* yello_indicator.png */; };
 		7023032018B4DA4A0052517E /* green_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 7023031F18B4DA4A0052517E /* green_indicator.png */; };
+		7025F5CC190413F3005A94E8 /* InputServerAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 7025F5CB190413F3005A94E8 /* InputServerAddress.m */; };
+		7025F5CE19041A28005A94E8 /* InputServerAddress.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7025F5CD19041A28005A94E8 /* InputServerAddress.storyboard */; };
 		702876A018A77C1400E39010 /* StockQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7028769F18A77C1400E39010 /* StockQuery.m */; };
 		702876A318A7926600E39010 /* inventory_list_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 702876A118A7926600E39010 /* inventory_list_indicator.png */; };
 		702876A418A7926600E39010 /* inventory_supply_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 702876A218A7926600E39010 /* inventory_supply_indicator.png */; };
@@ -124,8 +125,6 @@
 		3467B02118BF0DDF003084AA /* RTD_LineChart.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RTD_LineChart.storyboard; sourceTree = "<group>"; };
 		3467B02318BF1176003084AA /* NavLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavLineChart.h; sourceTree = "<group>"; };
 		3467B02418BF1176003084AA /* NavLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavLineChart.m; sourceTree = "<group>"; };
-		3467B02618BF299B003084AA /* NavLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavLogin.h; sourceTree = "<group>"; };
-		3467B02718BF299B003084AA /* NavLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavLogin.m; sourceTree = "<group>"; };
 		347184D918878B95001EA5AB /* GlobalValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalValue.h; sourceTree = "<group>"; };
 		347184DA1887CF36001EA5AB /* icon_setting_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_setting_about.png; sourceTree = "<group>"; };
 		347184DB1887CF36001EA5AB /* icon_setting_apps.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_setting_apps.png; sourceTree = "<group>"; };
@@ -210,6 +209,9 @@
 		7023031718B4D9B10052517E /* red_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red_indicator.png; sourceTree = "<group>"; };
 		7023031818B4D9B10052517E /* yello_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yello_indicator.png; sourceTree = "<group>"; };
 		7023031F18B4DA4A0052517E /* green_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green_indicator.png; sourceTree = "<group>"; };
+		7025F5CA190413F3005A94E8 /* InputServerAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputServerAddress.h; sourceTree = "<group>"; };
+		7025F5CB190413F3005A94E8 /* InputServerAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputServerAddress.m; sourceTree = "<group>"; };
+		7025F5CD19041A28005A94E8 /* InputServerAddress.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InputServerAddress.storyboard; sourceTree = "<group>"; };
 		7028769E18A77C1400E39010 /* StockQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockQuery.h; sourceTree = "<group>"; };
 		7028769F18A77C1400E39010 /* StockQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockQuery.m; sourceTree = "<group>"; };
 		702876A118A7926600E39010 /* inventory_list_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inventory_list_indicator.png; sourceTree = "<group>"; };
@@ -336,13 +338,14 @@
 				5B64F63F1875BEF1002C0404 /* AppDelegate.m */,
 				347184D918878B95001EA5AB /* GlobalValue.h */,
 				5B64F6411875BEF3002C0404 /* Main.storyboard */,
+				7025F5CD19041A28005A94E8 /* InputServerAddress.storyboard */,
 				3494FB13187BF63300FF8272 /* LoginStoryboard.storyboard */,
 				704DEA5B18ABC5E1001896E7 /* RunRecordSB.storyboard */,
 				3467B02118BF0DDF003084AA /* RTD_LineChart.storyboard */,
+				7025F5CA190413F3005A94E8 /* InputServerAddress.h */,
+				7025F5CB190413F3005A94E8 /* InputServerAddress.m */,
 				34160FD4187BE46A00A8BCF2 /* Login.h */,
 				34160FD5187BE46A00A8BCF2 /* Login.m */,
-				3467B02618BF299B003084AA /* NavLogin.h */,
-				3467B02718BF299B003084AA /* NavLogin.m */,
 				5B64F6441875BEF3002C0404 /* Home.h */,
 				5B64F6451875BEF3002C0404 /* Home.m */,
 				704E97B418A919DF0043D907 /* About.h */,
@@ -632,6 +635,7 @@
 				5B64F6C8187AFA89002C0404 /* background.png in Resources */,
 				5B64F6CC187AFA8A002C0404 /* BtnImg_StorageList.png in Resources */,
 				5B64F63A1875BEF1002C0404 /* InfoPlist.strings in Resources */,
+				7025F5CE19041A28005A94E8 /* InputServerAddress.storyboard in Resources */,
 				5B64F6C9187AFA8A002C0404 /* BtnImg_AlarmInfo.png in Resources */,
 				5B64F6CB187AFA8A002C0404 /* BtnImg_ReserveService.png in Resources */,
 				7023032018B4DA4A0052517E /* green_indicator.png in Resources */,
@@ -687,6 +691,7 @@
 				704DEA5A18ABC211001896E7 /* RunRecord_TimeList.m in Sources */,
 				5B64F6461875BEF3002C0404 /* Home.m in Sources */,
 				5B64F69918797C24002C0404 /* NSDictionary+RequestEncoding.m in Sources */,
+				7025F5CC190413F3005A94E8 /* InputServerAddress.m in Sources */,
 				702A0C1318BA44FE00B60517 /* ReserveHistory.m in Sources */,
 				5B64F69D18797C24002C0404 /* MKNetworkEngine.m in Sources */,
 				70AE0D3918C0DBC6002C6C2D /* LCLineChartView.m in Sources */,
@@ -706,7 +711,6 @@
 				702A0C1018BA2C1700B60517 /* RealTimeData_LineChart.m in Sources */,
 				702876A018A77C1400E39010 /* StockQuery.m in Sources */,
 				70AE0D3718C0DBC6002C6C2D /* LCInfoView.m in Sources */,
-				3467B02818BF299B003084AA /* NavLogin.m in Sources */,
 				70A6767A1886B48C0008F78C /* base64.c in Sources */,
 				5B64F69618797C24002C0404 /* MBProgressHUD.m in Sources */,
 				5B64F67C187962D9002C0404 /* YSJ_InfoMenu.m in Sources */,

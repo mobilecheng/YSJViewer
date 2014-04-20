@@ -63,6 +63,17 @@
      
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+    
+    srWebSocket.delegate = nil;
+    [srWebSocket close];
+    srWebSocket = nil;
+    
+    NSLog(@"viewDidDisappear -> _webSocket set nil.");
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

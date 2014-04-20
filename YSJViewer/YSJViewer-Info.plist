@@ -24,8 +24,12 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
 	<key>UIMainStoryboardFile</key>
-	<string>LoginStoryboard</string>
+	<string>InputServerAddress</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -34,10 +38,6 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>audio</string>
 	</array>
 </dict>
 </plist>
