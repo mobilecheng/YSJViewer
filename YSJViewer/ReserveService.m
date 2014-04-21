@@ -55,9 +55,13 @@
 //                         @"整机保养", @"巡检", @"零件销售", @"服务销售",
 //                         @"客户考察", @"其他", nil];
     
+    // Get Server Address.
+    NSUserDefaults *saveData = [NSUserDefaults standardUserDefaults];
+    NSString *strHostName = [NSString stringWithFormat:@"%@:80", [saveData stringForKey:@"ServerAddress"]];
+    
     //
     self.engine = [[MKNetworkEngine alloc]
-                   initWithHostName:hostName
+                   initWithHostName:strHostName
                    customHeaderFields:nil];
     
 //    self.txtDescription.delegate = self;
@@ -70,7 +74,7 @@
     [self.labTopTitle addGestureRecognizer:singleTap];
     
     //
-    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+//    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     NSString *name  = [saveData stringForKey:@"YSJ_NAME"];
     NSString *csn   = [saveData stringForKey:@"YSJ_CSN"];
     

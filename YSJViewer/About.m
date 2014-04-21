@@ -40,9 +40,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    // Get Server Address.
+    NSUserDefaults *saveData = [NSUserDefaults standardUserDefaults];
+    NSString *strHostName = [NSString stringWithFormat:@"%@:80", [saveData stringForKey:@"ServerAddress"]];
+    
     //
     self.engine = [[MKNetworkEngine alloc]
-                   initWithHostName:hostName
+                   initWithHostName:strHostName
                    customHeaderFields:nil];
     
     //
@@ -131,9 +135,13 @@
     
     //    [self showLoadingHUD:@"正在查询..."];
     
+    // Get Server Address.
+    NSUserDefaults *saveData = [NSUserDefaults standardUserDefaults];
+    NSString *strHostName = [NSString stringWithFormat:@"%@:80", [saveData stringForKey:@"ServerAddress"]];
+    
     //--------------------
     NSString *nextPath = @"cis/mobile/fetchLogo";
-    NSString *url = [NSString stringWithFormat:@"http://%@/%@", hostName, nextPath];
+    NSString *url = [NSString stringWithFormat:@"http://%@/%@", strHostName, nextPath];
     NSLog(@"URL = %@", url);
     
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];

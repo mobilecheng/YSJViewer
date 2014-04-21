@@ -35,9 +35,13 @@
     self.myTimeJGData = [[NSArray alloc] initWithObjects:
                          @"1", @"5", @"10", @"15", @"30", @"60", nil];
     
+    // Get Server Address.
+    NSUserDefaults *saveData = [NSUserDefaults standardUserDefaults];
+    NSString *strHostName = [NSString stringWithFormat:@"%@:80", [saveData stringForKey:@"ServerAddress"]];
+    
     //
     self.engine = [[MKNetworkEngine alloc]
-                   initWithHostName:hostName
+                   initWithHostName:strHostName
                    customHeaderFields:nil];
     
 

@@ -13,7 +13,7 @@
 
 #endif
 
-#define hostName @"117.34.92.46:80"
+//#define hostName @"117.34.92.46:80"
 //#define hostName @"ok988cis.eicp.net:9080" // temp
 
 #define delay 1.0f  // 提示框显示的时间

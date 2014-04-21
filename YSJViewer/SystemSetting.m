@@ -31,8 +31,12 @@
 {
     [super viewDidLoad];
 
+    // Get Server Address.
+    NSUserDefaults *saveData = [NSUserDefaults standardUserDefaults];
+    NSString *strHostName = [NSString stringWithFormat:@"%@:80", [saveData stringForKey:@"ServerAddress"]];
+    
     self.engine = [[MKNetworkEngine alloc]
-                   initWithHostName:hostName
+                   initWithHostName:strHostName
                    customHeaderFields:nil];
     
     //
@@ -40,7 +44,7 @@
                          @"1", @"2", @"3", @"7", @"15", nil];
     
     //
-    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+//    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     NSInteger days = [saveData integerForKey:@"StockQueryDays"];
     NSLog(@"days = %d", days);
     

@@ -34,14 +34,17 @@
 {
     [super viewDidLoad];
 
+    // Get Server Address.
+    NSUserDefaults *saveData = [NSUserDefaults standardUserDefaults];
+    NSString *strHostName = [NSString stringWithFormat:@"%@:80", [saveData stringForKey:@"ServerAddress"]];
     
     //
     self.engine = [[MKNetworkEngine alloc]
-                   initWithHostName:hostName
+                   initWithHostName:strHostName
                    customHeaderFields:nil];
     
     // Title.
-    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+//    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     NSString *name  = [saveData stringForKey:@"YSJ_NAME"];
     NSString *id    = [saveData stringForKey:@"YSJ_ID"];
     NSString *model = [saveData stringForKey:@"YSJ_MODEL"];

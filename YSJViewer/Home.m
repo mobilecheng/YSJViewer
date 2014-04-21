@@ -32,9 +32,13 @@
     //
     [self initData];
     
+    // Get Server Address.
+    NSUserDefaults *saveData = [NSUserDefaults standardUserDefaults];
+    NSString *strHostName = [NSString stringWithFormat:@"%@:80", [saveData stringForKey:@"ServerAddress"]];
+    
     //
     self.engine = [[MKNetworkEngine alloc]
-                   initWithHostName:hostName
+                   initWithHostName:strHostName
                    customHeaderFields:nil];
     
     [self api_CompressorList];
@@ -45,7 +49,7 @@
     
     
     // 定期查询库存 - 时间间隔根据设置界面的数值（1，2，3，7，15天），测试目的，改为120秒。
-    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+//    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     NSInteger days = [saveData integerForKey:@"StockQueryDays"];
     NSLog(@"StockQueryDays = %d", days);
     
@@ -343,7 +347,11 @@
     srWebSocket.delegate = nil;
     [srWebSocket close];
     
-    NSString *url = @"ws://117.34.92.46:3182/getAlarmdata";
+    // Get Server Address.
+    NSUserDefaults *saveData = [NSUserDefaults standardUserDefaults];
+    NSString *url = [NSString stringWithFormat:@"ws://%@:3182/getAlarmdata", [saveData stringForKey:@"ServerAddress"]];
+    
+//    NSString *url = @"ws://117.34.92.46:3182/getAlarmdata";
     
     srWebSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     srWebSocket.delegate = self;
