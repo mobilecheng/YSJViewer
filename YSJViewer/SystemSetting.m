@@ -88,12 +88,14 @@
 
 #pragma mark -  IBAction Methods.
 
+/*
 - (IBAction) btnCheckAppUpdate
 {
     NSLog(@"btnCheckAppUpdate");
     
     [self api_CheckNewVersion];
 }
+*/
 
 - (IBAction) selectValue
 {
@@ -145,7 +147,7 @@
 }
 
 #pragma mark -  API call.
-
+/*
 - (void) api_CheckNewVersion
 {
     NSLog(@"--> api_CheckNewVersion");
@@ -226,6 +228,7 @@
                                           otherButtonTitles:nil];
     [alert show];
 }
+*/
 
 #pragma mark - MBProgressHUD methods
 

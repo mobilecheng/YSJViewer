@@ -1,5 +1,5 @@
 //
-//  NavLineChart.h
+//  NavLogin.h
 //  YSJViewer
 //
 //  Created by TMC_MAC_02 on 14-2-27.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NavLineChart : UINavigationController
+@interface NavLogin : UINavigationController
 
 @end

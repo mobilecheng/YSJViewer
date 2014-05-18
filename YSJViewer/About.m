@@ -50,8 +50,16 @@
                    customHeaderFields:nil];
     
     //
-    [self api_GetCompanyInfo];
-    [self api_FetchLogo];
+//    [self api_GetCompanyInfo];
+//    [self api_FetchLogo];
+    
+    // 5-4 add.
+    self.labName.text = [saveData stringForKey:@"CompanyName"];
+    self.strTel     = [saveData stringForKey:@"CompanyTel"];
+    self.strEmail   = [saveData stringForKey:@"CompanyEmail"];
+    self.strURL     = [saveData stringForKey:@"CompanyPage"];
+    self.strAddress = [saveData stringForKey:@"CompanyAddress"];
+    
 }
 
 - (void)didReceiveMemoryWarning

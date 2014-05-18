@@ -194,7 +194,10 @@
     NSLog(@"--> api_GetCurrentData -> compId = %@", compId);
     
     //--------------------
-    NSString *nextPath = @"cis/mobile/getCurrentData";
+//    NSString *nextPath = @"cis/mobile/getCurrentData";
+    NSDictionary *account = [saveData objectForKey:@"Account"];
+    NSString *serviceCode = [account  objectForKey:@"servicecode"];
+    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/getCurrentData", serviceCode];
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:

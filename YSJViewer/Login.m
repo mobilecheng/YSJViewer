@@ -66,7 +66,13 @@
     
     //
     if ([self checkLoginInfo]) { // Has login info.
-        [self api_SignIn];
+        // 5-5 update.
+        NSInteger userTag = [saveData integerForKey:@"SwitchUser"];
+        if (userTag == 678) {
+            [saveData removeObjectForKey:@"SwitchUser"];
+        } else {
+            [self api_SignIn];
+        }
     }
 }
 
@@ -229,7 +235,8 @@
     NSString *password    = self.txtPassword.text;
     
     //--------------------
-    NSString *nextPath = @"cis/mobile/signIn";
+//    NSString *nextPath = @"cis/mobile/signIn";
+    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/signIn", serviceCode];
     
     // params  @"013468000533137", @"imei",@"100007" longmen2 longmen
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -280,10 +287,38 @@
         NSString *strToken = [dicData objectForKey:@"token"];
         NSLog(@"--> token = %@", strToken);
         
+        NSString *CompanyName = [dicData objectForKey:@"CompanyName"];
+        NSLog(@"--> CompanyName = %@", CompanyName);
+        
+        NSString *CompanyTel = [dicData objectForKey:@"CompanyTel"];
+        NSLog(@"--> CompanyTel = %@", CompanyTel);
+        
+        NSString *CompanyEmail = [dicData objectForKey:@"CompanyEmail"];
+        NSLog(@"--> CompanyEmail = %@", CompanyEmail);
+        
+        /*
+         NSString *CompanyPage;
+         if ([dicData objectForKey:@"CompanyPage"] == NULL) {
+         CompanyPage = @"";
+         } else {
+         CompanyPage = [dicData objectForKey:@"CompanyPage"];
+         }
+         NSLog(@"--> CompanyPage = %@", CompanyPage);
+         
+         NSString *CompanyAddress = [dicData objectForKey:@"CompanyAddress"];
+         if (CompanyAddress == nil) CompanyAddress = @"";
+         NSLog(@"--> CompanyAddress = %@", CompanyAddress);
+         */
+        
         // Save account info.
         NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
-        [saveData setObject:dicParams forKey:@"Account"];
-        [saveData setObject:strToken  forKey:@"Token"];
+        [saveData setObject:dicParams      forKey:@"Account"];
+        [saveData setObject:strToken       forKey:@"Token"];
+        [saveData setObject:CompanyName    forKey:@"CompanyName"];
+        [saveData setObject:CompanyTel     forKey:@"CompanyTel"];
+        [saveData setObject:CompanyEmail   forKey:@"CompanyEmail"];
+        //        [saveData setObject:CompanyPage    forKey:@"CompanyPage"];
+        //        [saveData setObject:CompanyAddress forKey:@"CompanyAddress"];
         [saveData synchronize];
         
         //

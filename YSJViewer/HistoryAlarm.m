@@ -117,6 +117,10 @@
     // Save data to cache.
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
     
+    // 5-5 add
+    NSString *compId = [saveData  objectForKey:@"YSJ_ID"];
+    [saveData setObject:compId    forKey:@"ALARM_COMP_ID"]; // 压缩机ID
+    
     [saveData setObject:name  forKey:@"ALARM_NAME"];
     [saveData setObject:info  forKey:@"ALARM_INFO"];
     [saveData setObject:time  forKey:@"ALARM_TIME"];
@@ -161,7 +165,10 @@
     NSString *offset = @"0";
     
     //--------------------
-    NSString *nextPath = @"cis/mobile/getAlarm";
+//    NSString *nextPath = @"cis/mobile/getAlarm";
+    NSDictionary *account = [saveData objectForKey:@"Account"];
+    NSString *serviceCode = [account  objectForKey:@"servicecode"];
+    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/getAlarm", serviceCode];
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:

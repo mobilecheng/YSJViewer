@@ -67,7 +67,10 @@
     NSString *token = [saveData  objectForKey:@"Token"];
     
     //--------------------
-    NSString *nextPath = @"cis/mobile/getMyInfo";
+//    NSString *nextPath = @"cis/mobile/getMyInfo";
+    NSDictionary *account = [saveData objectForKey:@"Account"];
+    NSString *serviceCode = [account  objectForKey:@"servicecode"];
+    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/getMyInfo", serviceCode];
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -139,6 +142,22 @@
     [saveData synchronize];
 }
 
+
+#pragma mark - Goto other screen.
+
+- (IBAction) goLoginScreen
+{
+    //
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    [saveData setInteger:678 forKey:@"SwitchUser"];
+    [saveData synchronize];
+    
+    // Go to Login screen.
+    UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"LoginStoryboard" bundle:nil];
+    UIViewController *loginVC     = [loginStoryboard instantiateViewControllerWithIdentifier:@"Login"];
+    
+    [self.navigationController pushViewController:loginVC animated:YES];
+}
 
 #pragma mark - MBProgressHUD methods
 

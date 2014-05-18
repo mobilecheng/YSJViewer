@@ -362,10 +362,14 @@
 //    [self showLoadingHUD:@"正在提交服务申请..."];
     
     //
-    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"Token"];
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    NSString *token = [saveData objectForKey:@"Token"];
     
     //--------------------
-    NSString *nextPath = @"cis/mobile/getServiceType";
+//    NSString *nextPath = @"cis/mobile/getServiceType";
+    NSDictionary *account = [saveData objectForKey:@"Account"];
+    NSString *serviceCode = [account  objectForKey:@"servicecode"];
+    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/getServiceType", serviceCode];
     
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                token, @"token", nil];
@@ -436,17 +440,22 @@
     [self showLoadingHUD:@"正在提交服务申请..."];
     
     //
-    NSString *token       = [[NSUserDefaults standardUserDefaults] objectForKey:@"Token"];
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token       = [saveData objectForKey:@"Token"];
     NSString *description = self.txtDescription.text;
     NSString *serviceType = self.labServiceType.text;
     NSString *details     = self.txtDetails.text;
-    NSString *compId      = [[NSUserDefaults standardUserDefaults] objectForKey:@"YSJ_ID"];
+    NSString *compId      = [saveData objectForKey:@"YSJ_ID"];
     NSString *contacter   = self.txtContacter.text;
     NSString *telephone   = self.txtTelephone.text;
     NSString *expectDate  = self.labExpectDate.text;
     
     //--------------------
-    NSString *nextPath = @"cis/mobile/saveServiceRequest";
+//    NSString *nextPath = @"cis/mobile/saveServiceRequest";
+    NSDictionary *account = [saveData objectForKey:@"Account"];
+    NSString *serviceCode = [account  objectForKey:@"servicecode"];
+    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/saveServiceRequest", serviceCode];
     
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                token,        @"token",

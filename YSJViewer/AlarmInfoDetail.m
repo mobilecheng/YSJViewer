@@ -18,6 +18,7 @@
 
 @property (nonatomic) NSMutableArray *arrDetailName;  
 @property (nonatomic) NSMutableArray *arrDetailValue;
+@property (nonatomic) NSMutableArray *arr_iId; // 检测量编号
 
 @property (nonatomic) MKNetworkEngine *engine;
 
@@ -102,6 +103,47 @@
     return cell;
 }
 
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *iId  = [self.arr_iId objectAtIndex:indexPath.row];
+    NSString *name = [self.arrDetailName objectAtIndex:indexPath.row];
+    
+    // 报警时间
+    NSString *alarmTime = self.labAlarmTime.text;
+    NSLog(@"alarmTime = %@", alarmTime);
+    
+    // 转NSString格式时间为NSDate
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+    [formatter setTimeZone:timeZone];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *dateTime = [formatter dateFromString:alarmTime];
+    //    NSLog(@"dateTime = %@", dateTime);
+    
+    // 报警的开始结束时间取报警时刻前后半个小时
+    NSTimeInterval halfHour = 30 * 60;
+    NSDate *startTime = [dateTime dateByAddingTimeInterval:-halfHour];
+    NSDate *endTime  = [dateTime dateByAddingTimeInterval:halfHour];
+    NSString *strStartTime = [formatter stringFromDate:startTime];
+    NSString *strEndTime  = [formatter stringFromDate:endTime];
+    //    NSLog(@"beforeTime = %@ | afterTime ＝ %@", beforeTime, afterTime);
+    NSLog(@"strStartTime = %@ | strEndTime ＝ %@", strStartTime, strEndTime);
+    
+    // Save data to cache.
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    [saveData setObject:iId          forKey:@"ALC_iId"];  //检测量编号
+    [saveData setObject:name         forKey:@"ALC_NAME"];
+    [saveData setObject:strStartTime forKey:@"ALC_START_TIME"];
+    [saveData setObject:strEndTime   forKey:@"ALC_END_TIME"];
+    [saveData synchronize];
+    
+    //
+    [self go_ALC_LineChart];   // 报警曲线显示
+}
+
+
 #pragma mark -  API call.
 
 - (void) api_GetAlarmDetail
@@ -121,7 +163,10 @@
 //    alarmID = @"4406"; // temp data.
     
     //--------------------
-    NSString *nextPath = @"cis/mobile/getAlarmDetail";
+//    NSString *nextPath = @"cis/mobile/getAlarmDetail";
+    NSDictionary *account = [saveData objectForKey:@"Account"];
+    NSString *serviceCode = [account  objectForKey:@"servicecode"];
+    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/getAlarmDetail", serviceCode];
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -180,6 +225,9 @@
     for (NSDictionary *recordData in records) {
         NSLog(@"---------------------------------------");
         
+        NSLog(@"DATA --> iId      = %@", [recordData objectForKey:@"iId"]);
+        [self.arr_iId addObject:[recordData objectForKey:@"iId"]];
+        
         NSLog(@"DATA --> name     = %@", [recordData objectForKey:@"name"]);
         [self.arrDetailName addObject:[recordData objectForKey:@"name"]];
         
@@ -202,9 +250,19 @@
 {
     self.arrDetailName  = [[NSMutableArray alloc] init];
     self.arrDetailValue = [[NSMutableArray alloc] init];
+    self.arr_iId        = [[NSMutableArray alloc] init];
 }
 
 #pragma mark -  Uitility Methods.
+
+- (void) go_ALC_LineChart
+{
+    // Go to Home screen.
+    UIStoryboard *alc = [UIStoryboard storyboardWithName:@"Alarm_LineChart" bundle:nil];
+    UIViewController *homeVC     = [alc instantiateViewControllerWithIdentifier:@"Alarm_LineChart"];
+    
+    [self.navigationController pushViewController:homeVC animated:YES];
+}
 
 - (void)setExtraCellLineHidden:(UITableView *)tableView
 {

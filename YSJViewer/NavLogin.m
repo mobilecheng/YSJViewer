@@ -1,18 +1,18 @@
 //
-//  NavLineChart.m
+//  NavLogin.m
 //  YSJViewer
 //
 //  Created by TMC_MAC_02 on 14-2-27.
 //  Copyright (c) 2014年 Reload Digital Tech. All rights reserved.
 //
 
-#import "NavLineChart.h"
+#import "NavLogin.h"
 
-@interface NavLineChart ()
+@interface NavLogin ()
 
 @end
 
-@implementation NavLineChart
+@implementation NavLogin
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,7 +27,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -36,14 +35,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-//- (NSUInteger) supportedInterfaceOrientations
-//{
-//    return UIInterfaceOrientationMaskLandscapeRight;
-//}
-//
-//- (BOOL) shouldAutorotate
-//{
-//    return NO;
-//}
+- (NSUInteger) supportedInterfaceOrientations
+{
+//    NSLog(@"nav-1");
+    return UIInterfaceOrientationMaskPortrait;
+//    return self.topViewController.supportedInterfaceOrientations;
+}
+
+- (BOOL) shouldAutorotate
+{
+//    NSLog(@"nav-2");
+    return NO;
+//    return self.topViewController.shouldAutorotate;
+}
 
 @end

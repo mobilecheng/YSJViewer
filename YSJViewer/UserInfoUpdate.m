@@ -218,7 +218,8 @@
     [self showLoadingHUD:@"正在更新..."];
     
     //
-    NSString *token       = [[NSUserDefaults standardUserDefaults] objectForKey:@"Token"];
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    NSString *token       = [saveData objectForKey:@"Token"];
     NSString *userName    = self.txtUserName.text;
     NSString *officePhone = self.txtOfficePhone.text;
     NSString *mobilePhone = self.txtMobilePhone.text;
@@ -226,7 +227,10 @@
     NSString *email       = self.txtEmail.text;
     
     //--------------------
-    NSString *nextPath = @"cis/mobile/updateMyInfo";
+//    NSString *nextPath = @"cis/mobile/updateMyInfo";
+    NSDictionary *account = [saveData objectForKey:@"Account"];
+    NSString *serviceCode = [account  objectForKey:@"servicecode"];
+    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/updateMyInfo", serviceCode];
     
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                token,         @"token",

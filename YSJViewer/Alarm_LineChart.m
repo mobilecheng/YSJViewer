@@ -1,19 +1,19 @@
 //
-//  RealTimeData_LineChart.m
+//  Alarm_LineChart.m
 //  YSJViewer
 //
-//  Created by Kevin Zhang on 14-2-23.
+//  Created by Kevin Zhang on 14-4-30.
 //  Copyright (c) 2014年 Reload Digital Tech. All rights reserved.
 //
 
-#import "RealTimeData_LineChart.h"
+#import "Alarm_LineChart.h"
 #import "GlobalValue.h"
 #import "LCLineChartView.h"
 
 #define degreesToRadians(x) (M_PI * x / 180.0)
 
 
-@interface RealTimeData_LineChart ()
+@interface Alarm_LineChart ()
 
 @property (weak, nonatomic) IBOutlet UILabel *labTitle;
 @property (weak, nonatomic) IBOutlet UILabel *labXValue_1;
@@ -34,11 +34,9 @@
 @property (nonatomic) NSMutableArray *arrValue;
 @property (nonatomic) NSMutableArray *arrDate;
 
-@property (nonatomic) NSTimer *myTimer;
-
 @end
 
-@implementation RealTimeData_LineChart
+@implementation Alarm_LineChart
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -59,6 +57,10 @@
     NSUserDefaults *saveData = [NSUserDefaults standardUserDefaults];
     NSString *strHostName = [NSString stringWithFormat:@"%@:80", [saveData stringForKey:@"ServerAddress"]];
     
+    // 显示标题
+    self.labTitle.text = [saveData objectForKey:@"ALC_NAME"];
+    
+    
     //
     self.engine = [[MKNetworkEngine alloc]
                    initWithHostName:strHostName
@@ -68,7 +70,7 @@
     [self initData];
     
     //
-    [self api_GetRecentItemData];
+    [self api_GetHistoryData];
 }
 
 
@@ -83,9 +85,6 @@
     
     self.navigationController.view.transform = CGAffineTransformMakeRotation(degreesToRadians(90));
     
-    // 每隔5秒更新一次数据
-    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:(5.0) target:self selector:@selector(api_GetRecentItemData) userInfo:nil repeats:YES];
-
     //
     [super viewWillAppear:animated];
 }
@@ -97,10 +96,6 @@
     self.navigationController.view.transform = CGAffineTransformIdentity;
     self.navigationController.view.transform = CGAffineTransformMakeRotation(degreesToRadians(0));
     self.navigationController.view.bounds = CGRectMake(0, 0, 320, 568);
-    
-    // 取消5秒更新
-    [self.myTimer invalidate];
-    self.myTimer = nil;
     
     //
     [super viewWillDisappear:animated];
@@ -123,35 +118,40 @@
 
 #pragma mark -  API call.
 
-// API - 曲线数据初始化
-- (void) api_GetRecentItemData
+- (void) api_GetHistoryData
 {
-    NSLog(@"--> api_GetRecentItemData...");
+    NSLog(@"--> ALC_api_GetHistoryData...");
     
     //
     [self showLoadingHUD:@"正在查询..."];
     
-    // 构造参数
+    //
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
-    NSString *token  = [saveData  objectForKey:@"Token"];
-    NSString *compId = [saveData  objectForKey:@"YSJ_ID"];
-    NSString *iId    = [saveData  objectForKey:@"RL_iID"];
-    NSString *name   = [saveData  objectForKey:@"RL_Name"];
     
-    // 显示标题
-    self.labTitle.text = name;
+    // 构造参数
+    NSString *token  = [saveData objectForKey:@"Token"];
+    NSString *compId = [saveData objectForKey:@"ALARM_COMP_ID"];
+    NSString *iId    = [saveData objectForKey:@"ALC_iId"]; // 检测量编号
+    NSString *start  = [saveData objectForKey:@"ALC_START_TIME"];
+    NSString *end    = [saveData objectForKey:@"ALC_END_TIME"];
+    
+    NSLog(@"VALUE TEST = compId = %@ | iId = %@ | START = %@ | END = %@", compId, iId, start, end);
     
     //--------------------
-//    NSString *nextPath = @"cis/mobile/getRecentItemData";
     NSDictionary *account = [saveData objectForKey:@"Account"];
     NSString *serviceCode = [account  objectForKey:@"servicecode"];
-    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/getRecentItemData", serviceCode];
+    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/getHistoryData", serviceCode];
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                               token, @"token", compId, @"compId", iId, @"iId", nil];
+                               token,    @"token",
+                               compId,   @"compId",
+                               iId,      @"iId",
+                               start,    @"start",
+                               end,      @"end",
+                               nil];
     
-    NSLog(@"--> api_GetRecentItemData -> dicParams = %@", dicParams);
+    NSLog(@"--> ALC_api_GetHistoryData --> dicParams = %@", dicParams);
     
     MKNetworkOperation* op = [self.engine operationWithPath:nextPath
                                                      params:dicParams
@@ -161,19 +161,19 @@
     [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
         NSData *data  = [completedOperation responseData];
         NSString *str = [completedOperation responseString];
-        NSLog(@"--> api_GetRecentItemData -> RESULT = %@", str);
+        NSLog(@"--> ALC_api_GetHistoryData -> RESULT = %@", str);
         
-        [self getRecentItemData:data];
+        [self getHistoryData:data];
         
     } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
-        NSLog(@"--> api_GetRecentItemData -> ERROR = %@", [error description]);
+        NSLog(@"--> ALC_api_GetHistoryData -> ERROR = %@", [error description]);
     }];
     
     // Exe...
     [self.engine enqueueOperation:op];
 }
 
-- (void) getRecentItemData:(id)theData
+- (void) getHistoryData:(id)theData
 {
     NSError *error = nil;
     NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:theData
@@ -193,9 +193,9 @@
     
     NSArray *records = [dicData objectForKey:@"records"];
     self.dataCount = records.count;
-    NSLog(@"--> COUNT = %d", self.dataCount);
+    NSLog(@"--> ALC-COUNT = %d", self.dataCount);
     if (self.dataCount == 0) {
-        [self showMessageHUD:@"没有实时数据."];
+        [self showMessageHUD:@"没有查询到数据."];
         return;
     }
     
@@ -207,13 +207,13 @@
     
     //
     for (NSDictionary *recordData in records) {
-//        NSLog(@"---------------------------------------");
+        //        NSLog(@"---------------------------------------");
         
-//        NSLog(@"DATA --> value    = %@", [recordData objectForKey:@"value"]);
+        //        NSLog(@"DATA --> value    = %@", [recordData objectForKey:@"value"]);
         [self.arrValue addObject:[recordData objectForKey:@"value"]];
         
         //
-//        NSLog(@"DATA --> date     = %@", [recordData objectForKey:@"date"]);
+        //        NSLog(@"DATA --> date     = %@", [recordData objectForKey:@"date"]);
         [self.arrDate addObject:[recordData objectForKey:@"date"]];
     }
     
@@ -221,17 +221,8 @@
     [self showLineChart];
 }
 
-#pragma mark - 显示曲线
 
-//- (NSUInteger) supportedInterfaceOrientations
-//{
-//    return UIInterfaceOrientationMaskLandscapeRight;
-//}
-//
-//- (BOOL) shouldAutorotate
-//{
-//    return NO;
-//}
+#pragma mark - 显示曲线
 
 - (void) showLineChart
 {
@@ -310,7 +301,8 @@
     [self.view addSubview:chartView];
     
     // X轴5个时间点显示
-    NSLog(@"RTD-self.arrDate.count = %d", self.arrDate.count);
+    NSLog(@"ALC-self.arrDate.count = %d", self.arrDate.count);
+    
     
     // 5-4 update.
     int timeCount = self.arrDate.count;

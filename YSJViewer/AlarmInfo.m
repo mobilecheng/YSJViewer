@@ -14,6 +14,7 @@
 @property (nonatomic) NSMutableArray *arrName;       // 压缩机名字
 @property (nonatomic) NSMutableArray *arrAlarmInfo;  // 压缩机报警信息
 @property (nonatomic) NSMutableArray *arrModel;      // 压缩机型号
+@property (nonatomic) NSMutableArray *arrCompId;     // 压缩机ID - 4-30 add.
 @property (nonatomic) NSMutableArray *arrTime;       // 压缩机报警时间
 @property (nonatomic) NSMutableArray *arrAlarmID;    // 报警记录id
 
@@ -114,7 +115,8 @@
     NSString *info  = [self.arrAlarmInfo objectAtIndex:indexPath.row];  //
     NSString *time  = [self.arrTime      objectAtIndex:indexPath.row];
     NSString *aID   = [self.arrAlarmID   objectAtIndex:indexPath.row];
-//    NSLog(@"YSJ name = %@ | ID = %@ | CID = %@ | SID = %@", name, ysjID, cid, sid);
+    NSString *compId   = [self.arrCompId    objectAtIndex:indexPath.row];
+    //    NSLog(@"YSJ name = %@ | ID = %@ | CID = %@ | SID = %@", name, ysjID, cid, sid);
     
     // Save data to cache.
     NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
@@ -123,6 +125,7 @@
     [saveData setObject:info  forKey:@"ALARM_INFO"];
     [saveData setObject:time  forKey:@"ALARM_TIME"];
     [saveData setObject:aID   forKey:@"ALARM_ID"];
+    [saveData setObject:compId forKey:@"ALARM_COMP_ID"]; // 压缩机ID
     
     [saveData synchronize];
 }
@@ -135,6 +138,7 @@
     self.arrName      = [[NSMutableArray alloc] init];
     self.arrAlarmInfo = [[NSMutableArray alloc] init];
     self.arrModel     = [[NSMutableArray alloc] init];
+    self.arrCompId    = [[NSMutableArray alloc] init];
     self.arrTime      = [[NSMutableArray alloc] init];
     self.arrAlarmID   = [[NSMutableArray alloc] init];
     
@@ -162,7 +166,10 @@
     NSString *offset = @"0";
     
     //--------------------
-    NSString *nextPath = @"cis/mobile/getAlarm";
+//    NSString *nextPath = @"cis/mobile/getAlarm";
+    NSDictionary *account = [saveData objectForKey:@"Account"];
+    NSString *serviceCode = [account  objectForKey:@"servicecode"];
+    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/getAlarm", serviceCode];
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -224,7 +231,8 @@
         
         // 通过压缩机ID取名称和型号
         NSString *compId = [recordData objectForKey:@"compId"];
-//        NSLog(@"DATA --> compId     = %@", compId);
+        NSLog(@"DATA --> compId     = %@", compId);
+        [self.arrCompId addObject:compId];
         [self getCompNameAndModel:[compId intValue]];
         
         // 报警信息
@@ -266,6 +274,7 @@
     [self.arrName       removeAllObjects];
     [self.arrAlarmInfo  removeAllObjects];
     [self.arrModel      removeAllObjects];
+    [self.arrCompId     removeAllObjects];
     [self.arrTime       removeAllObjects];
     [self.arrAlarmID    removeAllObjects];
     

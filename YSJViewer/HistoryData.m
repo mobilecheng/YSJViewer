@@ -267,136 +267,37 @@
 //根据被点击按钮的索引处理点击事件
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSLog(@"clickButtonAtIndex: %d", buttonIndex);
+    NSLog(@"clickButtonAtIndex: %ld", (long)buttonIndex);
     
     if (buttonIndex == 0) { // 取消
         // Nothing.
     } else if (buttonIndex == 1) { // 确定
-        // 保持值，跳转页面。
         // Save data to cache.
-        /*
         NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
-        [saveData setObject:self.labStartTime.text  forKey:@"StartTime"];
-        [saveData setObject:self.labEndTime.text    forKey:@"EndTime"];
-        [saveData setObject:self.myTimeJGData_SelValue forKey:@"TimeJG"];
+        NSString *compId = [saveData  objectForKey:@"YSJ_ID"];
+        
+        [saveData setObject:self.myJCLData_SelValue forKey:@"ALC_iId"];       //检测量编号
+        [saveData setObject:compId                 forKey:@"ALARM_COMP_ID"]; // 压缩机ID
+        [saveData setObject:self.labJCL.text       forKey:@"ALC_NAME"];      // 检测量名称
+        [saveData setObject:self.labStartTime.text forKey:@"ALC_START_TIME"];
+        [saveData setObject:self.labEndTime.text   forKey:@"ALC_END_TIME"];
         [saveData synchronize];
         
         //
-        [self goTimeListScreen];
-         */
-        
-        // API call.
-        [self api_GetHistoryData];
+        [self go_ALC_LineChart];   // 报警曲线显示
     }
-}
-
-#pragma mark -  API call.
-
-- (void) api_GetHistoryData
-{
-    NSLog(@"--> api_GetHistoryData...");
-    
-    //
-    [self showLoadingHUD:@"正在查询..."];
-    
-    //
-    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
-    
-    // 构造参数
-    NSString *token  = [saveData objectForKey:@"Token"];
-    NSString *compId = [saveData objectForKey:@"YSJ_ID"];
-    NSString *iId    = self.myJCLData_SelValue; // 检测量编号
-    NSString *start  = self.labStartTime.text;
-    NSString *end    = self.labEndTime.text;
-    
-    //--------------------
-    NSString *nextPath = @"cis/mobile/getHistoryData";
-    
-    // params
-    NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                               token,    @"token",
-                               compId,   @"compId",
-                               iId,      @"iId",
-                               start,    @"start",
-                               end,      @"end",
-                               nil];
-    
-    NSLog(@"--> api_GetHistoryData --> dicParams = %@", dicParams);
-    
-    MKNetworkOperation* op = [self.engine operationWithPath:nextPath
-                                                     params:dicParams
-                                                 httpMethod:@"GET"
-                                                        ssl:NO];
-    
-    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
-        NSData *data  = [completedOperation responseData];
-        NSString *str = [completedOperation responseString];
-        NSLog(@"--> api_GetHistoryData -> RESULT = %@", str);
-        
-//        [self getRunRecordData:data];
-        
-    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
-        NSLog(@"--> api_GetHistoryData -> ERROR = %@", [error description]);
-    }];
-    
-    // Exe...
-    [self.engine enqueueOperation:op];
-}
-
-- (void) getHistoryData:(id)theData
-{
-    NSError *error = nil;
-    NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:theData
-                                                            options:NSJSONReadingAllowFragments error:&error];
-    if (error) {
-        NSLog(@"--> ERROR = %@", error.description);
-        return;
-    }
-    
-    // Check result.
-    NSString *strResult = [dicData objectForKey:@"result"];
-    NSLog(@"--> strResult = %@", strResult);
-    if ([strResult isEqualToString:@"error"]) {
-        [self showMessageHUD:[dicData objectForKey:@"message"]];
-        return;
-    }
-    
-    NSArray *records = [dicData objectForKey:@"records"];
-    NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
-    
-    // 数据存储
-    //    NSMutableArray *arrTimeList = [[NSMutableArray alloc] init];
-    //    NSMutableArray *arrItems    = [[NSMutableArray alloc] init];
-    
-    // 解析数据
-    for (NSDictionary *recordData in records) {
-        NSLog(@"---------------------------------------");
-        
-        //
-        NSString *date = [recordData objectForKey:@"date"];
-        NSLog(@"DATA --> date     = %@", date);
-//        [self.arrTimeList addObject:date];
-        
-        //
-        NSArray *items = [recordData objectForKey:@"items"];
-        NSLog(@"DATA --> items    = %@", items);
-//        [self.arrItems addObject:items];
-    }
-    
-    // 刷新数据
-//    [self.tableView reloadData];
 }
 
 
 #pragma mark -  Go next screen.
 
-- (void) goTimeListScreen
+- (void) go_ALC_LineChart
 {
-    // Go to TimeList screen.
-    UIStoryboard *runRecordSB = [UIStoryboard storyboardWithName:@"RunRecordSB" bundle:nil];
-    UIViewController *timelistVC     = [runRecordSB instantiateViewControllerWithIdentifier:@"RunRecord_TimeList"];
+    // Go to Home screen.
+    UIStoryboard *alc = [UIStoryboard storyboardWithName:@"Alarm_LineChart" bundle:nil];
+    UIViewController *homeVC     = [alc instantiateViewControllerWithIdentifier:@"Alarm_LineChart"];
     
-    [self.navigationController pushViewController:timelistVC animated:YES];
+    [self.navigationController pushViewController:homeVC animated:YES];
 }
 
 #pragma mark - MBProgressHUD methods

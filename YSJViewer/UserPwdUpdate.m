@@ -169,12 +169,16 @@
     [self showLoadingHUD:@"正在更新..."];
     
     //
-    NSString *token  = [[NSUserDefaults standardUserDefaults] objectForKey:@"Token"];
+    NSUserDefaults *saveData  = [NSUserDefaults standardUserDefaults];
+    NSString *token  = [saveData objectForKey:@"Token"];
     NSString *oldPwd = self.txtCurrentPwd.text;
     NSString *newPwd = self.txtNewPwd.text;
 
     //--------------------
-    NSString *nextPath = @"cis/mobile/changePwd";
+//    NSString *nextPath = @"cis/mobile/changePwd";
+    NSDictionary *account = [saveData objectForKey:@"Account"];
+    NSString *serviceCode = [account  objectForKey:@"servicecode"];
+    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/changePwd", serviceCode];
     
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                token,    @"token",

@@ -233,7 +233,11 @@
     NSString *token = [saveData  objectForKey:@"Token"];
     
     //--------------------
-    NSString *nextPath = @"cis/mobile/getCompressorList";
+//    NSString *nextPath = @"cis/mobile/getCompressorList";
+    NSDictionary *account = [saveData objectForKey:@"Account"];
+    NSString *serviceCode = [account  objectForKey:@"servicecode"];
+    NSLog(@"--> serviceCode = %@", serviceCode);
+    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/getCompressorList", serviceCode];
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:

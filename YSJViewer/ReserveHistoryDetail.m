@@ -129,7 +129,10 @@
     NSString *iId    = [saveData  objectForKey:@"RESERVE_ID"];
     
     //--------------------
-    NSString *nextPath = @"cis/mobile/showServiceRequest";
+//    NSString *nextPath = @"cis/mobile/showServiceRequest";
+    NSDictionary *account = [saveData objectForKey:@"Account"];
+    NSString *serviceCode = [account  objectForKey:@"servicecode"];
+    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/showServiceRequest", serviceCode];
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:

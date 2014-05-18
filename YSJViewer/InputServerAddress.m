@@ -61,7 +61,7 @@
     // Check the text that NO NULL.
     NSString *strServerAddress = [self.txtServerAddress.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if ([strServerAddress isEqualToString:@""]) { // No strServerAddress
-        [self showMessageHUD:@"服务器IP地址不能为空."];
+        [self showMessageHUD:@"服务器域名或IP地址不能为空."];
         return;
     }
     
