@@ -297,9 +297,14 @@
         NSLog(@"DATA --> 压缩机-id = %@", [recordData objectForKey:@"id"]);
         [self.arrYSJ_ID addObject:[recordData objectForKey:@"id"]];
         
-        // 压缩机名称
-        NSLog(@"DATA --> alias   = %@", [recordData objectForKey:@"alias"]);
-        [self.arrName addObject:[recordData objectForKey:@"alias"]];
+        // 压缩机名称 - 5-26 update.
+        if ([recordData objectForKey:@"alias"] == [NSNull null]) {
+            NSLog(@"DATA --> alias   = NULL");
+            [self.arrName addObject:[recordData objectForKey:@"cSN"]];
+        } else {
+            NSLog(@"DATA --> alias   = %@", [recordData objectForKey:@"alias"]);
+            [self.arrName addObject:[recordData objectForKey:@"alias"]];
+        }
         
         // 压缩机型号
         NSLog(@"DATA --> model   = %@", [recordData objectForKey:@"model"]);
@@ -309,19 +314,23 @@
         NSLog(@"DATA --> cSN     = %@", [recordData objectForKey:@"cSN"]);
         [self.arrCSN addObject:[recordData objectForKey:@"cSN"]];
         
-        //-------
+        //------- 5-26 update.
         NSString *cId = [recordData objectForKey:@"cId"];
         NSLog(@"DATA --> cId     = %@", cId);
-//        [self.arrCID addObject:cId];
         
         NSString *sID = [recordData objectForKey:@"sId"];
         NSLog(@"DATA --> sId     = %@", sID);
-//        [self.arrSID addObject:sID];
         
-        // 构造参数，用于订阅压缩机报警查询
-        NSDictionary *idInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                sID, @"sId", cId, @"cId", nil];
-        [tempIDInfo addObject:idInfo];
+        if ( ([recordData objectForKey:@"cId"] == [NSNull null]) ||
+            ([recordData objectForKey:@"sId"] == [NSNull null])    ) {
+            
+            // do nothing.
+        } else {
+            // 构造参数，用于订阅压缩机报警查询
+            NSDictionary *idInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    sID, @"sId", cId, @"cId", nil];
+            [tempIDInfo addObject:idInfo];
+        }
     }
     
     
