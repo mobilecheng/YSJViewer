@@ -179,10 +179,13 @@
     NSString *interval = [saveData objectForKey:@"TimeJG"];
     
     //--------------------
-//    NSString *nextPath = @"cis/mobile/runReport";
+    NSString *nextPath = @"cis/mobile/runReport";
+    
+    /*
     NSDictionary *account = [saveData objectForKey:@"Account"];
     NSString *serviceCode = [account  objectForKey:@"servicecode"];
     NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/runReport", serviceCode];
+    */
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:

@@ -227,10 +227,13 @@
     NSString *email       = self.txtEmail.text;
     
     //--------------------
-//    NSString *nextPath = @"cis/mobile/updateMyInfo";
+    NSString *nextPath = @"cis/mobile/updateMyInfo";
+    
+    /*
     NSDictionary *account = [saveData objectForKey:@"Account"];
     NSString *serviceCode = [account  objectForKey:@"servicecode"];
     NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/updateMyInfo", serviceCode];
+    */
     
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                token,         @"token",

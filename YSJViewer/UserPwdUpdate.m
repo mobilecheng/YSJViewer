@@ -175,10 +175,13 @@
     NSString *newPwd = self.txtNewPwd.text;
 
     //--------------------
-//    NSString *nextPath = @"cis/mobile/changePwd";
+    NSString *nextPath = @"cis/mobile/changePwd";
+    
+    /*
     NSDictionary *account = [saveData objectForKey:@"Account"];
     NSString *serviceCode = [account  objectForKey:@"servicecode"];
     NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/changePwd", serviceCode];
+    */
     
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                token,    @"token",

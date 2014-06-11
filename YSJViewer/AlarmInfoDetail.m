@@ -163,10 +163,13 @@
 //    alarmID = @"4406"; // temp data.
     
     //--------------------
-//    NSString *nextPath = @"cis/mobile/getAlarmDetail";
+    NSString *nextPath = @"cis/mobile/getAlarmDetail";
+    
+    /*
     NSDictionary *account = [saveData objectForKey:@"Account"];
     NSString *serviceCode = [account  objectForKey:@"servicecode"];
     NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/getAlarmDetail", serviceCode];
+    */
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:

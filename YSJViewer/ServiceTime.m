@@ -130,10 +130,13 @@
     NSString *compId = [saveData objectForKey:@"YSJ_ID"];
     
     //--------------------
-//    NSString *nextPath = @"cis/mobile/getServiceTime";
+    NSString *nextPath = @"cis/mobile/getServiceTime";
+    
+    /*
     NSDictionary *account = [saveData objectForKey:@"Account"];
     NSString *serviceCode = [account  objectForKey:@"servicecode"];
     NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/getServiceTime", serviceCode];
+    */
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:

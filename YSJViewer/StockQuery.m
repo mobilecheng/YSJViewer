@@ -138,10 +138,13 @@
     NSString *token  = [saveData  objectForKey:@"Token"];
     
     //--------------------
-//    NSString *nextPath = @"cis/mobile/getStock";
+    NSString *nextPath = @"cis/mobile/getStock";
+    
+    /*
     NSDictionary *account = [saveData objectForKey:@"Account"];
     NSString *serviceCode = [account  objectForKey:@"servicecode"];
     NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/getStock", serviceCode];
+    */
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:

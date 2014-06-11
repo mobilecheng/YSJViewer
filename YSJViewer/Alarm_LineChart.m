@@ -138,9 +138,13 @@
     NSLog(@"VALUE TEST = compId = %@ | iId = %@ | START = %@ | END = %@", compId, iId, start, end);
     
     //--------------------
+    NSString *nextPath = @"cis/mobile/getHistoryData";
+
+    /*
     NSDictionary *account = [saveData objectForKey:@"Account"];
     NSString *serviceCode = [account  objectForKey:@"servicecode"];
     NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/getHistoryData", serviceCode];
+    */
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:

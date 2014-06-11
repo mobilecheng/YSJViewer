@@ -235,8 +235,8 @@
     NSString *password    = self.txtPassword.text;
     
     //--------------------
-//    NSString *nextPath = @"cis/mobile/signIn";
-    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/signIn", serviceCode];
+    NSString *nextPath = @"cis/mobile/signIn";
+//    NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/signIn", serviceCode];
     
     // params  @"013468000533137", @"imei",@"100007" longmen2 longmen
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:

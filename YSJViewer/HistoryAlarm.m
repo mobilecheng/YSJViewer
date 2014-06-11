@@ -165,10 +165,13 @@
     NSString *offset = @"0";
     
     //--------------------
-//    NSString *nextPath = @"cis/mobile/getAlarm";
+    NSString *nextPath = @"cis/mobile/getAlarm";
+    
+    /*
     NSDictionary *account = [saveData objectForKey:@"Account"];
     NSString *serviceCode = [account  objectForKey:@"servicecode"];
     NSString *nextPath = [NSString stringWithFormat:@"cisn/%@/mobile/getAlarm", serviceCode];
+    */
     
     // params
     NSDictionary *dicParams = [NSDictionary dictionaryWithObjectsAndKeys:
