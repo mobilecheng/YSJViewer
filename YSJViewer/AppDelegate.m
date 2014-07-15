@@ -23,6 +23,12 @@
     NSArray *localArray = [application scheduledLocalNotifications];
     NSLog(@"scheduledLocalNotifications  = %@", localArray);
     
+    // 6-20 update.
+    // 服务器 IP 地址写死。 Save Server Address to cache.
+    NSUserDefaults *saveData = [NSUserDefaults standardUserDefaults];
+    [saveData setObject:@"112.124.59.36" forKey:@"ServerAddress"];
+    [saveData synchronize];
+    
     return YES;
 }
 							

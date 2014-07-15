@@ -32,12 +32,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //--------------
+    // 6-20 update.
+    // 服务器 IP 地址写死。 Save Server Address to cache.
+    NSUserDefaults *saveData = [NSUserDefaults standardUserDefaults];
+    [saveData setObject:@"112.124.59.36" forKey:@"ServerAddress"];
+    [saveData synchronize];
+    
+    
     // Background image - Single Tap
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
-    [self.imgBG addGestureRecognizer:singleTap];
+//    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+//    [self.imgBG addGestureRecognizer:singleTap];
     
     //
-    self.txtServerAddress.delegate = self;
+//    self.txtServerAddress.delegate = self;
     
     //
     if ([self checkServerAddressInfo]) { // Has Server Address info.
@@ -81,6 +89,9 @@
     UIViewController *loginVC     = [loginStoryboard instantiateViewControllerWithIdentifier:@"Login"];
     
     [self.navigationController pushViewController:loginVC animated:NO];
+//    [self.navigationController presentViewController:loginVC
+//                                            animated:NO
+//                                          completion:^{ }];
 }
 
 - (BOOL) checkServerAddressInfo

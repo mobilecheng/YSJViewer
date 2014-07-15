@@ -304,7 +304,14 @@
     NSString *strMax = [NSString stringWithFormat:@"%.6f", iMax];
     NSLog(@"strMax = %@", strMax);
     if ([strMax isEqualToString:@"0.000000"] ) {
-        chartView.ySteps = @[@"0.00", @""];
+//        chartView.ySteps = @[@"0.00", @""];
+        
+        // 6-20 update.
+        chartView.yMin = -0.40;
+        chartView.yMax = 0.40;
+        chartView.ySteps = @[@"-0.40", @"-0.30", @"-0.20", @"-0.10", @"0.00",
+                             @"0.10",  @"0.20",  @"0.30",  @"0.40"];
+        
     } else {
         chartView.ySteps = arrSteps;
     }

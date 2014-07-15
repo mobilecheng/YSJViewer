@@ -189,6 +189,13 @@
     }
     
     NSArray *records = [dicData objectForKey:@"records"];
+    
+    // 6-17 add
+    if (records.count == 0) {
+        [self showMessageHUD:@"无库存数据."];
+        return; // 无库存数据
+    }
+    
     NSLog(@"IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
     
     //

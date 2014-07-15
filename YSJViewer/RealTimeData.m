@@ -291,7 +291,7 @@
     
     // Get Server Address.
     NSUserDefaults *saveData = [NSUserDefaults standardUserDefaults];
-    NSString *url = [NSString stringWithFormat:@"ws://%@:3182/getrealtimedata", [saveData stringForKey:@"ServerAddress"]];
+    NSString *url = [NSString stringWithFormat:@"ws://%@:3180/getrealtimedata", [saveData stringForKey:@"ServerAddress"]];
     
 //    NSString *url = @"ws://117.34.92.46:3182/getrealtimedata";
     
