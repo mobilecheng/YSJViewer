@@ -293,6 +293,14 @@
     }
     
     NSArray *records = [dicData objectForKey:@"records"];
+    
+    // 7-16 UPDATE.
+    NSLog(@"--> COUNT = %d", [records count]);
+    if (records.count == 0) {
+        //        [self showMessageHUD:@"没有压缩机列表数据."];
+        return;
+    }
+    
     NSLog(@"HOME--> IS NSArray -> Count is : %d  | 1 Data is: %@", [records count], [records objectAtIndex:0]);
     
     // 构造参数，用于订阅压缩机报警查询
